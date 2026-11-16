@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://capmuscu.fr/sitemap-index.xml

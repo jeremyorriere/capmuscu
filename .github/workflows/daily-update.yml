@@ -1,0 +1,64 @@
+name: Mise à jour quotidienne
+
+on:
+  schedule:
+    # 05h00 heure de Paris : 03h00 UTC l'été (CEST), 04h00 UTC l'hiver (CET).
+    - cron: '0 3 * * *'
+    - cron: '0 4 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Vérifier qu'il est 05h00 à Paris
+        id: gate
+        run: |
+          hour=$(TZ=Europe/Paris date +%H)
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || [ "$hour" = "05" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/setup-node@v4
+        if: steps.gate.outputs.run == 'true'
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Installer les dépendances
+        if: steps.gate.outputs.run == 'true'
+        run: npm ci
+
+      - name: Collecter les actualités et études
+        if: steps.gate.outputs.run == 'true'
+        run: npm run update-data
+
+      - name: Tests et build
+        if: steps.gate.outputs.run == 'true'
+        run: |
+          npm test
+          npm run build
+
+      - name: Publier les nouvelles données
+        if: steps.gate.outputs.run == 'true'
+        run: |
+          git config user.name "capmuscu-bot"
+          git config user.email "capmuscu-bot@users.noreply.github.com"
+          git add src/data/news.json
+          if git diff --cached --quiet; then
+            echo "Aucun changement."
+          else
+            git commit -m "chore(data): mise à jour quotidienne des actualités"
+            git push
+          fi

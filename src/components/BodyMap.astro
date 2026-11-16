@@ -1,0 +1,6 @@
+---
+import { bodyMapSvg } from '../lib/bodymap';
+interface Props { primaryMuscle: string; secondaryMuscles?: string[]; legend?: boolean }
+const { primaryMuscle, secondaryMuscles = [], legend = true } = Astro.props;
+---
+<Fragment set:html={bodyMapSvg(primaryMuscle, secondaryMuscles, { legend })} />

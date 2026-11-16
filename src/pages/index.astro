@@ -1,0 +1,108 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ExerciseMotion from '../components/ExerciseMotion.astro';
+import { zones, news, dailyExercise, formatDateFr, exercises, muscleByName } from '../lib/data';
+import { icon, ZONE_ICON } from '../lib/icons';
+import { muscleHue, levelHue, tintStyle } from '../lib/ui';
+
+const daily = dailyExercise();
+const zoneCards = zones.map((z) => ({
+  ...z,
+  count: exercises.filter((e) => z.muscles.includes(muscleByName(e.primaryMuscle)?.slug ?? '')).length,
+  svg: icon(ZONE_ICON[z.slug] ?? 'dumbbell', 26),
+}));
+const studies = news.items.filter((n) => n.type === 'etude');
+const actus = news.items.filter((n) => n.type === 'actu');
+const picked = [...studies.slice(0, 1), ...actus.slice(0, 2)];
+for (const n of news.items) if (picked.length < 3 && !picked.includes(n)) picked.push(n);
+const shown = picked.slice(0, 3);
+
+const ld = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'CapMuscu',
+    url: 'https://capmuscu.fr/',
+    inLanguage: 'fr-FR',
+    description: 'Compagnon de musculation gratuit : séances automatiques, encyclopédie des exercices et outils pratiques.',
+  },
+];
+---
+<Layout
+  title="CapMuscu — Votre compagnon de musculation, à tout âge"
+  description="Créez une séance de musculation équilibrée en quelques secondes, remplacez un exercice si la machine est prise et découvrez plus de 60 exercices expliqués simplement."
+  jsonLd={ld}
+>
+  <section class="hero" aria-labelledby="titre-zone">
+    <h1 id="titre-zone">Que voulez-vous travailler aujourd'hui ?</h1>
+    <p class="hero-sub text-lg mt-2 mb-0">Touchez une zone : votre séance est prête en quelques secondes, claire et sans excès. Pour tous les âges, sans compte.</p>
+    <ul class="zone-grid">
+      {zoneCards.map((z) => (
+        <li>
+          <a href={`/seance/?zones=${z.slug}&auto=1`} class="zone-tile" aria-label={`${z.name} : créer ma séance (${z.count} exercices disponibles)`}>
+            <span class="zone-ico"><Fragment set:html={z.svg} /></span>
+            <span class="zone-name">{z.name}</span>
+            <span class="zone-count">{z.count} exercices</span>
+          </a>
+        </li>
+      ))}
+      <li class="col-span-2 sm:col-span-4">
+        <a href="/seance/?auto=1" class="zone-tile zone-tile-wide" style="min-height: 3.5rem; height: auto">
+          <Fragment set:html={icon('sparkles', 22)} />Séance complète, tout de suite
+        </a>
+      </li>
+    </ul>
+    <p class="mt-4 mb-0 text-sm" style="color: #e0ecff">Envie de choisir vous-même ? <a href="/exercices/" class="underline font-bold" style="color:#fff">Parcourir tous les exercices</a>.</p>
+  </section>
+
+  <section class="mt-12" aria-labelledby="titre-decouverte">
+    <h2 id="titre-decouverte">L'exercice découverte du jour</h2>
+    <p class="text-muted mt-1 mb-4">Pour casser la routine : un nouvel exercice chaque jour, à essayer à votre rythme.</p>
+    <article class="card featured">
+      <ExerciseMotion exercise={daily} />
+      <div class="flex flex-col gap-3">
+        <p class="featured-tag m-0"><Fragment set:html={icon('sparkles', 18)} />À essayer aujourd'hui</p>
+        <h3 class="text-2xl m-0">{daily.name}</h3>
+        <ul class="flex flex-wrap gap-2 list-none p-0 m-0" aria-label="Caractéristiques">
+          <li class="badge tint" style={tintStyle(muscleHue(daily.primaryMuscle))}>Muscle ciblé : {daily.primaryMuscle}</li>
+          <li class="badge">{daily.equipment}</li>
+          <li class="badge tint" style={tintStyle(levelHue(daily.difficulty))}>{daily.difficulty}</li>
+        </ul>
+        <p class="text-muted m-0">{daily.description.split('. ')[0]!.replace(/\.$/, '')}.</p>
+        <a href={`/exercices/${daily.slug}/`} class="btn btn-primary min-h-14 mt-1" aria-label={`Voir la fiche : ${daily.name}`}>Voir la fiche<Fragment set:html={icon('arrowRight', 20)} /></a>
+      </div>
+    </article>
+  </section>
+
+  <section class="mt-12" aria-labelledby="titre-actu">
+    <h2 id="titre-actu">L'essentiel de l'actu &amp; science muscu</h2>
+    <p class="text-muted mt-1 mb-4">Mis à jour le {formatDateFr(news.updatedAt)}. Chaque carte renvoie vers la source d'origine.</p>
+    <ul class="grid gap-4 md:grid-cols-3 list-none p-0 m-0">
+      {shown.map((n) => (
+        <li class="card flex flex-col gap-2">
+          <p class="m-0"><span class={n.type === 'etude' ? 'badge' : 'badge badge-accent'}>{n.type === 'etude' ? 'Étude scientifique' : 'Actualité'}</span></p>
+          <h3 class="text-lg">{n.title}</h3>
+          <p class="text-muted m-0">{n.summary}</p>
+          <p class="text-sm text-muted m-0 mt-auto">{n.source} · {formatDateFr(n.date)}</p>
+          <a class="link font-bold min-h-12 flex items-center" href={n.url} rel="noopener noreferrer" target="_blank">Lire la source<span class="sr-only"> (s'ouvre dans un nouvel onglet)</span></a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="mt-12" aria-labelledby="titre-outils">
+    <h2 id="titre-outils">Outils pratiques</h2>
+    <div class="grid gap-4 md:grid-cols-2 mt-4">
+      <a href="/outils/#calories-proteines" class="card no-underline text-ink hover:border-primary">
+        <h3>Calculateur calories &amp; protéines</h3>
+        <p class="text-muted m-0">Connaissez vos besoins quotidiens selon votre âge, votre poids et votre objectif.</p>
+      </a>
+      <a href="/outils/#charge-maximale" class="card no-underline text-ink hover:border-primary">
+        <h3>Calculateur de charge maximale (1RM)</h3>
+        <p class="text-muted m-0">Estimez votre charge maximale et vos charges de travail sans vous mettre en danger.</p>
+      </a>
+    </div>
+  </section>
+
+  <p class="mt-10 text-muted">{exercises.length} exercices expliqués pas à pas, sans jargon. <a class="link" href="/exercices/">Parcourir l'encyclopédie</a>.</p>
+</Layout>

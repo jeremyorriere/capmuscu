@@ -1,0 +1,33 @@
+{
+  "updatedAt": "2026-11-16T05:00:00.000Z",
+  "checkedAt": "2026-11-16T05:00:00.000Z",
+  "items": [
+    {
+      "id": "seed-oms-activite-physique",
+      "type": "actu",
+      "title": "OMS : combien d'activité physique chaque semaine, à tout âge ?",
+      "summary": "Les recommandations officielles conseillent au moins deux séances de renforcement musculaire par semaine pour les adultes et les seniors.",
+      "url": "https://www.who.int/news-room/fact-sheets/detail/physical-activity",
+      "source": "Organisation mondiale de la santé",
+      "date": "2026-11-15"
+    },
+    {
+      "id": "seed-pubmed-resistance-training",
+      "type": "etude",
+      "title": "Dernières études scientifiques sur l'entraînement en résistance",
+      "summary": "Consultez les publications les plus récentes (en anglais) sur la musculation, la force et l'hypertrophie dans la base PubMed.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/?term=resistance+training+strength&sort=date",
+      "source": "PubMed",
+      "date": "2026-11-14"
+    },
+    {
+      "id": "seed-mangerbouger",
+      "type": "actu",
+      "title": "Bouger plus au quotidien : les repères officiels français",
+      "summary": "Des conseils pratiques de Santé publique France pour intégrer le renforcement musculaire dans la vie de tous les jours.",
+      "url": "https://www.mangerbouger.fr/",
+      "source": "Santé publique France",
+      "date": "2026-11-13"
+    }
+  ]
+}

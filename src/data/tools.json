@@ -1,0 +1,6 @@
+{
+  "tools": [
+    { "slug": "calories-proteines", "name": "Calories et protéines par jour", "description": "Estimez vos besoins quotidiens en énergie et en protéines selon votre âge, votre poids, votre activité et votre objectif.", "anchor": "calories-proteines" },
+    { "slug": "charge-maximale", "name": "Charge maximale (1RM)", "description": "Estimez la charge maximale que vous pouvez soulever une fois et obtenez vos charges de travail de 60 % à 95 %.", "anchor": "charge-maximale" }
+  ]
+}

@@ -1,0 +1,409 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import { zones } from '../lib/data';
+
+const goals = [
+  { v: 'sante', l: 'Tonification & Santé' },
+  { v: 'muscle', l: 'Prise de muscle' },
+  { v: 'force', l: 'Force' },
+];
+const equipments = [
+  { v: 'salle', l: 'Salle de sport complète' },
+  { v: 'halteres', l: 'Haltères uniquement' },
+  { v: 'corps', l: 'Sans matériel (poids du corps)' },
+];
+const durations = [
+  { v: '30', l: '30 min' },
+  { v: '45', l: '45 min' },
+  { v: '60', l: '60 min' },
+];
+---
+<Layout
+  title="Créer ma séance de musculation en 10 secondes"
+  description="Générez une séance de musculation équilibrée et réaliste selon votre objectif, vos muscles, votre matériel et votre durée. Machine prise ? Changez d'exercice en un clic."
+>
+  <Breadcrumb items={[{ name: 'Créer ma séance' }]} />
+  <h1>Créer ma séance</h1>
+  <p class="text-muted mt-2">Quatre choix rapides, et votre séance est prête : 4 à 6 exercices, sans volume excessif.</p>
+
+  <form id="form" class="mt-6 space-y-6" novalidate>
+    <fieldset class="card">
+      <legend class="text-xl font-extrabold px-2">1. Votre objectif</legend>
+      <div class="grid gap-3 sm:grid-cols-3 mt-2">
+        {goals.map((g, i) => <label class="choice"><input type="radio" name="goal" value={g.v} checked={i === 0} /><span>{g.l}</span></label>)}
+      </div>
+    </fieldset>
+
+    <fieldset class="card">
+      <legend class="text-xl font-extrabold px-2">2. Zones à travailler (1 à 3, ou séance complète)</legend>
+      <div class="grid gap-3 grid-cols-2 sm:grid-cols-4 mt-2" id="zones">
+        <label class="choice col-span-2 sm:col-span-4"><input type="checkbox" id="z-all" value="" checked /><span>Séance complète (tout le corps)</span></label>
+        {zones.map((z) => <label class="choice"><input type="checkbox" name="zone" value={z.slug} /><span>{z.name}</span></label>)}
+      </div>
+      <p class="text-sm text-muted mt-3 mb-0" id="zone-hint">Choisissez jusqu'à 3 zones.</p>
+    </fieldset>
+
+    <fieldset class="card">
+      <legend class="text-xl font-extrabold px-2">3. Votre matériel</legend>
+      <div class="grid gap-3 sm:grid-cols-3 mt-2">
+        {equipments.map((g, i) => <label class="choice"><input type="radio" name="equipment" value={g.v} checked={i === 0} /><span>{g.l}</span></label>)}
+      </div>
+    </fieldset>
+
+    <fieldset class="card">
+      <legend class="text-xl font-extrabold px-2">4. Durée souhaitée</legend>
+      <div class="grid gap-3 grid-cols-3 mt-2">
+        {durations.map((g) => <label class="choice"><input type="radio" name="duration" value={g.v} checked={g.v === '45'} /><span>{g.l}</span></label>)}
+      </div>
+    </fieldset>
+
+    <button type="submit" class="btn btn-accent w-full text-xl min-h-16">Générer ma séance</button>
+  </form>
+
+  <section id="result" class="mt-10 scroll-mt-4" aria-labelledby="result-title" hidden>
+    <h2 id="result-title" tabindex="-1">Votre séance</h2>
+    <p id="result-sub" class="text-muted mt-1"></p>
+    <p id="live" class="sr-only" role="status" aria-live="polite"></p>
+    <div id="toast" class="toast" aria-hidden="true"></div>
+    <ol id="cards" class="mt-4 space-y-4 list-none p-0"></ol>
+    <div class="mt-6 grid gap-3 sm:grid-cols-3">
+      <button type="button" id="copy" class="btn">Copier ma séance</button>
+      <button type="button" id="keep" class="btn btn-primary">Garder sur cet appareil</button>
+      <button type="button" id="again" class="btn">Nouvelle séance</button>
+    </div>
+    <p id="msg" class="mt-3 font-bold text-accent" role="status" aria-live="polite"></p>
+    <p class="text-sm text-muted mt-2">Votre séance en cours est enregistrée automatiquement sur cet appareil. Écoutez votre corps : arrêtez en cas de douleur.</p>
+  </section>
+
+  <section id="saved-section" class="mt-10" aria-labelledby="saved-title" hidden>
+    <h2 id="saved-title">Séances gardées sur cet appareil</h2>
+    <ul id="saved" class="mt-4 space-y-3 list-none p-0"></ul>
+  </section>
+
+  <script>
+    import exercisesJson from '../data/exercises.json';
+    import musclesJson from '../data/muscles.json';
+    import type { Duration, EquipmentMode, Exercise, Goal, Zone } from '../lib/types';
+    import { createRng, generateSession, replaceExercise, sessionToText, targetMuscles } from '../lib/session';
+    import type { SessionItem, SessionParams } from '../lib/session';
+    import { motionHtml } from '../lib/motion';
+    import { bodyMapSvg } from '../lib/bodymap';
+    import { initMotion } from '../lib/motion-client';
+    import { icon } from '../lib/icons';
+    import { muscleHue, tintStyle } from '../lib/ui';
+
+    const openPeeks = new Set<number>();
+
+    const exercises = exercisesJson as Exercise[];
+    const zones = musclesJson.zones as Zone[];
+    const GOAL_LABEL: Record<Goal, string> = { sante: 'Tonification & Santé', muscle: 'Prise de muscle', force: 'Force' };
+    const KEY_CURRENT = 'capmuscu-seance-en-cours';
+    const KEY_SAVED = 'capmuscu-seances-gardees';
+
+    interface State { params: SessionParams; items: SessionItem[]; createdAt: string; done?: boolean[] }
+    interface Saved extends State { id: string }
+
+    const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+    const form = $<HTMLFormElement>('form');
+    const allBox = $<HTMLInputElement>('z-all');
+    const zoneBoxes = [...document.querySelectorAll<HTMLInputElement>('input[name="zone"]')];
+    const rng = createRng(Date.now());
+    let state: State | null = null;
+
+    const load = <T,>(key: string): T | null => {
+      try { const raw = localStorage.getItem(key); return raw ? (JSON.parse(raw) as T) : null; } catch { return null; }
+    };
+    const store = (key: string, value: unknown) => { try { localStorage.setItem(key, JSON.stringify(value)); return true; } catch { return false; } };
+    const say = (text: string) => { $('msg').textContent = text; };
+
+    function checked(name: string, fallback: string) {
+      return (form.querySelector<HTMLInputElement>(`input[name="${name}"]:checked`)?.value ?? fallback);
+    }
+
+    function readParams(): SessionParams {
+      return {
+        goal: checked('goal', 'sante') as Goal,
+        zones: allBox.checked ? [] : zoneBoxes.filter((b) => b.checked).map((b) => b.value),
+        equipment: checked('equipment', 'salle') as EquipmentMode,
+        duration: Number(checked('duration', '45')) as Duration,
+      };
+    }
+
+    function writeParams(p: SessionParams) {
+      for (const [name, value] of [['goal', p.goal], ['equipment', p.equipment], ['duration', String(p.duration)]] as const) {
+        const input = form.querySelector<HTMLInputElement>(`input[name="${name}"][value="${value}"]`);
+        if (input) input.checked = true;
+      }
+      allBox.checked = p.zones.length === 0;
+      for (const b of zoneBoxes) b.checked = p.zones.includes(b.value);
+      updateZoneState();
+    }
+
+    function updateZoneState() {
+      const n = zoneBoxes.filter((b) => b.checked).length;
+      for (const b of zoneBoxes) b.disabled = !b.checked && n >= 3;
+      $('zone-hint').textContent = allBox.checked ? 'Séance complète : tout le corps est travaillé.' : n >= 3 ? 'Maximum atteint : 3 zones.' : "Choisissez jusqu'à 3 zones.";
+    }
+
+    allBox.addEventListener('change', () => {
+      if (allBox.checked) for (const b of zoneBoxes) b.checked = false;
+      else if (zoneBoxes.every((b) => !b.checked)) allBox.checked = true;
+      updateZoneState();
+    });
+    for (const b of zoneBoxes) {
+      b.addEventListener('change', () => {
+        if (b.checked) allBox.checked = false;
+        else if (zoneBoxes.every((x) => !x.checked)) allBox.checked = true;
+        updateZoneState();
+      });
+    }
+
+    function titleOf(p: SessionParams) {
+      const zoneNames = p.zones.length === 0 ? 'Corps entier' : zones.filter((z) => p.zones.includes(z.slug)).map((z) => z.name).join(' + ');
+      return `Séance ${GOAL_LABEL[p.goal]} — ${zoneNames} (${p.duration} min)`;
+    }
+
+    function render(animateIndex = -1) {
+      if (!state) return;
+      const { params, items } = state;
+      $('result').hidden = false;
+      $('result-sub').textContent = titleOf(params);
+      const list = $('cards');
+      list.replaceChildren();
+      items.forEach((item, index) => {
+        const ex = exercises.find((e) => e.id === item.exerciseId);
+        if (!ex) return;
+        const li = document.createElement('li');
+        li.className = 'card ex-card';
+        if (state?.done?.[index]) li.classList.add('is-done');
+        if (index === animateIndex) li.classList.add('swap-in');
+
+        const head = document.createElement('div');
+        head.className = 'flex flex-wrap items-start justify-between gap-2';
+        const h = document.createElement('h3');
+        h.className = 'text-xl';
+        const a = document.createElement('a');
+        a.href = `/exercices/${ex.slug}/`;
+        a.className = 'text-ink hover:underline';
+        a.style.textDecoration = 'none';
+        a.textContent = `${index + 1}. ${ex.name}`;
+        h.append(a);
+        const badge = document.createElement('span');
+        badge.className = 'badge tint';
+        badge.setAttribute('style', tintStyle(muscleHue(ex.primaryMuscle)));
+        badge.textContent = `Muscle ciblé : ${ex.primaryMuscle}`;
+        head.append(h, badge);
+
+        const dl = document.createElement('dl');
+        dl.className = 'pills';
+        for (const [label, value, unit] of [['Séries', String(item.sets), ''], ['Répétitions', item.reps, ''], ['Repos', String(item.restSeconds), ' s']]) {
+          const box = document.createElement('div');
+          box.className = 'pill';
+          const dt = document.createElement('dt');
+          dt.textContent = label!;
+          const dd = document.createElement('dd');
+          dd.textContent = value!;
+          if (unit) { const small = document.createElement('small'); small.textContent = unit; dd.append(small); }
+          box.append(dt, dd);
+          dl.append(box);
+        }
+
+        const tips = document.createElement('ul');
+        tips.className = 'mt-3 space-y-1 pl-5 list-disc';
+        const tipsTitle = document.createElement('p');
+        tipsTitle.className = 'mt-3 mb-0 font-bold';
+        tipsTitle.textContent = 'À retenir (posture et sécurité) :';
+        for (const t of ex.safetyTips.slice(0, 2)) {
+          const tip = document.createElement('li');
+          tip.textContent = t;
+          tips.append(tip);
+        }
+
+        const actions = document.createElement('div');
+        actions.className = 'ex-actions';
+
+        const doneLabel = document.createElement('label');
+        doneLabel.className = 'done-toggle justify-center';
+        const doneInput = document.createElement('input');
+        doneInput.type = 'checkbox';
+        doneInput.checked = Boolean(state?.done?.[index]);
+        doneInput.setAttribute('aria-label', `Fait : ${ex.name}`);
+        const doneBox = document.createElement('span');
+        doneBox.className = 'done-box';
+        doneBox.innerHTML = icon('check', 20);
+        doneLabel.append(doneInput, doneBox, document.createTextNode('Fait ✓'));
+        doneInput.addEventListener('change', () => {
+          if (!state) return;
+          state.done = state.done ?? [];
+          state.done[index] = doneInput.checked;
+          li.classList.toggle('is-done', doneInput.checked);
+          persist();
+        });
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'btn btn-accent swap-btn min-h-14';
+        btn.innerHTML = `${icon('refreshCw', 20)}<span>Machine prise / Remplacer</span>`;
+        btn.setAttribute('aria-label', `Machine prise : remplacer « ${ex.name} » par un autre exercice pour les ${ex.primaryMuscle.toLowerCase()}`);
+        btn.addEventListener('click', () => swap(index));
+        btn.setAttribute('data-swap', '');
+        actions.append(doneLabel, btn);
+        // Aperçu du geste toujours visible, pour décider de garder ou de remplacer l'exercice.
+        const preview = document.createElement('div');
+        preview.className = 'ex-preview';
+        preview.innerHTML = motionHtml(ex, { bodyMapInFallback: true });
+        initMotion(preview);
+
+        const peek = document.createElement('details');
+        peek.className = 'cm-peek';
+        const sum = document.createElement('summary');
+        sum.textContent = 'Voir le muscle travaillé';
+        const peekBody = document.createElement('div');
+        peekBody.className = 'cm-peek-body';
+        peekBody.style.gridTemplateColumns = '1fr';
+        peekBody.innerHTML = bodyMapSvg(ex.primaryMuscle, ex.secondaryMuscles);
+        peek.append(sum, peekBody);
+        peek.addEventListener('toggle', () => {
+          if (peek.open) openPeeks.add(index); else openPeeks.delete(index);
+        });
+        if (openPeeks.has(index)) peek.open = true;
+
+        const body = document.createElement('div');
+        body.className = 'ex-body';
+        const info = document.createElement('div');
+        info.className = 'ex-info';
+        info.append(dl, tipsTitle, tips, ...(ex.images ? [peek] : []), actions);
+        body.append(preview, info);
+        li.append(head, body);
+        list.append(li);
+      });
+    }
+
+    function persist() { if (state) store(KEY_CURRENT, state); }
+
+    function swap(index: number) {
+      if (!state) return;
+      const previous = exercises.find((e) => e.id === state!.items[index]?.exerciseId);
+      const next = replaceExercise(exercises, state.items, index, state.params, rng);
+      if (!next) {
+        $('live').textContent = 'Aucune alternative disponible avec ce matériel.';
+        say('Aucune alternative disponible avec ce matériel pour ce muscle.');
+        return;
+      }
+      const doSwap = () => {
+        if (!state) return;
+        state.items[index] = next;
+        if (state.done) state.done[index] = false;
+        persist();
+        render(index);
+        const now = exercises.find((e) => e.id === next.exerciseId);
+        $('live').textContent = `« ${previous?.name} » remplacé par « ${now?.name} » (${now?.primaryMuscle}).`;
+        say('');
+        toast(`Remplacé par : ${now?.name}`);
+        document.querySelectorAll<HTMLButtonElement>('#cards [data-swap]')[index]?.focus();
+      };
+      const card = document.querySelectorAll<HTMLElement>('#cards > li')[index];
+      if (card && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        card.style.transition = 'opacity 0.15s ease, transform 0.15s ease';
+        card.style.opacity = '0';
+        card.style.transform = 'scale(0.98)';
+        setTimeout(doSwap, 160);
+      } else doSwap();
+    }
+
+    let toastTimer: ReturnType<typeof setTimeout> | undefined;
+    function toast(text: string) {
+      const el = $('toast');
+      el.textContent = text;
+      el.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => el.classList.remove('show'), 3000);
+    }
+
+    function generate(p: SessionParams) {
+      const names = targetMuscles(zones, p.zones).map((slug) => musclesJson.muscles.find((m) => m.slug === slug)?.name ?? slug);
+      const items = generateSession(exercises, names, p, rng);
+      state = { params: p, items, createdAt: new Date().toISOString(), done: [] };
+      openPeeks.clear();
+      persist();
+      say('');
+      render();
+      const heading = $('result-title');
+      heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      heading.focus({ preventScroll: true });
+    }
+
+    form.addEventListener('submit', (ev) => { ev.preventDefault(); generate(readParams()); });
+    $('again').addEventListener('click', () => { say(''); $('result').hidden = true; form.scrollIntoView({ behavior: 'smooth' }); });
+
+    $('copy').addEventListener('click', async () => {
+      if (!state) return;
+      const text = sessionToText(exercises, state.items, titleOf(state.params));
+      try { await navigator.clipboard.writeText(text); say('Séance copiée. Vous pouvez la coller dans un message ou une note.'); }
+      catch {
+        const area = document.createElement('textarea');
+        area.value = text; document.body.append(area); area.select();
+        say(document.execCommand('copy') ? 'Séance copiée.' : 'Copie impossible : sélectionnez le texte manuellement.');
+        area.remove();
+      }
+    });
+
+    function renderSaved() {
+      const saved = load<Saved[]>(KEY_SAVED) ?? [];
+      $('saved-section').hidden = saved.length === 0;
+      const ul = $('saved');
+      ul.replaceChildren();
+      for (const s of saved) {
+        const li = document.createElement('li');
+        li.className = 'card flex flex-wrap items-center justify-between gap-3';
+        const p = document.createElement('p');
+        p.className = 'm-0';
+        const date = new Date(s.createdAt).toLocaleDateString('fr-FR', { dateStyle: 'long' });
+        p.textContent = `${titleOf(s.params)} — ${date}`;
+        const open = document.createElement('button');
+        open.type = 'button'; open.className = 'btn'; open.textContent = 'Ouvrir';
+        open.addEventListener('click', () => { state = { params: s.params, items: s.items, createdAt: s.createdAt }; writeParams(s.params); persist(); render(); $('result-title').scrollIntoView({ behavior: 'smooth' }); });
+        const del = document.createElement('button');
+        del.type = 'button'; del.className = 'btn'; del.textContent = 'Supprimer';
+        del.setAttribute('aria-label', `Supprimer la séance : ${titleOf(s.params)}`);
+        del.addEventListener('click', () => { store(KEY_SAVED, saved.filter((x) => x.id !== s.id)); renderSaved(); });
+        li.append(p, open, del);
+        ul.append(li);
+      }
+    }
+
+    $('keep').addEventListener('click', () => {
+      if (!state) return;
+      const saved = load<Saved[]>(KEY_SAVED) ?? [];
+      saved.unshift({ ...state, id: String(Date.now()) });
+      if (store(KEY_SAVED, saved.slice(0, 10))) say('Séance gardée sur cet appareil.');
+      else say("Impossible d'enregistrer : le stockage du navigateur est indisponible.");
+      renderSaved();
+    });
+
+    // Démarrage : paramètres d'URL (lien depuis l'accueil) ou reprise de la séance en cours.
+    const qs = new URLSearchParams(location.search);
+    const current = load<State>(KEY_CURRENT);
+    const valid = (s: State | null): s is State => !!s && Array.isArray(s.items) && s.items.every((i) => exercises.some((e) => e.id === i.exerciseId));
+    if (qs.get('auto') === '1') {
+      const zoneSlugs = (qs.get('zones') ?? '').split(',').filter((z) => zones.some((zone) => zone.slug === z)).slice(0, 3);
+      const p: SessionParams = {
+        goal: (['sante', 'muscle', 'force'].includes(qs.get('goal') ?? '') ? qs.get('goal') : 'sante') as Goal,
+        zones: zoneSlugs,
+        equipment: (['salle', 'halteres', 'corps'].includes(qs.get('equipment') ?? '') ? qs.get('equipment') : 'salle') as EquipmentMode,
+        duration: ([30, 45, 60].includes(Number(qs.get('duration'))) ? Number(qs.get('duration')) : 45) as Duration,
+      };
+      writeParams(p);
+      generate(p);
+    } else if (valid(current)) {
+      state = current;
+      writeParams(current.params);
+      render();
+      say('Votre séance en cours a été retrouvée sur cet appareil.');
+    } else {
+      updateZoneState();
+    }
+    renderSaved();
+  </script>
+</Layout>

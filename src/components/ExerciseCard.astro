@@ -1,0 +1,22 @@
+---
+import type { Exercise } from '../lib/types';
+import { zones, muscleByName } from '../lib/data';
+import { muscleHue, levelHue, tintStyle } from '../lib/ui';
+import ExercisePeek from './ExercisePeek.astro';
+interface Props { exercise: Exercise; headingLevel?: 2 | 3; peek?: boolean }
+const { exercise: e, headingLevel = 3, peek = false } = Astro.props;
+const H = `h${headingLevel}` as 'h2' | 'h3';
+const muscleSlug = muscleByName(e.primaryMuscle)?.slug ?? '';
+const zone = zones.find((z) => z.muscles.includes(muscleSlug))?.slug ?? '';
+---
+<article class="card card-hover flex flex-col gap-3" data-name={e.name.toLowerCase()} data-muscle={e.primaryMuscle} data-zone={zone} data-equipment={e.equipment} data-level={e.difficulty}>
+  <H class="text-xl"><a href={`/exercices/${e.slug}/`} class="text-ink no-underline hover:underline">{e.name}</a></H>
+  <p class="text-muted m-0">{e.description.split('. ')[0]!.replace(/\.$/, '')}.</p>
+  <ul class="flex flex-wrap gap-2 list-none p-0 m-0" aria-label="Caractéristiques">
+    <li class="badge tint" style={tintStyle(muscleHue(e.primaryMuscle))}>{e.primaryMuscle}</li>
+    <li class="badge">{e.equipment}</li>
+    <li class="badge tint" style={tintStyle(levelHue(e.difficulty))}>{e.difficulty}</li>
+  </ul>
+  {peek && <ExercisePeek exercise={e} />}
+  <a href={`/exercices/${e.slug}/`} class="btn mt-auto" aria-label={`Voir la fiche : ${e.name}`}>Voir la fiche</a>
+</article>

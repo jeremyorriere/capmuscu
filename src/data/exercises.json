@@ -1,0 +1,2538 @@
+[
+  {
+    "id": "developpe-couche-barre",
+    "slug": "developpe-couche-barre",
+    "name": "Développé couché à la barre",
+    "description": "Le développé couché est l'exercice de référence pour développer la poitrine. Allongé sur un banc, vous poussez une barre chargée à la verticale. Il sollicite aussi les triceps et l'avant des épaules, ce qui permet de soulever des charges importantes.",
+    "primaryMuscle": "Pectoraux",
+    "secondaryMuscles": [
+      "Triceps",
+      "Épaules"
+    ],
+    "equipment": "Salle de sport",
+    "difficulty": "Intermédiaire",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Allongez-vous sur le banc, les yeux sous la barre, les pieds bien à plat au sol et les omoplates serrées l'une contre l'autre.",
+      "Saisissez la barre un peu plus large que les épaules, poignets droits, puis décrochez-la bras tendus au-dessus de la poitrine.",
+      "Descendez la barre lentement jusqu'au bas des pectoraux, coudes à environ 45 degrés du corps, sans la faire rebondir.",
+      "Poussez vers le haut en expirant jusqu'à tendre les bras sans verrouiller brutalement les coudes, puis recommencez."
+    ],
+    "safetyTips": [
+      "Demandez à un partenaire de vous aider (pareur) ou utilisez les cadres de sécurité réglés juste au-dessus de la poitrine.",
+      "Gardez les fesses collées au banc et le bas du dos naturellement cambré, sans exagération.",
+      "Choisissez une charge qui vous laisse deux répétitions en réserve avant la fin de la série."
+    ],
+    "commonMistakes": [
+      "Faire rebondir la barre sur la poitrine, ce qui fatigue les articulations.",
+      "Écarter les coudes à 90 degrés, ce qui sollicite trop l'épaule.",
+      "Décoller les fesses du banc pour pousser plus lourd."
+    ],
+    "alternatives": [
+      "developpe-couche-halteres",
+      "developpe-incline-halteres",
+      "ecarte-halteres"
+    ],
+    "images": [
+      "/images/exercises/developpe-couche-barre/0.jpg",
+      "/images/exercises/developpe-couche-barre/1.jpg"
+    ]
+  },
+  {
+    "id": "developpe-couche-halteres",
+    "slug": "developpe-couche-halteres",
+    "name": "Développé couché aux haltères",
+    "description": "Cette variante du développé couché utilise deux haltères indépendants. Chaque bras travaille seul, ce qui corrige les déséquilibres entre la droite et la gauche et offre une plus grande amplitude de mouvement. Elle est idéale pour progresser en douceur.",
+    "primaryMuscle": "Pectoraux",
+    "secondaryMuscles": [
+      "Triceps",
+      "Épaules"
+    ],
+    "equipment": "Haltères",
+    "difficulty": "Débutant",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Asseyez-vous sur le banc avec un haltère sur chaque cuisse, puis allongez-vous en les ramenant à hauteur de poitrine.",
+      "Poussez les haltères vers le plafond bras tendus, paumes tournées vers les pieds, omoplates serrées contre le banc.",
+      "Descendez lentement en contrôlant jusqu'à sentir un étirement agréable de la poitrine, coudes sous les poignets.",
+      "Remontez en expirant et rapprochez légèrement les haltères en haut sans les faire se heurter."
+    ],
+    "safetyTips": [
+      "Commencez léger pour apprivoiser la stabilité des deux haltères.",
+      "Pour reposer les haltères, ramenez-les sur les cuisses avant de vous redresser.",
+      "Arrêtez la série dès que la trajectoire devient tremblante ou irrégulière."
+    ],
+    "commonMistakes": [
+      "Descendre trop bas et solliciter excessivement l'épaule.",
+      "Pousser les haltères vers l'avant au lieu de la verticale.",
+      "Cambrer fortement le dos pour compenser une charge trop lourde."
+    ],
+    "alternatives": [
+      "developpe-couche-barre",
+      "pompes",
+      "pompes-pieds-surelevees"
+    ],
+    "images": [
+      "/images/exercises/developpe-couche-halteres/0.jpg",
+      "/images/exercises/developpe-couche-halteres/1.jpg"
+    ]
+  },
+  {
+    "id": "developpe-incline-halteres",
+    "slug": "developpe-incline-halteres",
+    "name": "Développé incliné aux haltères",
+    "description": "Réalisé sur un banc incliné à 30 degrés environ, ce mouvement cible la partie haute des pectoraux, souvent la plus difficile à développer. Il apporte du relief à la poitrine et sollicite davantage l'avant des épaules que le développé à plat.",
+    "primaryMuscle": "Pectoraux",
+    "secondaryMuscles": [
+      "Épaules",
+      "Triceps"
+    ],
+    "equipment": "Haltères",
+    "difficulty": "Intermédiaire",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Réglez le banc à environ 30 degrés, asseyez-vous, puis amenez les haltères aux épaules, paumes vers l'avant.",
+      "Plaquez le dos et les omoplates contre le dossier et poussez les haltères vers le haut en expirant.",
+      "Arrêtez la montée bras tendus au-dessus de la poitrine, sans claquer les coudes.",
+      "Redescendez en trois secondes jusqu'à hauteur de poitrine en gardant les poignets alignés sous les haltères."
+    ],
+    "safetyTips": [
+      "N'utilisez pas une inclinaison supérieure à 45 degrés, sinon les épaules prennent le relais.",
+      "Gardez les pieds ancrés au sol pour stabiliser le bassin.",
+      "Évitez de lancer les haltères avec les jambes pour les mettre en position."
+    ],
+    "commonMistakes": [
+      "Régler le banc trop haut, comme pour un développé d'épaules.",
+      "Laisser les coudes partir loin en arrière.",
+      "Raccourcir l'amplitude pour soulever plus lourd."
+    ],
+    "alternatives": [
+      "developpe-couche-barre",
+      "pompes",
+      "pompes-pieds-surelevees"
+    ],
+    "images": [
+      "/images/exercises/developpe-incline-halteres/0.jpg",
+      "/images/exercises/developpe-incline-halteres/1.jpg"
+    ]
+  },
+  {
+    "id": "ecarte-halteres",
+    "slug": "ecarte-halteres",
+    "name": "Écarté couché aux haltères",
+    "description": "L'écarté est un mouvement d'isolation qui étire puis contracte les pectoraux, comme si vous serriez un grand tronc dans vos bras. Il complète les exercices de poussée et se fait avec des charges légères pour protéger les épaules.",
+    "primaryMuscle": "Pectoraux",
+    "secondaryMuscles": [
+      "Épaules"
+    ],
+    "equipment": "Haltères",
+    "difficulty": "Intermédiaire",
+    "mechanics": "Isolation",
+    "executionSteps": [
+      "Allongez-vous sur un banc, haltères au-dessus de la poitrine, paumes face à face et coudes légèrement fléchis.",
+      "Ouvrez les bras en arc de cercle vers les côtés en gardant les coudes fléchis et fixes.",
+      "Descendez jusqu'à ressentir un étirement de la poitrine, sans passer sous la ligne du banc.",
+      "Ramenez les haltères en arc de cercle en serrant la poitrine, comme pour enlacer quelqu'un, puis recommencez."
+    ],
+    "safetyTips": [
+      "Choisissez des haltères nettement plus légers que pour un développé.",
+      "Ne descendez jamais jusqu'à la douleur dans l'épaule.",
+      "Gardez le même angle de coude du début à la fin du mouvement."
+    ],
+    "commonMistakes": [
+      "Tendre complètement les bras, ce qui met l'articulation du coude en tension.",
+      "Transformer l'écarté en développé en pliant les coudes.",
+      "Aller trop vite en bas du mouvement."
+    ],
+    "alternatives": [
+      "developpe-couche-barre",
+      "pompes",
+      "pompes-pieds-surelevees"
+    ],
+    "images": [
+      "/images/exercises/ecarte-halteres/0.jpg",
+      "/images/exercises/ecarte-halteres/1.jpg"
+    ]
+  },
+  {
+    "id": "pompes",
+    "slug": "pompes",
+    "name": "Pompes classiques",
+    "description": "Les pompes sont un exercice complet que l'on peut faire partout, sans matériel. Elles renforcent la poitrine, l'arrière des bras et les épaules tout en obligeant les abdominaux à garder le corps bien droit. Elles s'adaptent à tous les niveaux.",
+    "primaryMuscle": "Pectoraux",
+    "secondaryMuscles": [
+      "Triceps",
+      "Épaules",
+      "Abdominaux"
+    ],
+    "equipment": "Poids du corps",
+    "difficulty": "Débutant",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Placez les mains au sol un peu plus larges que les épaules, bras tendus, corps aligné de la tête aux talons.",
+      "Serrez les abdominaux et les fessiers pour garder le bassin dans l'alignement du dos.",
+      "Fléchissez les coudes à 45 degrés du corps jusqu'à ce que la poitrine frôle le sol.",
+      "Poussez le sol en expirant pour revenir à la position de départ, bras tendus."
+    ],
+    "safetyTips": [
+      "Si c'est trop difficile, posez les genoux au sol ou placez les mains sur un banc ou un mur.",
+      "Gardez la nuque dans le prolongement du dos en regardant légèrement devant vous.",
+      "Évitez de faire les pompes avec les poignets douloureux, utilisez des poignées ou les poings."
+    ],
+    "commonMistakes": [
+      "Creuser le bas du dos ou lever les fesses en l'air.",
+      "Descendre seulement de quelques centimètres.",
+      "Ouvrir les coudes complètement sur les côtés."
+    ],
+    "alternatives": [
+      "developpe-couche-barre",
+      "developpe-couche-halteres",
+      "developpe-incline-halteres"
+    ],
+    "images": [
+      "/images/exercises/pompes/0.jpg",
+      "/images/exercises/pompes/1.jpg"
+    ]
+  },
+  {
+    "id": "pompes-pieds-surelevees",
+    "slug": "pompes-pieds-surelevees",
+    "name": "Pompes pieds surélevés",
+    "description": "En posant les pieds sur une marche ou un banc, on déplace le poids du corps vers l'avant. Cette variante sollicite davantage le haut de la poitrine et les épaules, et offre une progression naturelle quand les pompes classiques deviennent faciles.",
+    "primaryMuscle": "Pectoraux",
+    "secondaryMuscles": [
+      "Épaules",
+      "Triceps"
+    ],
+    "equipment": "Poids du corps",
+    "difficulty": "Intermédiaire",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Posez les pieds sur un banc stable ou une marche et placez les mains au sol à largeur d'épaules.",
+      "Contractez les abdominaux pour que le corps forme une ligne droite inclinée vers le bas.",
+      "Fléchissez les coudes lentement jusqu'à approcher le sol avec le haut du front et la poitrine.",
+      "Poussez fort dans le sol pour remonter, sans cambrer le dos, et recommencez."
+    ],
+    "safetyTips": [
+      "Vérifiez que le support ne glisse pas avant de commencer.",
+      "Commencez par une hauteur faible, environ 20 à 30 centimètres.",
+      "Arrêtez si vous ressentez une douleur vive dans l'épaule."
+    ],
+    "commonMistakes": [
+      "Laisser le bassin s'affaisser.",
+      "Hausser les épaules vers les oreilles.",
+      "Choisir un support trop haut trop tôt."
+    ],
+    "alternatives": [
+      "developpe-couche-barre",
+      "developpe-couche-halteres",
+      "developpe-incline-halteres"
+    ],
+    "images": [
+      "/images/exercises/pompes-pieds-surelevees/0.jpg",
+      "/images/exercises/pompes-pieds-surelevees/1.jpg"
+    ]
+  },
+  {
+    "id": "pec-deck",
+    "slug": "pec-deck",
+    "name": "Machine pectoraux (pec deck)",
+    "description": "La machine à pectoraux, appelée aussi pec deck, guide vos bras sur une trajectoire sécurisée. C'est un choix rassurant pour les débutants et pour les personnes plus âgées qui souhaitent renforcer la poitrine sans avoir à stabiliser une charge libre.",
+    "primaryMuscle": "Pectoraux",
+    "secondaryMuscles": [
+      "Épaules"
+    ],
+    "equipment": "Salle de sport",
+    "difficulty": "Débutant",
+    "mechanics": "Isolation",
+    "executionSteps": [
+      "Réglez le siège pour que les poignées soient à hauteur de poitrine, puis asseyez-vous le dos collé au dossier.",
+      "Saisissez les poignées, coudes légèrement fléchis, et gardez les épaules basses, loin des oreilles.",
+      "Rapprochez les bras devant vous en expirant et en serrant la poitrine une seconde.",
+      "Revenez lentement en trois secondes jusqu'à sentir un léger étirement, sans laisser la charge retomber."
+    ],
+    "safetyTips": [
+      "Réglez toujours l'amplitude pour ne pas tirer les bras trop loin en arrière.",
+      "Ne laissez pas les plaques se claquer au retour.",
+      "Commencez avec une charge légère pour comprendre le mouvement."
+    ],
+    "commonMistakes": [
+      "Décoller le dos du dossier pour aider le mouvement.",
+      "Utiliser trop de charge et raccourcir le mouvement.",
+      "Monter les épaules vers les oreilles."
+    ],
+    "alternatives": [
+      "developpe-couche-halteres",
+      "developpe-incline-halteres",
+      "ecarte-halteres"
+    ],
+    "images": [
+      "/images/exercises/pec-deck/0.jpg",
+      "/images/exercises/pec-deck/1.jpg"
+    ]
+  },
+  {
+    "id": "tirage-vertical-poulie",
+    "slug": "tirage-vertical-poulie",
+    "name": "Tirage vertical à la poulie",
+    "description": "Le tirage vertical reproduit le mouvement d'une traction mais avec une charge réglable. Il développe la largeur du dos, notamment les grands dorsaux, et convient aux débutants qui ne peuvent pas encore soulever leur poids du corps.",
+    "primaryMuscle": "Dos",
+    "secondaryMuscles": [
+      "Biceps",
+      "Épaules"
+    ],
+    "equipment": "Salle de sport",
+    "difficulty": "Débutant",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Asseyez-vous, bloquez les cuisses sous les coussins et saisissez la barre un peu plus large que les épaules.",
+      "Penchez légèrement le buste en arrière et gardez la poitrine sortie.",
+      "Tirez la barre vers le haut de la poitrine en menant avec les coudes vers le bas et l'arrière.",
+      "Remontez lentement la barre bras tendus en gardant les épaules actives, sans vous laisser emporter."
+    ],
+    "safetyTips": [
+      "Tirez toujours devant le visage et non derrière la nuque, qui sollicite dangereusement les épaules.",
+      "Évitez de balancer fortement le corps pour tirer plus lourd.",
+      "Descendez la charge lentement pour protéger les épaules."
+    ],
+    "commonMistakes": [
+      "Tirer avec les biceps plutôt qu'avec le dos.",
+      "Pencher le buste très en arrière.",
+      "Lâcher la barre en fin de mouvement sans contrôle."
+    ],
+    "alternatives": [
+      "rowing-un-bras-haltere",
+      "rowing-halteres-penche",
+      "rowing-inverse-table"
+    ],
+    "images": [
+      "/images/exercises/tirage-vertical-poulie/0.jpg",
+      "/images/exercises/tirage-vertical-poulie/1.jpg"
+    ]
+  },
+  {
+    "id": "rowing-barre",
+    "slug": "rowing-barre",
+    "name": "Rowing barre penché",
+    "description": "Le rowing à la barre est un grand classique pour l'épaisseur du dos. Penché en avant, vous tirez la barre vers le ventre. Cet exercice exigeant demande une bonne technique et un gainage solide, il est donc réservé aux pratiquants expérimentés.",
+    "primaryMuscle": "Dos",
+    "secondaryMuscles": [
+      "Biceps",
+      "Ischio-jambiers"
+    ],
+    "equipment": "Salle de sport",
+    "difficulty": "Avancé",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Debout, pieds écartés à largeur de bassin, saisissez la barre, genoux fléchis, buste penché à environ 45 degrés, dos plat.",
+      "Gardez la tête dans le prolongement de la colonne et le regard légèrement vers le sol.",
+      "Tirez la barre vers le nombril en rapprochant les omoplates, coudes près du corps.",
+      "Redescendez lentement jusqu'à ce que les bras soient tendus, sans arrondir le dos."
+    ],
+    "safetyTips": [
+      "Gardez le dos parfaitement plat pendant toute la série, c'est la règle numéro un.",
+      "Prenez une charge modérée et privilégiez la technique.",
+      "Interrompez la série si le bas du dos se fatigue avant le dos."
+    ],
+    "commonMistakes": [
+      "Se redresser à chaque répétition pour tricher.",
+      "Arrondir le bas du dos.",
+      "Tirer la barre vers la poitrine plutôt que vers le ventre."
+    ],
+    "alternatives": [
+      "rowing-un-bras-haltere",
+      "rowing-halteres-penche",
+      "rowing-inverse-table"
+    ],
+    "images": [
+      "/images/exercises/rowing-barre/0.jpg",
+      "/images/exercises/rowing-barre/1.jpg"
+    ]
+  },
+  {
+    "id": "rowing-un-bras-haltere",
+    "slug": "rowing-un-bras-haltere",
+    "name": "Rowing un bras à l'haltère",
+    "description": "Appuyé sur un banc, vous tirez un haltère le long du corps, un bras après l'autre. Le banc soutient le dos, ce qui rend l'exercice sûr et accessible. Il corrige les différences de force entre les deux côtés et travaille tout le dos.",
+    "primaryMuscle": "Dos",
+    "secondaryMuscles": [
+      "Biceps",
+      "Épaules"
+    ],
+    "equipment": "Haltères",
+    "difficulty": "Débutant",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Posez un genou et une main sur le banc, le dos plat et parallèle au sol, l'haltère dans l'autre main, bras tendu.",
+      "Contractez légèrement les abdominaux pour garder le bassin stable.",
+      "Tirez l'haltère vers la hanche en gardant le coude près du corps et en serrant l'omoplate.",
+      "Redescendez lentement jusqu'à l'étirement complet, puis changez de bras après toutes les répétitions."
+    ],
+    "safetyTips": [
+      "Gardez la colonne droite, sans tourner le buste vers le plafond.",
+      "Choisissez un haltère que vous contrôlez sans balancer.",
+      "Posez l'haltère au sol avant de changer de côté."
+    ],
+    "commonMistakes": [
+      "Tourner le buste pour soulever plus lourd.",
+      "Tirer avec le bras sans engager l'omoplate.",
+      "Lever le coude vers le plafond."
+    ],
+    "alternatives": [
+      "tirage-vertical-poulie",
+      "rowing-barre",
+      "tirage-horizontal-machine"
+    ],
+    "images": [
+      "/images/exercises/rowing-un-bras-haltere/0.jpg",
+      "/images/exercises/rowing-un-bras-haltere/1.jpg"
+    ]
+  },
+  {
+    "id": "rowing-halteres-penche",
+    "slug": "rowing-halteres-penche",
+    "name": "Rowing aux deux haltères penché",
+    "description": "Cette version à deux haltères travaille simultanément les deux côtés du dos en position penchée. Elle développe l'épaisseur du dos et renforce les muscles qui maintiennent une bonne posture, utiles au quotidien comme devant un écran.",
+    "primaryMuscle": "Dos",
+    "secondaryMuscles": [
+      "Biceps",
+      "Ischio-jambiers"
+    ],
+    "equipment": "Haltères",
+    "difficulty": "Intermédiaire",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Tenez un haltère dans chaque main, genoux légèrement fléchis, penchez le buste en avançant les fesses vers l'arrière, dos plat.",
+      "Laissez les bras pendre sous les épaules, paumes face aux jambes.",
+      "Tirez les haltères vers les hanches en rapprochant les omoplates, coudes près du corps.",
+      "Redescendez lentement en contrôlant, sans que le buste ne remonte."
+    ],
+    "safetyTips": [
+      "Ne penchez pas le buste au-delà de ce que votre dos plat permet.",
+      "Respirez normalement et ne bloquez pas votre souffle.",
+      "Utilisez des charges moyennes pour garder une technique propre."
+    ],
+    "commonMistakes": [
+      "Arrondir le haut du dos.",
+      "Lever les épaules vers les oreilles.",
+      "Donner un élan avec les jambes."
+    ],
+    "alternatives": [
+      "tirage-vertical-poulie",
+      "rowing-barre",
+      "tirage-horizontal-machine"
+    ],
+    "images": [
+      "/images/exercises/rowing-halteres-penche/0.jpg",
+      "/images/exercises/rowing-halteres-penche/1.jpg"
+    ]
+  },
+  {
+    "id": "tirage-horizontal-machine",
+    "slug": "tirage-horizontal-machine",
+    "name": "Tirage horizontal à la machine",
+    "description": "Assis face à une machine, vous tirez les poignées vers vous. Le dos est soutenu par un appui poitrine, ce qui protège le bas du dos. C'est l'un des meilleurs exercices pour apprendre à sentir le travail du dos et améliorer sa posture.",
+    "primaryMuscle": "Dos",
+    "secondaryMuscles": [
+      "Biceps",
+      "Épaules"
+    ],
+    "equipment": "Salle de sport",
+    "difficulty": "Débutant",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Réglez le siège pour que les poignées soient à hauteur de poitrine et appuyez la poitrine contre le coussin.",
+      "Saisissez les poignées, bras tendus, épaules basses et dos droit.",
+      "Tirez les poignées vers l'arrière en serrant les omoplates comme pour pincer un crayon entre elles.",
+      "Revenez lentement à la position de départ en conservant la tension dans le dos."
+    ],
+    "safetyTips": [
+      "Ne tirez pas avec un balancement du buste.",
+      "Réglez l'appui pour un confort total de la poitrine.",
+      "Gardez le cou détendu, sans le projeter vers l'avant."
+    ],
+    "commonMistakes": [
+      "Tirer avec les bras seuls sans engager le dos.",
+      "Hausser les épaules.",
+      "Revenir trop vite, en laissant la charge tirer les bras."
+    ],
+    "alternatives": [
+      "rowing-un-bras-haltere",
+      "rowing-halteres-penche",
+      "rowing-inverse-table"
+    ],
+    "images": [
+      "/images/exercises/tirage-horizontal-machine/0.jpg",
+      "/images/exercises/tirage-horizontal-machine/1.jpg"
+    ]
+  },
+  {
+    "id": "rowing-inverse-table",
+    "slug": "rowing-inverse-table",
+    "name": "Rowing inversé sous une table",
+    "description": "Allongé sous une table solide ou une barre basse, vous vous tirez vers le haut avec les bras. C'est l'une des rares façons de travailler vraiment le dos sans matériel. Plus vos pieds sont éloignés, plus l'exercice devient exigeant.",
+    "primaryMuscle": "Dos",
+    "secondaryMuscles": [
+      "Biceps",
+      "Abdominaux"
+    ],
+    "equipment": "Poids du corps",
+    "difficulty": "Intermédiaire",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Allongez-vous sous une table très stable ou une barre basse et attrapez le bord, mains un peu plus larges que les épaules.",
+      "Gardez le corps gainé en ligne droite, talons au sol, jambes fléchies pour faciliter.",
+      "Tirez la poitrine vers le bord de la table en rapprochant les omoplates.",
+      "Redescendez lentement jusqu'à tendre les bras, sans relâcher le corps."
+    ],
+    "safetyTips": [
+      "Vérifiez que la table est lourde et ne bascule pas.",
+      "Positionnez les genoux fléchis pour réduire la difficulté.",
+      "Ne pratiquez pas sur un meuble fragile ou à roulettes."
+    ],
+    "commonMistakes": [
+      "Laisser le bassin s'affaisser.",
+      "Tirer avec la nuque plutôt qu'avec le dos.",
+      "Se hisser par à-coups."
+    ],
+    "alternatives": [
+      "tirage-vertical-poulie",
+      "rowing-barre",
+      "rowing-un-bras-haltere"
+    ],
+    "images": [
+      "/images/exercises/rowing-inverse-table/0.jpg",
+      "/images/exercises/rowing-inverse-table/1.jpg"
+    ]
+  },
+  {
+    "id": "superman",
+    "slug": "superman",
+    "name": "Superman au sol",
+    "description": "Allongé sur le ventre, vous soulevez bras et jambes comme un super-héros en vol. Cet exercice doux renforce les muscles le long de la colonne vertébrale, ceux qui soutiennent le dos au quotidien. Il convient très bien à la prévention des maux de dos.",
+    "primaryMuscle": "Dos",
+    "secondaryMuscles": [
+      "Fessiers",
+      "Épaules"
+    ],
+    "equipment": "Poids du corps",
+    "difficulty": "Débutant",
+    "mechanics": "Isolation",
+    "executionSteps": [
+      "Allongez-vous sur le ventre sur un tapis, bras tendus devant vous, front posé près du sol.",
+      "Contractez les fessiers et les muscles du dos sans forcer sur la nuque.",
+      "Soulevez simultanément les bras, la poitrine et les jambes de quelques centimètres et maintenez deux secondes.",
+      "Redescendez lentement et relâchez complètement avant la répétition suivante."
+    ],
+    "safetyTips": [
+      "Montez peu : quelques centimètres suffisent.",
+      "Gardez le regard vers le sol pour ne pas comprimer la nuque.",
+      "Arrêtez en cas de douleur dans le bas du dos."
+    ],
+    "commonMistakes": [
+      "Lever la tête très haut en regardant devant.",
+      "Se balancer sur le ventre.",
+      "Retenir sa respiration."
+    ],
+    "alternatives": [
+      "tirage-vertical-poulie",
+      "rowing-barre",
+      "rowing-un-bras-haltere"
+    ],
+    "images": [
+      "/images/exercises/superman/0.jpg",
+      "/images/exercises/superman/1.jpg"
+    ]
+  },
+  {
+    "id": "tractions-pronation",
+    "slug": "tractions-pronation",
+    "name": "Tractions pronation",
+    "description": "Suspendu à une barre, vous vous hissez jusqu'à passer le menton au-dessus. Les tractions sont l'un des meilleurs tests de force relative du haut du corps. Si vous débutez, utilisez un élastique ou faites des descentes lentes pour progresser.",
+    "primaryMuscle": "Dos",
+    "secondaryMuscles": [
+      "Biceps",
+      "Épaules",
+      "Abdominaux"
+    ],
+    "equipment": "Poids du corps",
+    "difficulty": "Avancé",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Saisissez la barre mains tournées vers l'avant, un peu plus larges que les épaules, bras tendus.",
+      "Engagez les omoplates vers le bas et gainez les abdominaux, jambes légèrement devant.",
+      "Tirez les coudes vers le sol pour monter jusqu'à passer le menton au-dessus de la barre.",
+      "Redescendez lentement en trois secondes jusqu'à tendre les bras."
+    ],
+    "safetyTips": [
+      "Ne lâchez jamais brutalement la barre, redescendez en contrôlant.",
+      "Échauffez les épaules avant de commencer.",
+      "Utilisez un élastique d'assistance si vous n'enchaînez pas trois répétitions propres."
+    ],
+    "commonMistakes": [
+      "Se balancer avec les jambes pour monter.",
+      "Ne pas descendre complètement.",
+      "Avancer le menton au lieu de monter la poitrine."
+    ],
+    "alternatives": [
+      "tirage-vertical-poulie",
+      "rowing-barre",
+      "rowing-un-bras-haltere"
+    ],
+    "images": [
+      "/images/exercises/tractions-pronation/0.jpg",
+      "/images/exercises/tractions-pronation/1.jpg"
+    ]
+  },
+  {
+    "id": "developpe-militaire-barre",
+    "slug": "developpe-militaire-barre",
+    "name": "Développé militaire à la barre",
+    "description": "Debout, vous poussez une barre au-dessus de la tête. Ce développé militaire construit des épaules fortes et stables et demande un bon gainage de tout le corps. Il exige de la mobilité dans les épaules, il convient donc aux pratiquants déjà à l'aise.",
+    "primaryMuscle": "Épaules",
+    "secondaryMuscles": [
+      "Triceps",
+      "Abdominaux"
+    ],
+    "equipment": "Salle de sport",
+    "difficulty": "Avancé",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Placez la barre au niveau des clavicules, mains un peu plus larges que les épaules, coudes légèrement devant la barre.",
+      "Serrez les fessiers et les abdominaux pour verrouiller le tronc, genoux à peine fléchis.",
+      "Poussez la barre à la verticale en passant la tête vers l'avant une fois la barre au-dessus du front.",
+      "Redescendez lentement la barre jusqu'aux clavicules en gardant les poignets droits."
+    ],
+    "safetyTips": [
+      "Ne cambrez jamais le bas du dos pour pousser plus lourd.",
+      "Réalisez l'exercice assis si votre équilibre est incertain.",
+      "Évitez cet exercice en cas de douleur à l'épaule et demandez conseil à un professionnel."
+    ],
+    "commonMistakes": [
+      "Cambrer fortement le dos et pousser avec le ventre.",
+      "Pousser la barre vers l'avant au lieu de la verticale.",
+      "Utiliser une charge trop lourde et se servir des jambes."
+    ],
+    "alternatives": [
+      "developpe-epaules-halteres",
+      "elevations-laterales",
+      "oiseau-halteres"
+    ],
+    "images": [
+      "/images/exercises/developpe-militaire-barre/0.jpg",
+      "/images/exercises/developpe-militaire-barre/1.jpg"
+    ]
+  },
+  {
+    "id": "developpe-epaules-halteres",
+    "slug": "developpe-epaules-halteres",
+    "name": "Développé épaules aux haltères",
+    "description": "Assis ou debout, vous poussez deux haltères au-dessus de la tête. Cet exercice renforce l'ensemble des épaules et offre une trajectoire plus naturelle que la barre, car chaque bras bouge librement. Une excellente base pour des épaules solides.",
+    "primaryMuscle": "Épaules",
+    "secondaryMuscles": [
+      "Triceps"
+    ],
+    "equipment": "Haltères",
+    "difficulty": "Débutant",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Asseyez-vous dos droit contre le dossier, haltères à hauteur des épaules, paumes vers l'avant ou face à face.",
+      "Gardez les avant-bras à la verticale sous les haltères et les abdominaux serrés.",
+      "Poussez les haltères vers le haut en expirant jusqu'à tendre presque les bras.",
+      "Redescendez lentement jusqu'à hauteur des oreilles, sans laisser les coudes descendre trop bas."
+    ],
+    "safetyTips": [
+      "Choisissez des haltères que vous maîtrisez sur toute la série.",
+      "Évitez de cambrer le dos, gardez les côtes basses.",
+      "Reposez les haltères sur les cuisses avant de relâcher les bras."
+    ],
+    "commonMistakes": [
+      "Cogner les haltères entre eux en haut.",
+      "Arquer le dos pour aider la poussée.",
+      "Raccourcir la descente."
+    ],
+    "alternatives": [
+      "developpe-militaire-barre",
+      "developpe-machine-epaules",
+      "pompes-pike"
+    ],
+    "images": [
+      "/images/exercises/developpe-epaules-halteres/0.jpg",
+      "/images/exercises/developpe-epaules-halteres/1.jpg"
+    ]
+  },
+  {
+    "id": "developpe-machine-epaules",
+    "slug": "developpe-machine-epaules",
+    "name": "Développé épaules à la machine",
+    "description": "La machine à développé épaules guide la trajectoire et soutient le dos. C'est une solution sûre et simple pour apprendre à renforcer les épaules, idéale pour les débutants ou pour terminer une séance quand la fatigue rend les charges libres risquées.",
+    "primaryMuscle": "Épaules",
+    "secondaryMuscles": [
+      "Triceps"
+    ],
+    "equipment": "Salle de sport",
+    "difficulty": "Débutant",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Réglez le siège pour que les poignées soient à hauteur d'épaules et placez le dos bien contre le dossier.",
+      "Saisissez les poignées, poignets alignés avec les avant-bras, abdominaux serrés.",
+      "Poussez vers le haut en expirant jusqu'à presque tendre les bras.",
+      "Redescendez lentement sans laisser la charge se reposer sur le support."
+    ],
+    "safetyTips": [
+      "Réglez correctement la hauteur du siège avant de charger.",
+      "Gardez la nuque détendue et le menton légèrement rentré.",
+      "Ne verrouillez pas violemment les coudes en haut."
+    ],
+    "commonMistakes": [
+      "Décoller le dos du dossier.",
+      "Pousser avec un élan.",
+      "Hausser les épaules vers les oreilles."
+    ],
+    "alternatives": [
+      "developpe-epaules-halteres",
+      "elevations-laterales",
+      "oiseau-halteres"
+    ],
+    "images": [
+      "/images/exercises/developpe-machine-epaules/0.jpg",
+      "/images/exercises/developpe-machine-epaules/1.jpg"
+    ]
+  },
+  {
+    "id": "elevations-laterales",
+    "slug": "elevations-laterales",
+    "name": "Élévations latérales aux haltères",
+    "description": "Les élévations latérales ciblent le côté des épaules, ce qui donne de la largeur à la silhouette. Elles se font avec des haltères très légers : le but est de sentir le muscle, pas de soulever lourd. Un mouvement simple et très efficace.",
+    "primaryMuscle": "Épaules",
+    "secondaryMuscles": [],
+    "equipment": "Haltères",
+    "difficulty": "Débutant",
+    "mechanics": "Isolation",
+    "executionSteps": [
+      "Debout, un haltère léger dans chaque main le long du corps, genoux souples, épaules détendues.",
+      "Gardez les coudes légèrement fléchis et le buste immobile.",
+      "Levez les bras vers les côtés jusqu'à hauteur d'épaules, comme pour déployer des ailes.",
+      "Redescendez en trois secondes sans laisser les haltères se balancer."
+    ],
+    "safetyTips": [
+      "Ne dépassez pas la hauteur des épaules.",
+      "Prenez un poids léger, 2 à 6 kilos suffisent souvent.",
+      "Évitez de pencher le buste d'avant en arrière."
+    ],
+    "commonMistakes": [
+      "Balancer le corps pour monter les haltères.",
+      "Hausser les épaules.",
+      "Monter plus haut que les épaules."
+    ],
+    "alternatives": [
+      "developpe-militaire-barre",
+      "developpe-machine-epaules",
+      "pompes-pike"
+    ],
+    "images": [
+      "/images/exercises/elevations-laterales/0.jpg",
+      "/images/exercises/elevations-laterales/1.jpg"
+    ]
+  },
+  {
+    "id": "oiseau-halteres",
+    "slug": "oiseau-halteres",
+    "name": "Oiseau aux haltères (arrière d'épaule)",
+    "description": "L'oiseau cible l'arrière des épaules, souvent négligé alors qu'il est essentiel pour une bonne posture. Penché en avant, vous ouvrez les bras comme des ailes. Ce travail aide à redresser les épaules arrondies par le travail sur écran.",
+    "primaryMuscle": "Épaules",
+    "secondaryMuscles": [
+      "Dos"
+    ],
+    "equipment": "Haltères",
+    "difficulty": "Intermédiaire",
+    "mechanics": "Isolation",
+    "executionSteps": [
+      "Debout, genoux fléchis, penchez le buste en avant dos plat, un haltère léger dans chaque main.",
+      "Laissez les bras pendre sous les épaules, coudes légèrement fléchis.",
+      "Écartez les bras vers les côtés jusqu'à hauteur du dos en rapprochant les omoplates.",
+      "Redescendez lentement en gardant la tension jusqu'au bas du mouvement."
+    ],
+    "safetyTips": [
+      "Choisissez des haltères très légers pour garder le contrôle.",
+      "Gardez la nuque alignée avec le dos.",
+      "Ne tirez pas avec le bas du dos."
+    ],
+    "commonMistakes": [
+      "Se redresser pour remonter la charge.",
+      "Plier les coudes comme pour un rowing.",
+      "Aller trop vite."
+    ],
+    "alternatives": [
+      "developpe-militaire-barre",
+      "developpe-machine-epaules",
+      "pompes-pike"
+    ],
+    "images": [
+      "/images/exercises/oiseau-halteres/0.jpg",
+      "/images/exercises/oiseau-halteres/1.jpg"
+    ]
+  },
+  {
+    "id": "pompes-pike",
+    "slug": "pompes-pike",
+    "name": "Pompes en V (pike)",
+    "description": "Les pompes en V placent le corps en position de montagne, hanches hautes, pour faire travailler les épaules comme dans un développé vertical. C'est la meilleure option sans matériel pour renforcer le haut des épaules à la maison.",
+    "primaryMuscle": "Épaules",
+    "secondaryMuscles": [
+      "Triceps",
+      "Pectoraux"
+    ],
+    "equipment": "Poids du corps",
+    "difficulty": "Intermédiaire",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Placez les mains au sol à largeur d'épaules et montez les hanches haut, jambes quasi tendues, corps en V inversé.",
+      "Avancez légèrement les pieds pour que les épaules soient au-dessus des mains.",
+      "Fléchissez les coudes pour descendre la tête vers le sol entre les mains.",
+      "Poussez fort pour remonter en V, bras tendus, en gardant les hanches hautes."
+    ],
+    "safetyTips": [
+      "Posez un coussin sous la tête si vous avez peur de toucher le sol.",
+      "Si les poignets sont sensibles, utilisez les poings ou des poignées.",
+      "Réduisez l'amplitude si vous ressentez une gêne dans l'épaule."
+    ],
+    "commonMistakes": [
+      "Laisser les hanches descendre pour faire une simple pompe.",
+      "Écarter trop les coudes.",
+      "Retenir sa respiration."
+    ],
+    "alternatives": [
+      "developpe-militaire-barre",
+      "developpe-epaules-halteres",
+      "developpe-machine-epaules"
+    ]
+  },
+  {
+    "id": "squat-barre",
+    "slug": "squat-barre",
+    "name": "Squat à la barre",
+    "description": "Le squat à la barre est l'un des exercices les plus complets pour les jambes. La barre sur les épaules, vous descendez en fléchissant genoux et hanches avant de remonter. Il renforce les cuisses, les fessiers et le tronc, mais demande une technique soignée.",
+    "primaryMuscle": "Quadriceps",
+    "secondaryMuscles": [
+      "Fessiers",
+      "Ischio-jambiers",
+      "Abdominaux"
+    ],
+    "equipment": "Salle de sport",
+    "difficulty": "Avancé",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Placez la barre sur le haut du dos, pas sur la nuque, pieds à largeur d'épaules, pointes légèrement ouvertes.",
+      "Inspirez, gonflez le ventre et serrez les abdominaux pour verrouiller le tronc.",
+      "Descendez en poussant les genoux dans l'axe des pieds, jusqu'à ce que les cuisses soient parallèles au sol.",
+      "Poussez le sol avec tout le pied pour remonter en expirant, genoux dans l'axe."
+    ],
+    "safetyTips": [
+      "Utilisez toujours des cadres de sécurité réglés à la bonne hauteur.",
+      "Ne descendez pas plus bas que ce que votre dos plat permet.",
+      "Commencez avec la barre seule pour apprendre le geste."
+    ],
+    "commonMistakes": [
+      "Laisser les genoux rentrer vers l'intérieur.",
+      "Décoller les talons.",
+      "Arrondir le bas du dos en bas du mouvement."
+    ],
+    "alternatives": [
+      "squat-gobelet",
+      "fentes-avant-halteres",
+      "squat-poids-du-corps"
+    ],
+    "images": [
+      "/images/exercises/squat-barre/0.jpg",
+      "/images/exercises/squat-barre/1.jpg"
+    ]
+  },
+  {
+    "id": "presse-cuisses",
+    "slug": "presse-cuisses",
+    "name": "Presse à cuisses",
+    "description": "La presse à cuisses permet de renforcer les jambes en toute sécurité, assis et le dos soutenu. Vous poussez une plateforme avec les pieds. C'est un excellent choix pour les débutants, pour les seniors et pour ajouter du volume de jambes sans fatiguer le dos.",
+    "primaryMuscle": "Quadriceps",
+    "secondaryMuscles": [
+      "Fessiers",
+      "Ischio-jambiers"
+    ],
+    "equipment": "Salle de sport",
+    "difficulty": "Débutant",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Asseyez-vous, dos et fessiers bien collés au siège, pieds à largeur d'épaules au milieu de la plateforme.",
+      "Déverrouillez la sécurité et amenez la plateforme vers vous, genoux alignés avec les pieds.",
+      "Fléchissez les genoux lentement jusqu'à environ 90 degrés, sans que le bassin ne décolle du siège.",
+      "Poussez avec tout le pied pour remonter, sans verrouiller les genoux en haut."
+    ],
+    "safetyTips": [
+      "Ne tendez jamais complètement les genoux en bloquant l'articulation.",
+      "Gardez les mains sur les poignées latérales, pas sur les genoux.",
+      "Remettez la sécurité en place avant de vous lever."
+    ],
+    "commonMistakes": [
+      "Laisser le bassin se décoller du siège en bas.",
+      "Rentrer les genoux vers l'intérieur.",
+      "Ajouter trop de charge et raccourcir l'amplitude."
+    ],
+    "alternatives": [
+      "squat-gobelet",
+      "fentes-avant-halteres",
+      "squat-poids-du-corps"
+    ],
+    "images": [
+      "/images/exercises/presse-cuisses/0.jpg",
+      "/images/exercises/presse-cuisses/1.jpg"
+    ]
+  },
+  {
+    "id": "squat-gobelet",
+    "slug": "squat-gobelet",
+    "name": "Squat gobelet",
+    "description": "Dans le squat gobelet, vous tenez un haltère contre la poitrine. Ce poids placé devant aide à garder le buste droit et à descendre naturellement. C'est la meilleure façon d'apprendre à bien faire un squat, quel que soit votre âge.",
+    "primaryMuscle": "Quadriceps",
+    "secondaryMuscles": [
+      "Fessiers",
+      "Abdominaux"
+    ],
+    "equipment": "Haltères",
+    "difficulty": "Débutant",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Tenez un haltère verticalement contre la poitrine, mains sous la tête de l'haltère, coudes vers le bas.",
+      "Placez les pieds à largeur d'épaules, pointes légèrement ouvertes, buste droit.",
+      "Descendez en poussant les fesses vers l'arrière et les genoux vers l'extérieur, aussi bas que le confort le permet.",
+      "Poussez le sol avec tout le pied pour remonter en expirant, sans vous pencher en avant."
+    ],
+    "safetyTips": [
+      "Si l'équilibre est difficile, faites le squat devant une chaise et touchez-la.",
+      "Gardez les talons au sol en permanence.",
+      "Limitez la profondeur à ce qui est confortable pour les genoux."
+    ],
+    "commonMistakes": [
+      "Laisser le buste s'incliner vers l'avant.",
+      "Rentrer les genoux vers l'intérieur.",
+      "Soulever les talons du sol."
+    ],
+    "alternatives": [
+      "squat-barre",
+      "presse-cuisses",
+      "squat-poids-du-corps"
+    ],
+    "images": [
+      "/images/exercises/squat-gobelet/0.jpg",
+      "/images/exercises/squat-gobelet/1.jpg"
+    ]
+  },
+  {
+    "id": "fentes-avant-halteres",
+    "slug": "fentes-avant-halteres",
+    "name": "Fentes avant aux haltères",
+    "description": "Les fentes avant travaillent chaque jambe séparément, ce qui améliore l'équilibre et la coordination. Vous faites un grand pas en avant puis vous poussez pour revenir. Elles sollicitent fortement les cuisses et les fessiers.",
+    "primaryMuscle": "Quadriceps",
+    "secondaryMuscles": [
+      "Fessiers",
+      "Ischio-jambiers"
+    ],
+    "equipment": "Haltères",
+    "difficulty": "Intermédiaire",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Tenez un haltère dans chaque main le long du corps, debout, pieds joints, buste droit.",
+      "Faites un grand pas en avant en posant le talon, puis descendez verticalement.",
+      "Arrêtez la descente quand le genou arrière frôle le sol, le genou avant au-dessus de la cheville.",
+      "Poussez dans le pied avant pour revenir à la position de départ et changez de jambe."
+    ],
+    "safetyTips": [
+      "Faites l'exercice sans haltère tant que l'équilibre n'est pas sûr.",
+      "Placez-vous près d'un mur ou d'un support pour vous rattraper.",
+      "Gardez le pas assez long pour que le genou ne dépasse pas trop les orteils."
+    ],
+    "commonMistakes": [
+      "Faire un pas trop court.",
+      "Laisser le genou avant partir vers l'intérieur.",
+      "Se pencher en avant avec le buste."
+    ],
+    "alternatives": [
+      "squat-barre",
+      "presse-cuisses",
+      "squat-poids-du-corps"
+    ],
+    "images": [
+      "/images/exercises/fentes-avant-halteres/0.jpg",
+      "/images/exercises/fentes-avant-halteres/1.jpg"
+    ]
+  },
+  {
+    "id": "squat-poids-du-corps",
+    "slug": "squat-poids-du-corps",
+    "name": "Squat au poids du corps",
+    "description": "Le squat sans charge est le mouvement fondamental pour renforcer les jambes à tout âge. Il reproduit le geste de s'asseoir et de se relever d'une chaise, indispensable pour garder son autonomie. Idéal pour apprendre la technique et s'échauffer.",
+    "primaryMuscle": "Quadriceps",
+    "secondaryMuscles": [
+      "Fessiers"
+    ],
+    "equipment": "Poids du corps",
+    "difficulty": "Débutant",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Debout, pieds à largeur d'épaules, pointes légèrement ouvertes, bras tendus devant vous pour l'équilibre.",
+      "Inspirez et poussez les fesses vers l'arrière comme pour vous asseoir sur une chaise.",
+      "Descendez jusqu'à ce que les cuisses soient parallèles au sol, genoux dans l'axe des pieds.",
+      "Poussez dans le sol avec tout le pied et remontez en expirant en serrant les fessiers."
+    ],
+    "safetyTips": [
+      "Placez une chaise derrière vous pour sécuriser la descente.",
+      "Gardez les talons collés au sol.",
+      "Descendez moins bas si vous ressentez une douleur au genou."
+    ],
+    "commonMistakes": [
+      "Laisser les genoux s'effondrer vers l'intérieur.",
+      "Basculer le poids sur la pointe des pieds.",
+      "Arrondir le bas du dos."
+    ],
+    "alternatives": [
+      "squat-barre",
+      "presse-cuisses",
+      "squat-gobelet"
+    ],
+    "images": [
+      "/images/exercises/squat-poids-du-corps/0.jpg",
+      "/images/exercises/squat-poids-du-corps/1.jpg"
+    ]
+  },
+  {
+    "id": "squat-bulgare",
+    "slug": "squat-bulgare",
+    "name": "Squat bulgare",
+    "description": "Le squat bulgare se fait avec le pied arrière posé sur un banc. Il met toute la charge sur une seule jambe et renforce intensément cuisses et fessiers. C'est une variante originale pour casser la routine, très efficace même sans matériel.",
+    "primaryMuscle": "Quadriceps",
+    "secondaryMuscles": [
+      "Fessiers",
+      "Ischio-jambiers"
+    ],
+    "equipment": "Poids du corps",
+    "difficulty": "Avancé",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Placez-vous dos à un banc, posez le dessus du pied arrière dessus, l'autre pied à environ un grand pas devant.",
+      "Gardez le buste droit et les bras le long du corps ou croisés sur la poitrine.",
+      "Fléchissez le genou avant pour descendre verticalement, jusqu'à ce que la cuisse soit presque parallèle au sol.",
+      "Poussez dans le talon avant pour remonter, puis changez de jambe à la fin de la série."
+    ],
+    "safetyTips": [
+      "Tenez-vous à un mur ou à un support au début pour garder l'équilibre.",
+      "Choisissez un banc stable à hauteur du genou environ.",
+      "Arrêtez si vous sentez une douleur au genou avant."
+    ],
+    "commonMistakes": [
+      "Placer le pied avant trop près du banc.",
+      "Pencher le buste vers l'avant.",
+      "Laisser le genou avant rentrer vers l'intérieur."
+    ],
+    "alternatives": [
+      "squat-barre",
+      "presse-cuisses",
+      "squat-gobelet"
+    ]
+  },
+  {
+    "id": "leg-extension",
+    "slug": "leg-extension",
+    "name": "Extension des jambes à la machine",
+    "description": "Assis sur la machine, vous tendez les jambes contre une résistance. Cet exercice d'isolation cible l'avant des cuisses sans solliciter le dos. Il est utile en complément des squats ou pour renforcer les jambes en douceur.",
+    "primaryMuscle": "Quadriceps",
+    "secondaryMuscles": [],
+    "equipment": "Salle de sport",
+    "difficulty": "Débutant",
+    "mechanics": "Isolation",
+    "executionSteps": [
+      "Réglez le dossier pour que l'arrière du genou soit au bord du siège et placez les chevilles sous le coussin.",
+      "Saisissez les poignées et gardez le dos calé contre le dossier.",
+      "Tendez les jambes en expirant jusqu'à presque les verrouiller et serrez les cuisses une seconde.",
+      "Redescendez lentement en trois secondes sans laisser la charge retomber."
+    ],
+    "safetyTips": [
+      "Choisissez une charge modérée si vous avez des douleurs aux genoux.",
+      "Évitez de verrouiller violemment les genoux en haut.",
+      "Interrompez l'exercice en cas de douleur dans l'articulation."
+    ],
+    "commonMistakes": [
+      "Décoller les fesses du siège.",
+      "Lancer les jambes avec élan.",
+      "Descendre trop vite."
+    ],
+    "alternatives": [
+      "squat-gobelet",
+      "fentes-avant-halteres",
+      "squat-poids-du-corps"
+    ],
+    "images": [
+      "/images/exercises/leg-extension/0.jpg",
+      "/images/exercises/leg-extension/1.jpg"
+    ]
+  },
+  {
+    "id": "curl-ischio-allonge",
+    "slug": "curl-ischio-allonge",
+    "name": "Curl ischio-jambiers allongé",
+    "description": "Allongé à plat ventre sur la machine, vous ramenez les talons vers les fessiers contre une résistance. Cet exercice isole l'arrière des cuisses, des muscles essentiels pour protéger les genoux et équilibrer la force des jambes.",
+    "primaryMuscle": "Ischio-jambiers",
+    "secondaryMuscles": [
+      "Mollets"
+    ],
+    "equipment": "Salle de sport",
+    "difficulty": "Débutant",
+    "mechanics": "Isolation",
+    "executionSteps": [
+      "Allongez-vous sur le ventre, placez les chevilles sous le coussin et agrippez les poignées.",
+      "Alignez les genoux avec l'axe de la machine, hanches bien plaquées sur le banc.",
+      "Fléchissez les jambes pour amener les talons vers les fessiers en expirant, sans décoller le bassin.",
+      "Redescendez lentement en trois secondes jusqu'à presque tendre les jambes."
+    ],
+    "safetyTips": [
+      "Ne cambrez pas le bas du dos en montant.",
+      "Réglez le coussin juste au-dessus des talons.",
+      "Choisissez une charge légère au départ pour éviter les crampes."
+    ],
+    "commonMistakes": [
+      "Soulever les hanches pour tricher.",
+      "Faire le mouvement trop vite.",
+      "Raccourcir la descente."
+    ],
+    "alternatives": [
+      "souleve-de-terre-roumain-halteres",
+      "curl-ischio-serviette",
+      "inclinaison-buste-halteres"
+    ],
+    "images": [
+      "/images/exercises/curl-ischio-allonge/0.jpg",
+      "/images/exercises/curl-ischio-allonge/1.jpg"
+    ]
+  },
+  {
+    "id": "souleve-de-terre-roumain-barre",
+    "slug": "souleve-de-terre-roumain-barre",
+    "name": "Soulevé de terre roumain à la barre",
+    "description": "Le soulevé de terre roumain consiste à pencher le buste en gardant les jambes presque tendues. Il étire puis renforce l'arrière des cuisses et les fessiers. Un exercice puissant qui demande un dos plat parfaitement maîtrisé.",
+    "primaryMuscle": "Ischio-jambiers",
+    "secondaryMuscles": [
+      "Fessiers",
+      "Dos"
+    ],
+    "equipment": "Salle de sport",
+    "difficulty": "Avancé",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Debout, tenez la barre devant les cuisses, mains à largeur d'épaules, genoux à peine fléchis.",
+      "Poussez les hanches vers l'arrière en faisant glisser la barre le long des jambes, dos plat.",
+      "Descendez jusqu'à sentir un fort étirement derrière les cuisses, généralement sous les genoux.",
+      "Contractez les fessiers pour ramener les hanches vers l'avant et vous redresser en expirant."
+    ],
+    "safetyTips": [
+      "Gardez la barre collée aux jambes pendant tout le mouvement.",
+      "Ne descendez que dans l'amplitude où le dos reste plat.",
+      "Commencez avec une barre légère pour apprendre le mouvement des hanches."
+    ],
+    "commonMistakes": [
+      "Arrondir le dos.",
+      "Plier trop les genoux et faire un squat.",
+      "Éloigner la barre des jambes."
+    ],
+    "alternatives": [
+      "souleve-de-terre-roumain-halteres",
+      "curl-ischio-serviette",
+      "inclinaison-buste-halteres"
+    ],
+    "images": [
+      "/images/exercises/souleve-de-terre-roumain-barre/0.jpg",
+      "/images/exercises/souleve-de-terre-roumain-barre/1.jpg"
+    ]
+  },
+  {
+    "id": "souleve-de-terre-roumain-halteres",
+    "slug": "souleve-de-terre-roumain-halteres",
+    "name": "Soulevé de terre roumain aux haltères",
+    "description": "La version avec haltères offre plus de liberté et se règle facilement. Vous penchez le buste en poussant les hanches vers l'arrière pour étirer l'arrière des cuisses. Un excellent exercice pour la posture et la force des jambes.",
+    "primaryMuscle": "Ischio-jambiers",
+    "secondaryMuscles": [
+      "Fessiers",
+      "Dos"
+    ],
+    "equipment": "Haltères",
+    "difficulty": "Intermédiaire",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Debout, un haltère dans chaque main devant les cuisses, genoux légèrement fléchis, épaules en arrière.",
+      "Poussez les hanches vers l'arrière et laissez les haltères glisser le long des jambes.",
+      "Descendez jusqu'à ressentir l'étirement des ischio-jambiers, le dos toujours plat.",
+      "Revenez en poussant les hanches vers l'avant et en serrant les fessiers."
+    ],
+    "safetyTips": [
+      "Si vous avez des douleurs lombaires, réduisez l'amplitude.",
+      "Regardez le sol à un mètre devant vous pour garder la nuque alignée.",
+      "Gardez les haltères proches des jambes."
+    ],
+    "commonMistakes": [
+      "Arrondir le haut du dos.",
+      "Plier les genoux comme pour un squat.",
+      "Se pencher uniquement avec les épaules."
+    ],
+    "alternatives": [
+      "curl-ischio-allonge",
+      "souleve-de-terre-roumain-barre",
+      "curl-ischio-serviette"
+    ],
+    "images": [
+      "/images/exercises/souleve-de-terre-roumain-halteres/0.jpg",
+      "/images/exercises/souleve-de-terre-roumain-halteres/1.jpg"
+    ]
+  },
+  {
+    "id": "curl-ischio-serviette",
+    "slug": "curl-ischio-serviette",
+    "name": "Curl ischio-jambiers avec serviette",
+    "description": "Allongé sur le dos, les talons posés sur une serviette, vous les faites glisser vers vous. Cette astuce transforme le sol en machine et renforce fortement l'arrière des cuisses, sans le moindre matériel. Très utile pour s'entraîner à la maison.",
+    "primaryMuscle": "Ischio-jambiers",
+    "secondaryMuscles": [
+      "Fessiers",
+      "Mollets"
+    ],
+    "equipment": "Poids du corps",
+    "difficulty": "Intermédiaire",
+    "mechanics": "Isolation",
+    "executionSteps": [
+      "Allongez-vous sur le dos sur un sol lisse, talons sur une serviette, bras le long du corps.",
+      "Montez le bassin en pont, fessiers serrés, jambes presque tendues.",
+      "Faites glisser les talons vers les fessiers en gardant le bassin haut.",
+      "Repoussez lentement les talons pour revenir jambes tendues, sans poser le bassin."
+    ],
+    "safetyTips": [
+      "Faites l'exercice sur un tapis ou un parquet qui ne vous fera pas glisser les mains.",
+      "En cas de crampe, posez le bassin au sol et reposez-vous.",
+      "Réduisez l'amplitude au début si c'est trop difficile."
+    ],
+    "commonMistakes": [
+      "Laisser le bassin retomber.",
+      "Aller trop vite.",
+      "Ne pas contracter les fessiers."
+    ],
+    "alternatives": [
+      "curl-ischio-allonge",
+      "souleve-de-terre-roumain-barre",
+      "souleve-de-terre-roumain-halteres"
+    ]
+  },
+  {
+    "id": "inclinaison-buste-halteres",
+    "slug": "inclinaison-buste-halteres",
+    "name": "Inclinaison du buste aux haltères",
+    "description": "Cet exercice doux apprend à plier les hanches en gardant le dos droit. Il étire et renforce l'arrière des cuisses et protège le bas du dos. Pratiquez-le lentement : il convient très bien aux débutants et aux personnes plus âgées.",
+    "primaryMuscle": "Ischio-jambiers",
+    "secondaryMuscles": [
+      "Dos",
+      "Fessiers"
+    ],
+    "equipment": "Haltères",
+    "difficulty": "Débutant",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Debout, tenez un seul haltère à deux mains devant vous, pieds à largeur de hanches, genoux souples.",
+      "Gardez le dos droit et la poitrine ouverte, regard vers l'avant.",
+      "Poussez les hanches en arrière pour pencher le buste jusqu'à sentir l'arrière des cuisses.",
+      "Remontez en contractant les fessiers jusqu'à la position debout, sans vous cambrer en haut."
+    ],
+    "safetyTips": [
+      "Ne descendez pas plus bas que ce que le dos plat permet.",
+      "Gardez toujours un léger fléchissement de genoux.",
+      "Pratiquez devant un miroir latéral si possible."
+    ],
+    "commonMistakes": [
+      "Arrondir le dos.",
+      "Se pencher en avançant la tête.",
+      "Se cambrer en haut du mouvement."
+    ],
+    "alternatives": [
+      "curl-ischio-allonge",
+      "souleve-de-terre-roumain-barre",
+      "curl-ischio-serviette"
+    ]
+  },
+  {
+    "id": "hip-thrust-barre",
+    "slug": "hip-thrust-barre",
+    "name": "Hip thrust (poussée de hanches) à la barre",
+    "description": "Le hip thrust, ou poussée de hanches, est l'un des meilleurs exercices pour les fessiers. Le haut du dos appuyé sur un banc, vous poussez les hanches vers le haut avec une barre sur le bassin. Il renforce aussi la stabilité du bassin.",
+    "primaryMuscle": "Fessiers",
+    "secondaryMuscles": [
+      "Ischio-jambiers"
+    ],
+    "equipment": "Salle de sport",
+    "difficulty": "Intermédiaire",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Asseyez-vous au sol, haut du dos contre un banc, barre protégée par une mousse sur le haut des cuisses.",
+      "Placez les pieds à largeur de hanches, genoux fléchis à 90 degrés en haut du mouvement.",
+      "Poussez les talons dans le sol et montez les hanches jusqu'à aligner genoux, hanches et épaules.",
+      "Serrez les fessiers une seconde en haut puis redescendez lentement."
+    ],
+    "safetyTips": [
+      "Utilisez une mousse ou un coussin sous la barre.",
+      "Ne cambrez pas le bas du dos en haut.",
+      "Gardez le menton légèrement rentré."
+    ],
+    "commonMistakes": [
+      "Pousser avec les lombaires plutôt qu'avec les fessiers.",
+      "Placer les pieds trop loin ou trop près.",
+      "Ne pas aller en haut complètement."
+    ],
+    "alternatives": [
+      "hip-thrust-haltere",
+      "pont-fessier",
+      "pont-fessier-un-pied"
+    ],
+    "images": [
+      "/images/exercises/hip-thrust-barre/0.jpg",
+      "/images/exercises/hip-thrust-barre/1.jpg"
+    ]
+  },
+  {
+    "id": "hip-thrust-haltere",
+    "slug": "hip-thrust-haltere",
+    "name": "Hip thrust avec un haltère",
+    "description": "Cette version utilise un seul haltère posé sur le bassin, ce qui la rend facile à installer chez soi comme en salle. Elle renforce les fessiers en toute sécurité. C'est le bon point de départ avant de passer à une barre.",
+    "primaryMuscle": "Fessiers",
+    "secondaryMuscles": [
+      "Ischio-jambiers"
+    ],
+    "equipment": "Haltères",
+    "difficulty": "Débutant",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Asseyez-vous au sol, haut du dos contre un banc ou un canapé stable, haltère posé sur les hanches et tenu à deux mains.",
+      "Placez les pieds à plat, à largeur de hanches, genoux fléchis.",
+      "Poussez dans les talons et montez les hanches jusqu'à l'alignement épaules, hanches, genoux.",
+      "Serrez les fessiers en haut puis redescendez doucement sans poser le bassin."
+    ],
+    "safetyTips": [
+      "Vérifiez que le support ne glisse pas.",
+      "Placez un linge plié sous l'haltère si cela vous gêne.",
+      "Gardez la nuque détendue."
+    ],
+    "commonMistakes": [
+      "Cambrer le bas du dos.",
+      "Pousser sur les orteils.",
+      "Descendre trop vite."
+    ],
+    "alternatives": [
+      "hip-thrust-barre",
+      "pont-fessier",
+      "pont-fessier-un-pied"
+    ]
+  },
+  {
+    "id": "pont-fessier",
+    "slug": "pont-fessier",
+    "name": "Pont fessier",
+    "description": "Le pont fessier est un mouvement doux et très accessible : allongé sur le dos, vous soulevez le bassin. Il active les fessiers, protège le bas du dos et convient à tous les âges. Un excellent exercice d'échauffement ou de rééducation douce.",
+    "primaryMuscle": "Fessiers",
+    "secondaryMuscles": [
+      "Ischio-jambiers",
+      "Abdominaux"
+    ],
+    "equipment": "Poids du corps",
+    "difficulty": "Débutant",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Allongez-vous sur le dos, genoux fléchis, pieds à plat à largeur de hanches, bras le long du corps.",
+      "Contractez les abdominaux pour aplatir légèrement le bas du dos au sol.",
+      "Poussez dans les talons pour monter le bassin jusqu'à aligner épaules, hanches et genoux.",
+      "Serrez les fessiers deux secondes en haut puis redescendez vertèbre par vertèbre."
+    ],
+    "safetyTips": [
+      "Ne cambrez pas excessivement en haut du mouvement.",
+      "Gardez la nuque détendue, regard au plafond.",
+      "Arrêtez si vous ressentez une crampe dans l'arrière des cuisses et rapprochez les pieds."
+    ],
+    "commonMistakes": [
+      "Pousser avec les lombaires.",
+      "Écarter les genoux.",
+      "Aller trop vite."
+    ],
+    "alternatives": [
+      "hip-thrust-barre",
+      "hip-thrust-haltere",
+      "fentes-arriere-halteres"
+    ],
+    "images": [
+      "/images/exercises/pont-fessier/0.jpg",
+      "/images/exercises/pont-fessier/1.jpg"
+    ]
+  },
+  {
+    "id": "pont-fessier-un-pied",
+    "slug": "pont-fessier-un-pied",
+    "name": "Pont fessier unilatéral",
+    "description": "Cette variante du pont fessier se fait sur une seule jambe. Elle double l'intensité sans matériel et améliore l'équilibre du bassin. Parfaite pour progresser quand le pont classique devient trop facile.",
+    "primaryMuscle": "Fessiers",
+    "secondaryMuscles": [
+      "Ischio-jambiers",
+      "Abdominaux"
+    ],
+    "equipment": "Poids du corps",
+    "difficulty": "Intermédiaire",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Allongez-vous sur le dos, un pied à plat au sol, l'autre jambe tendue ou genou ramené vers la poitrine.",
+      "Gardez les bras au sol pour vous stabiliser et le bassin bien horizontal.",
+      "Poussez dans le talon et montez le bassin jusqu'à aligner épaules, hanches et genou.",
+      "Redescendez lentement sans poser le bassin, puis changez de côté."
+    ],
+    "safetyTips": [
+      "Commencez par quelques répétitions seulement pour tester l'équilibre.",
+      "Gardez le bassin droit, sans pivoter d'un côté.",
+      "Revenez au pont classique si vous ressentez une crampe."
+    ],
+    "commonMistakes": [
+      "Laisser une hanche descendre.",
+      "Pousser sur les lombaires.",
+      "Aller trop vite."
+    ],
+    "alternatives": [
+      "hip-thrust-barre",
+      "hip-thrust-haltere",
+      "fentes-arriere-halteres"
+    ],
+    "images": [
+      "/images/exercises/pont-fessier-un-pied/0.jpg",
+      "/images/exercises/pont-fessier-un-pied/1.jpg"
+    ]
+  },
+  {
+    "id": "fentes-arriere-halteres",
+    "slug": "fentes-arriere-halteres",
+    "name": "Fentes arrière aux haltères",
+    "description": "En faisant un pas en arrière plutôt qu'en avant, vous sollicitez davantage les fessiers et ménagez les genoux. C'est une version plus douce et plus stable que la fente avant, très appréciée de tous les âges.",
+    "primaryMuscle": "Fessiers",
+    "secondaryMuscles": [
+      "Quadriceps",
+      "Ischio-jambiers"
+    ],
+    "equipment": "Haltères",
+    "difficulty": "Intermédiaire",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Debout, un haltère dans chaque main, pieds à largeur de hanches, buste droit.",
+      "Faites un grand pas en arrière en posant d'abord la pointe du pied.",
+      "Descendez verticalement jusqu'à ce que le genou arrière frôle le sol, le genou avant au-dessus de la cheville.",
+      "Poussez dans le talon avant pour revenir debout, puis changez de jambe."
+    ],
+    "safetyTips": [
+      "Tenez-vous à un support au début si l'équilibre est incertain.",
+      "Utilisez des haltères légers pour apprendre le geste.",
+      "Gardez le regard vers l'avant."
+    ],
+    "commonMistakes": [
+      "Faire un pas trop court.",
+      "Pencher le buste en avant.",
+      "Appuyer fortement sur le pied arrière."
+    ],
+    "alternatives": [
+      "hip-thrust-barre",
+      "pont-fessier",
+      "pont-fessier-un-pied"
+    ]
+  },
+  {
+    "id": "kickback-poulie",
+    "slug": "kickback-poulie",
+    "name": "Extension de hanche à la poulie basse",
+    "description": "Une sangle à la cheville, vous poussez la jambe vers l'arrière contre la résistance de la poulie. Cet exercice d'isolation cible précisément les fessiers, l'un après l'autre, et reste très doux pour le dos quand il est bien réalisé.",
+    "primaryMuscle": "Fessiers",
+    "secondaryMuscles": [
+      "Ischio-jambiers"
+    ],
+    "equipment": "Salle de sport",
+    "difficulty": "Débutant",
+    "mechanics": "Isolation",
+    "executionSteps": [
+      "Attachez la sangle à la cheville et tenez la machine à deux mains, buste légèrement penché.",
+      "Gardez le genou de la jambe de travail légèrement fléchi et les abdominaux serrés.",
+      "Poussez le talon vers l'arrière et légèrement vers le haut en contractant le fessier.",
+      "Revenez lentement en maintenant la tension, puis changez de jambe."
+    ],
+    "safetyTips": [
+      "Ne cambrez pas le bas du dos pour monter plus haut.",
+      "Gardez le bassin immobile et orienté vers l'avant.",
+      "Utilisez une charge légère."
+    ],
+    "commonMistakes": [
+      "Balancer la jambe avec élan.",
+      "Tourner la hanche vers le haut.",
+      "Cambrer le dos."
+    ],
+    "alternatives": [
+      "hip-thrust-haltere",
+      "pont-fessier",
+      "pont-fessier-un-pied"
+    ],
+    "images": [
+      "/images/exercises/kickback-poulie/0.jpg",
+      "/images/exercises/kickback-poulie/1.jpg"
+    ]
+  },
+  {
+    "id": "mollets-debout-machine",
+    "slug": "mollets-debout-machine",
+    "name": "Mollets debout à la machine",
+    "description": "Les mollets se travaillent en montant sur la pointe des pieds. À la machine, vous pouvez charger plus lourd en toute sécurité. Des mollets forts aident à marcher, courir et protègent les chevilles à tout âge.",
+    "primaryMuscle": "Mollets",
+    "secondaryMuscles": [],
+    "equipment": "Salle de sport",
+    "difficulty": "Débutant",
+    "mechanics": "Isolation",
+    "executionSteps": [
+      "Placez les épaules sous les coussins, pointes de pieds sur la plateforme et talons dans le vide.",
+      "Gardez le dos droit et les genoux presque tendus.",
+      "Montez sur la pointe des pieds le plus haut possible et maintenez une seconde.",
+      "Redescendez lentement jusqu'à sentir un bel étirement des mollets."
+    ],
+    "safetyTips": [
+      "Gardez toujours un léger fléchissement des genoux.",
+      "Contrôlez la descente pour ménager le tendon d'Achille.",
+      "Placez des chaussures bien maintenues."
+    ],
+    "commonMistakes": [
+      "Rebondir en bas du mouvement.",
+      "Raccourcir l'amplitude.",
+      "Plier les genoux à chaque répétition."
+    ],
+    "alternatives": [
+      "mollets-halteres-debout",
+      "mollets-pointes-pieds"
+    ],
+    "images": [
+      "/images/exercises/mollets-debout-machine/0.jpg",
+      "/images/exercises/mollets-debout-machine/1.jpg"
+    ]
+  },
+  {
+    "id": "mollets-halteres-debout",
+    "slug": "mollets-halteres-debout",
+    "name": "Mollets debout aux haltères",
+    "description": "Debout avec un haltère dans chaque main, vous montez sur la pointe des pieds sur une marche. C'est une façon simple de muscler les mollets avec très peu de matériel. Les mollets récupèrent vite, vous pouvez les travailler souvent.",
+    "primaryMuscle": "Mollets",
+    "secondaryMuscles": [],
+    "equipment": "Haltères",
+    "difficulty": "Débutant",
+    "mechanics": "Isolation",
+    "executionSteps": [
+      "Placez-vous au bord d'une marche, pointes de pieds dessus, talons dans le vide, un haltère dans chaque main.",
+      "Tenez-vous à un mur avec une main si besoin, dos droit et regard devant.",
+      "Montez le plus haut possible sur la pointe des pieds et faites une pause d'une seconde.",
+      "Descendez lentement les talons sous le niveau de la marche pour étirer les mollets."
+    ],
+    "safetyTips": [
+      "Assurez-vous que la marche est stable et antidérapante.",
+      "Gardez une main libre pour vous rattraper.",
+      "Descendez lentement pour protéger le tendon d'Achille."
+    ],
+    "commonMistakes": [
+      "Aller trop vite.",
+      "Plier les genoux.",
+      "Ne pas descendre assez bas."
+    ],
+    "alternatives": [
+      "mollets-debout-machine",
+      "mollets-pointes-pieds"
+    ],
+    "images": [
+      "/images/exercises/mollets-halteres-debout/0.jpg",
+      "/images/exercises/mollets-halteres-debout/1.jpg"
+    ]
+  },
+  {
+    "id": "mollets-pointes-pieds",
+    "slug": "mollets-pointes-pieds",
+    "name": "Élévations sur pointes de pieds",
+    "description": "Cet exercice très simple se pratique partout : debout, vous montez sur la pointe des pieds. Il renforce les mollets sans matériel et améliore l'équilibre. Vous pouvez le faire en brossant vos dents ou en attendant le bus.",
+    "primaryMuscle": "Mollets",
+    "secondaryMuscles": [],
+    "equipment": "Poids du corps",
+    "difficulty": "Débutant",
+    "mechanics": "Isolation",
+    "executionSteps": [
+      "Debout, pieds à largeur de hanches, une main posée sur un mur ou une chaise pour l'équilibre.",
+      "Gardez le dos droit, les épaules relâchées et les genoux presque tendus.",
+      "Montez lentement sur la pointe des pieds le plus haut possible et marquez une pause.",
+      "Redescendez en trois secondes jusqu'à poser les talons au sol."
+    ],
+    "safetyTips": [
+      "Utilisez un support pour éviter de perdre l'équilibre.",
+      "Faites l'exercice pieds nus ou avec des chaussures stables.",
+      "Passez à une seule jambe seulement quand c'est facile."
+    ],
+    "commonMistakes": [
+      "Se précipiter.",
+      "Pencher le buste en avant.",
+      "Écarter les pieds vers l'extérieur."
+    ],
+    "alternatives": [
+      "mollets-debout-machine",
+      "mollets-halteres-debout"
+    ]
+  },
+  {
+    "id": "curl-barre",
+    "slug": "curl-barre",
+    "name": "Curl biceps à la barre",
+    "description": "Le curl à la barre est le mouvement classique pour muscler l'avant des bras. Debout, vous fléchissez les coudes pour monter la barre vers les épaules. Il permet de soulever plus lourd que les haltères et de bien développer les biceps.",
+    "primaryMuscle": "Biceps",
+    "secondaryMuscles": [
+      "Avant-bras"
+    ],
+    "equipment": "Salle de sport",
+    "difficulty": "Débutant",
+    "mechanics": "Isolation",
+    "executionSteps": [
+      "Debout, pieds à largeur de hanches, saisissez la barre mains tournées vers le haut, à largeur d'épaules, bras tendus.",
+      "Plaquez les coudes le long du corps et gardez les épaules en arrière.",
+      "Fléchissez les coudes pour monter la barre vers les épaules en expirant, sans bouger le buste.",
+      "Redescendez lentement en trois secondes jusqu'à tendre presque les bras."
+    ],
+    "safetyTips": [
+      "Gardez le dos droit et les genoux souples.",
+      "Choisissez une barre légère si vous avez mal aux poignets, la barre EZ (courbée) est plus confortable.",
+      "Ne verrouillez pas violemment les coudes en bas."
+    ],
+    "commonMistakes": [
+      "Se balancer avec le dos pour monter la barre.",
+      "Avancer les coudes vers l'avant.",
+      "Raccourcir la descente."
+    ],
+    "alternatives": [
+      "curl-halteres-alternes",
+      "curl-marteau",
+      "curl-concentre"
+    ],
+    "images": [
+      "/images/exercises/curl-barre/0.jpg",
+      "/images/exercises/curl-barre/1.jpg"
+    ]
+  },
+  {
+    "id": "curl-halteres-alternes",
+    "slug": "curl-halteres-alternes",
+    "name": "Curl haltères alternés",
+    "description": "Les curls alternés se font un bras à la fois, avec une rotation du poignet en montant. Ce mouvement simple muscle tout le biceps et permet de se concentrer sur chaque bras. Parfait pour les débutants comme pour les confirmés.",
+    "primaryMuscle": "Biceps",
+    "secondaryMuscles": [
+      "Avant-bras"
+    ],
+    "equipment": "Haltères",
+    "difficulty": "Débutant",
+    "mechanics": "Isolation",
+    "executionSteps": [
+      "Debout ou assis, un haltère dans chaque main le long du corps, paumes face aux cuisses.",
+      "Gardez les coudes collés au corps et le buste droit.",
+      "Montez un haltère vers l'épaule en tournant la paume vers le plafond en cours de route.",
+      "Redescendez lentement, puis recommencez avec l'autre bras."
+    ],
+    "safetyTips": [
+      "Commencez léger et augmentez progressivement.",
+      "Ne balancez pas les épaules.",
+      "Évitez de bloquer la respiration."
+    ],
+    "commonMistakes": [
+      "Lancer l'haltère avec les hanches.",
+      "Laisser le coude partir vers l'avant.",
+      "Descendre trop vite."
+    ],
+    "alternatives": [
+      "curl-barre",
+      "traction-supination",
+      "curl-marteau"
+    ],
+    "images": [
+      "/images/exercises/curl-halteres-alternes/0.jpg",
+      "/images/exercises/curl-halteres-alternes/1.jpg"
+    ]
+  },
+  {
+    "id": "curl-marteau",
+    "slug": "curl-marteau",
+    "name": "Curl marteau",
+    "description": "Dans le curl marteau, les paumes restent face à face, comme si vous teniez un marteau. Cette prise sollicite le biceps et l'avant-bras et soulage les poignets. Elle est excellente pour renforcer la force de préhension.",
+    "primaryMuscle": "Biceps",
+    "secondaryMuscles": [
+      "Avant-bras"
+    ],
+    "equipment": "Haltères",
+    "difficulty": "Débutant",
+    "mechanics": "Isolation",
+    "executionSteps": [
+      "Debout, un haltère dans chaque main, paumes tournées vers les cuisses, coudes le long du corps.",
+      "Gardez les poignets droits, sans les plier.",
+      "Montez les haltères vers les épaules en gardant la prise neutre, sans bouger les coudes.",
+      "Redescendez lentement jusqu'à tendre les bras."
+    ],
+    "safetyTips": [
+      "Choisissez un poids que vous contrôlez avec les poignets droits.",
+      "Gardez les épaules basses.",
+      "Faites une pause d'une seconde en haut."
+    ],
+    "commonMistakes": [
+      "Balancer le buste.",
+      "Plier les poignets.",
+      "Descendre sans contrôle."
+    ],
+    "alternatives": [
+      "curl-barre",
+      "traction-supination",
+      "curl-halteres-alternes"
+    ],
+    "images": [
+      "/images/exercises/curl-marteau/0.jpg",
+      "/images/exercises/curl-marteau/1.jpg"
+    ]
+  },
+  {
+    "id": "curl-concentre",
+    "slug": "curl-concentre",
+    "name": "Curl concentré assis",
+    "description": "Assis, le coude calé contre l'intérieur de la cuisse, vous montez l'haltère vers l'épaule. Cette position empêche toute triche et isole totalement le biceps. L'exercice idéal pour bien sentir le muscle travailler.",
+    "primaryMuscle": "Biceps",
+    "secondaryMuscles": [],
+    "equipment": "Haltères",
+    "difficulty": "Intermédiaire",
+    "mechanics": "Isolation",
+    "executionSteps": [
+      "Asseyez-vous sur un banc, jambes écartées, haltère dans une main, coude contre l'intérieur de la cuisse.",
+      "Penchez légèrement le buste en avant, bras tendu vers le sol.",
+      "Fléchissez le coude pour monter l'haltère vers l'épaule en serrant le biceps en haut.",
+      "Redescendez lentement, sans balancer, avant de changer de bras."
+    ],
+    "safetyTips": [
+      "Utilisez un haltère léger.",
+      "Gardez le dos droit, ne vous affaissez pas.",
+      "Évitez de tourner le poignet vers l'extérieur."
+    ],
+    "commonMistakes": [
+      "Décoller le coude de la cuisse.",
+      "Utiliser l'élan du buste.",
+      "Aller trop vite."
+    ],
+    "alternatives": [
+      "curl-barre",
+      "traction-supination",
+      "curl-halteres-alternes"
+    ],
+    "images": [
+      "/images/exercises/curl-concentre/0.jpg",
+      "/images/exercises/curl-concentre/1.jpg"
+    ]
+  },
+  {
+    "id": "traction-supination",
+    "slug": "traction-supination",
+    "name": "Tractions prise serrée (chin-up)",
+    "description": "Dans cette traction, les paumes sont tournées vers vous, ce qui fait davantage travailler les biceps que la traction classique. Elle renforce aussi le dos. Un exercice très complet qui mesure la force du haut du corps, à progresser avec un élastique.",
+    "primaryMuscle": "Biceps",
+    "secondaryMuscles": [
+      "Dos",
+      "Épaules"
+    ],
+    "equipment": "Poids du corps",
+    "difficulty": "Avancé",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Saisissez la barre paumes tournées vers vous, mains à largeur d'épaules, bras tendus.",
+      "Gainez les abdominaux, serrez les omoplates vers le bas et croisez les chevilles.",
+      "Tirez en pliant les coudes jusqu'à passer le menton au-dessus de la barre.",
+      "Redescendez lentement en trois secondes jusqu'à tendre les bras."
+    ],
+    "safetyTips": [
+      "Utilisez un élastique d'assistance si vous débutez.",
+      "Redescendez toujours de façon contrôlée.",
+      "Échauffez les poignets et les coudes avant la série."
+    ],
+    "commonMistakes": [
+      "Se balancer pour monter.",
+      "Ne pas tendre complètement les bras.",
+      "Hausser les épaules."
+    ],
+    "alternatives": [
+      "curl-barre",
+      "curl-halteres-alternes",
+      "curl-marteau"
+    ],
+    "images": [
+      "/images/exercises/traction-supination/0.jpg",
+      "/images/exercises/traction-supination/1.jpg"
+    ]
+  },
+  {
+    "id": "extension-poulie-haute",
+    "slug": "extension-poulie-haute",
+    "name": "Extension triceps à la poulie haute",
+    "description": "Debout face à la poulie, vous poussez la barre vers le bas en tendant les bras. L'exercice isole l'arrière des bras, le triceps, qui représente plus de la moitié du volume du bras. Il est simple, sûr et très efficace.",
+    "primaryMuscle": "Triceps",
+    "secondaryMuscles": [],
+    "equipment": "Salle de sport",
+    "difficulty": "Débutant",
+    "mechanics": "Isolation",
+    "executionSteps": [
+      "Placez-vous face à la poulie haute, saisissez la barre ou la corde, coudes collés au corps.",
+      "Penchez légèrement le buste en avant, genoux souples.",
+      "Poussez vers le bas en tendant complètement les bras en expirant.",
+      "Remontez lentement jusqu'à ce que les avant-bras dépassent légèrement l'horizontale."
+    ],
+    "safetyTips": [
+      "Gardez les coudes immobiles tout au long du mouvement.",
+      "Choisissez une charge qui permet de contrôler la remontée.",
+      "Ne vous appuyez pas sur la barre avec le poids du corps."
+    ],
+    "commonMistakes": [
+      "Laisser les coudes s'écarter ou monter.",
+      "Pencher excessivement le buste.",
+      "Remonter trop haut."
+    ],
+    "alternatives": [
+      "extension-triceps-halteres",
+      "dips-banc",
+      "pompes-diamant"
+    ],
+    "images": [
+      "/images/exercises/extension-poulie-haute/0.jpg",
+      "/images/exercises/extension-poulie-haute/1.jpg"
+    ]
+  },
+  {
+    "id": "barre-front",
+    "slug": "barre-front",
+    "name": "Barre au front (extension couchée)",
+    "description": "Allongé sur un banc, vous fléchissez les coudes pour descendre la barre vers le front puis vous la repoussez. Cet exercice d'isolation étire fortement le triceps. Il demande de la concentration et des charges modérées pour protéger les coudes.",
+    "primaryMuscle": "Triceps",
+    "secondaryMuscles": [],
+    "equipment": "Salle de sport",
+    "difficulty": "Intermédiaire",
+    "mechanics": "Isolation",
+    "executionSteps": [
+      "Allongez-vous sur le banc, saisissez une barre EZ à bout de bras au-dessus de la poitrine, mains à largeur d'épaules.",
+      "Gardez les coudes pointés vers le plafond et le haut des bras immobile.",
+      "Fléchissez les coudes pour descendre la barre vers le haut du front en inspirant.",
+      "Tendez les bras en expirant pour remonter la barre sans bouger les épaules."
+    ],
+    "safetyTips": [
+      "Utilisez une charge modérée pour ménager les coudes.",
+      "Faites-vous assister d'un partenaire pour les séries lourdes.",
+      "Arrêtez en cas de douleur au coude."
+    ],
+    "commonMistakes": [
+      "Écarter les coudes.",
+      "Faire descendre la barre derrière la tête sans contrôle.",
+      "Utiliser les épaules pour pousser."
+    ],
+    "alternatives": [
+      "extension-triceps-halteres",
+      "dips-banc",
+      "pompes-diamant"
+    ],
+    "images": [
+      "/images/exercises/barre-front/0.jpg",
+      "/images/exercises/barre-front/1.jpg"
+    ]
+  },
+  {
+    "id": "extension-triceps-halteres",
+    "slug": "extension-triceps-halteres",
+    "name": "Extension triceps nuque à l'haltère",
+    "description": "Un seul haltère tenu à deux mains au-dessus de la tête : vous le descendez derrière la nuque puis vous le remontez. Ce mouvement étire et renforce le triceps avec très peu de matériel. Il se fait assis ou debout.",
+    "primaryMuscle": "Triceps",
+    "secondaryMuscles": [],
+    "equipment": "Haltères",
+    "difficulty": "Débutant",
+    "mechanics": "Isolation",
+    "executionSteps": [
+      "Assis ou debout, tenez un haltère à deux mains, bras tendus au-dessus de la tête.",
+      "Gardez les coudes serrés près des oreilles et pointés vers le plafond.",
+      "Fléchissez les coudes pour descendre l'haltère derrière la tête jusqu'à un étirement confortable.",
+      "Tendez les bras en expirant pour revenir au point de départ."
+    ],
+    "safetyTips": [
+      "Choisissez un haltère léger au départ.",
+      "Gardez le dos droit, sans cambrer.",
+      "Tenez bien l'haltère par la tête, paumes sous le poids."
+    ],
+    "commonMistakes": [
+      "Écarter les coudes.",
+      "Cambrer le bas du dos.",
+      "Raccourcir l'amplitude."
+    ],
+    "alternatives": [
+      "extension-poulie-haute",
+      "barre-front",
+      "dips-banc"
+    ],
+    "images": [
+      "/images/exercises/extension-triceps-halteres/0.jpg",
+      "/images/exercises/extension-triceps-halteres/1.jpg"
+    ]
+  },
+  {
+    "id": "dips-banc",
+    "slug": "dips-banc",
+    "name": "Dips entre deux chaises ou sur banc",
+    "description": "Les mains posées sur un banc derrière vous, vous fléchissez les coudes pour descendre le corps. C'est un excellent exercice pour muscler l'arrière des bras sans matériel, à la maison ou au parc.",
+    "primaryMuscle": "Triceps",
+    "secondaryMuscles": [
+      "Épaules",
+      "Pectoraux"
+    ],
+    "equipment": "Poids du corps",
+    "difficulty": "Débutant",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Asseyez-vous au bord d'un banc, mains à côté des hanches, doigts vers l'avant, puis avancez les fesses dans le vide.",
+      "Gardez les jambes fléchies, pieds à plat, dos près du banc.",
+      "Fléchissez les coudes vers l'arrière pour descendre à environ 90 degrés.",
+      "Poussez dans les mains pour remonter en tendant les bras sans verrouiller brutalement."
+    ],
+    "safetyTips": [
+      "Ne descendez pas plus bas que 90 degrés pour protéger l'épaule.",
+      "Utilisez un support très stable.",
+      "Gardez les épaules basses, loin des oreilles."
+    ],
+    "commonMistakes": [
+      "Éloigner le dos du banc.",
+      "Écarter les coudes sur les côtés.",
+      "Descendre trop bas."
+    ],
+    "alternatives": [
+      "extension-poulie-haute",
+      "barre-front",
+      "extension-triceps-halteres"
+    ],
+    "images": [
+      "/images/exercises/dips-banc/0.jpg",
+      "/images/exercises/dips-banc/1.jpg"
+    ]
+  },
+  {
+    "id": "pompes-diamant",
+    "slug": "pompes-diamant",
+    "name": "Pompes prise serrée (diamant)",
+    "description": "En rapprochant les mains sous la poitrine, les pompes déplacent le travail vers l'arrière des bras. C'est une variante très efficace du triceps, sans matériel, qui renforce aussi la poitrine. Facilitez-la en posant les genoux au sol.",
+    "primaryMuscle": "Triceps",
+    "secondaryMuscles": [
+      "Pectoraux",
+      "Épaules"
+    ],
+    "equipment": "Poids du corps",
+    "difficulty": "Intermédiaire",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Placez les mains sous la poitrine, index et pouces rapprochés en forme de losange, corps gainé.",
+      "Gardez le corps aligné de la tête aux talons.",
+      "Fléchissez les coudes en les gardant près du corps jusqu'à frôler les mains avec la poitrine.",
+      "Poussez fort pour revenir bras tendus."
+    ],
+    "safetyTips": [
+      "Posez les genoux au sol si les poignets sont douloureux.",
+      "Ne laissez pas le bassin s'affaisser.",
+      "Écartez légèrement les mains si le losange est inconfortable."
+    ],
+    "commonMistakes": [
+      "Écarter les coudes.",
+      "Lever les fesses.",
+      "Faire des demi-répétitions."
+    ],
+    "alternatives": [
+      "extension-poulie-haute",
+      "barre-front",
+      "extension-triceps-halteres"
+    ]
+  },
+  {
+    "id": "crunch",
+    "slug": "crunch",
+    "name": "Crunch au sol",
+    "description": "Le crunch consiste à enrouler le haut du dos vers les genoux. Il cible la sangle abdominale de façon simple et sans matériel. Réalisé lentement, avec un petit mouvement contrôlé, il est sûr pour la plupart des personnes.",
+    "primaryMuscle": "Abdominaux",
+    "secondaryMuscles": [],
+    "equipment": "Poids du corps",
+    "difficulty": "Débutant",
+    "mechanics": "Isolation",
+    "executionSteps": [
+      "Allongez-vous sur le dos, genoux fléchis, pieds à plat, mains légèrement posées de chaque côté de la tête.",
+      "Gardez le menton légèrement rentré, comme pour tenir une pomme sous le menton.",
+      "Enroulez les épaules vers les genoux en expirant et en contractant le ventre.",
+      "Redescendez lentement sans relâcher complètement les abdominaux."
+    ],
+    "safetyTips": [
+      "Ne tirez jamais sur la nuque avec les mains.",
+      "Le mouvement est petit : les épaules se décollent seulement de quelques centimètres.",
+      "Soufflez toujours à la montée."
+    ],
+    "commonMistakes": [
+      "Tirer sur la nuque.",
+      "Monter tout le dos.",
+      "Aller trop vite."
+    ],
+    "alternatives": [
+      "russian-twist",
+      "crunch-poulie-haute",
+      "gainage-planche"
+    ],
+    "images": [
+      "/images/exercises/crunch/0.jpg",
+      "/images/exercises/crunch/1.jpg"
+    ]
+  },
+  {
+    "id": "gainage-planche",
+    "slug": "gainage-planche",
+    "name": "Gainage planche",
+    "description": "La planche consiste à tenir le corps droit sur les avant-bras. Elle renforce la ceinture abdominale profonde, essentielle pour protéger le dos. Quelques secondes bien tenues valent mieux qu'une longue minute mal exécutée.",
+    "primaryMuscle": "Abdominaux",
+    "secondaryMuscles": [
+      "Épaules",
+      "Fessiers"
+    ],
+    "equipment": "Poids du corps",
+    "difficulty": "Débutant",
+    "mechanics": "Isolation",
+    "executionSteps": [
+      "Placez les avant-bras au sol, coudes sous les épaules, jambes tendues sur les pointes de pieds.",
+      "Alignez la tête, le dos, les hanches et les talons en une ligne droite.",
+      "Serrez les abdominaux et les fessiers en gardant la respiration régulière.",
+      "Tenez la position 20 à 40 secondes puis relâchez doucement."
+    ],
+    "safetyTips": [
+      "Posez les genoux au sol si le bas du dos se creuse.",
+      "Ne retenez pas votre respiration.",
+      "Arrêtez la série dès que la forme se dégrade."
+    ],
+    "commonMistakes": [
+      "Laisser le bassin s'affaisser.",
+      "Lever les fesses en l'air.",
+      "Regarder devant et casser la nuque."
+    ],
+    "alternatives": [
+      "russian-twist",
+      "crunch-poulie-haute",
+      "crunch"
+    ],
+    "images": [
+      "/images/exercises/gainage-planche/0.jpg",
+      "/images/exercises/gainage-planche/1.jpg"
+    ]
+  },
+  {
+    "id": "gainage-lateral",
+    "slug": "gainage-lateral",
+    "name": "Gainage latéral",
+    "description": "Allongé sur le côté, appuyé sur l'avant-bras, vous soulevez le bassin pour former une ligne droite. Cet exercice renforce les muscles obliques, sur les côtés du ventre, qui stabilisent la colonne vertébrale.",
+    "primaryMuscle": "Abdominaux",
+    "secondaryMuscles": [
+      "Épaules"
+    ],
+    "equipment": "Poids du corps",
+    "difficulty": "Intermédiaire",
+    "mechanics": "Isolation",
+    "executionSteps": [
+      "Allongez-vous sur le côté, coude sous l'épaule, jambes empilées, genoux pouvant être fléchis pour faciliter.",
+      "Contractez les abdominaux et soulevez le bassin du sol.",
+      "Alignez l'oreille, l'épaule, la hanche et les chevilles en une ligne.",
+      "Tenez 15 à 30 secondes en respirant régulièrement, puis changez de côté."
+    ],
+    "safetyTips": [
+      "Fléchissez les genoux pour réduire l'intensité.",
+      "Gardez l'épaule loin de l'oreille.",
+      "Arrêtez en cas de douleur à l'épaule."
+    ],
+    "commonMistakes": [
+      "Laisser le bassin descendre.",
+      "Rouler le corps vers l'avant.",
+      "Retenir son souffle."
+    ],
+    "alternatives": [
+      "russian-twist",
+      "crunch-poulie-haute",
+      "crunch"
+    ],
+    "images": [
+      "/images/exercises/gainage-lateral/0.jpg",
+      "/images/exercises/gainage-lateral/1.jpg"
+    ]
+  },
+  {
+    "id": "dead-bug",
+    "slug": "dead-bug",
+    "name": "Insecte mort (dead bug)",
+    "description": "Allongé sur le dos, vous étendez en alternance un bras et la jambe opposée sans que le bas du dos ne bouge. Un exercice très sûr pour apprendre à gainer le tronc, recommandé pour la santé du dos à tout âge.",
+    "primaryMuscle": "Abdominaux",
+    "secondaryMuscles": [],
+    "equipment": "Poids du corps",
+    "difficulty": "Débutant",
+    "mechanics": "Isolation",
+    "executionSteps": [
+      "Allongez-vous sur le dos, bras tendus vers le plafond, genoux fléchis à 90 degrés au-dessus des hanches.",
+      "Plaquez doucement le bas du dos contre le sol en serrant le ventre.",
+      "Descendez lentement le bras droit derrière la tête et la jambe gauche vers le sol.",
+      "Revenez au centre puis recommencez avec l'autre côté, en alternant."
+    ],
+    "safetyTips": [
+      "Si le dos se décolle du sol, réduisez l'amplitude.",
+      "Soufflez lentement en étendant les membres.",
+      "Allez lentement, sans à-coups."
+    ],
+    "commonMistakes": [
+      "Cambrer le bas du dos.",
+      "Aller trop vite.",
+      "Retenir la respiration."
+    ],
+    "alternatives": [
+      "russian-twist",
+      "crunch-poulie-haute",
+      "crunch"
+    ],
+    "images": [
+      "/images/exercises/dead-bug/0.jpg",
+      "/images/exercises/dead-bug/1.jpg"
+    ]
+  },
+  {
+    "id": "releve-jambes-allonge",
+    "slug": "releve-jambes-allonge",
+    "name": "Relevé de jambes allongé",
+    "description": "Allongé sur le dos, vous levez les jambes vers le plafond puis les redescendez lentement. Cet exercice sollicite surtout le bas du ventre. Il demande de bien plaquer le dos au sol pour rester sûr.",
+    "primaryMuscle": "Abdominaux",
+    "secondaryMuscles": [],
+    "equipment": "Poids du corps",
+    "difficulty": "Intermédiaire",
+    "mechanics": "Isolation",
+    "executionSteps": [
+      "Allongez-vous sur le dos, mains sous les fesses, jambes tendues ou légèrement fléchies.",
+      "Plaquez le bas du dos au sol en contractant le ventre.",
+      "Levez les jambes jusqu'à la verticale en expirant.",
+      "Redescendez lentement sans toucher le sol et recommencez."
+    ],
+    "safetyTips": [
+      "Fléchissez les genoux si le bas du dos se cambre.",
+      "Ne descendez pas plus bas si le dos décolle.",
+      "Gardez la nuque détendue."
+    ],
+    "commonMistakes": [
+      "Laisser le dos se creuser.",
+      "Balancer les jambes avec élan.",
+      "Descendre trop vite."
+    ],
+    "alternatives": [
+      "russian-twist",
+      "crunch-poulie-haute",
+      "crunch"
+    ],
+    "images": [
+      "/images/exercises/releve-jambes-allonge/0.jpg",
+      "/images/exercises/releve-jambes-allonge/1.jpg"
+    ]
+  },
+  {
+    "id": "russian-twist",
+    "slug": "russian-twist",
+    "name": "Rotation russe avec haltère",
+    "description": "Assis en équilibre, vous tournez le buste de droite à gauche en tenant un haltère. Cet exercice fait travailler les obliques, les muscles qui permettent de tourner le tronc. Il se réalise lentement et avec un petit poids.",
+    "primaryMuscle": "Abdominaux",
+    "secondaryMuscles": [],
+    "equipment": "Haltères",
+    "difficulty": "Intermédiaire",
+    "mechanics": "Isolation",
+    "executionSteps": [
+      "Asseyez-vous au sol, genoux fléchis, talons posés, buste incliné de 45 degrés, haltère tenu à deux mains.",
+      "Gardez le dos droit et la poitrine ouverte.",
+      "Tournez le buste vers la droite en amenant l'haltère près de la hanche.",
+      "Revenez au centre puis tournez vers la gauche, en alternant avec contrôle."
+    ],
+    "safetyTips": [
+      "Gardez les pieds au sol pour plus de stabilité.",
+      "Utilisez un haltère léger.",
+      "Ne forcez pas si le bas du dos est sensible."
+    ],
+    "commonMistakes": [
+      "Arrondir le dos.",
+      "Tourner seulement les bras.",
+      "Aller trop vite."
+    ],
+    "alternatives": [
+      "crunch",
+      "gainage-planche",
+      "gainage-lateral"
+    ],
+    "images": [
+      "/images/exercises/russian-twist/0.jpg",
+      "/images/exercises/russian-twist/1.jpg"
+    ]
+  },
+  {
+    "id": "crunch-poulie-haute",
+    "slug": "crunch-poulie-haute",
+    "name": "Crunch à la poulie haute",
+    "description": "À genoux face à une poulie haute, vous enroulez le buste vers le sol en tirant la corde. La résistance de la poulie permet de progresser en ajoutant de la charge, ce qui est difficile avec les crunchs classiques.",
+    "primaryMuscle": "Abdominaux",
+    "secondaryMuscles": [],
+    "equipment": "Salle de sport",
+    "difficulty": "Intermédiaire",
+    "mechanics": "Isolation",
+    "executionSteps": [
+      "Agenouillez-vous face à la poulie, saisissez la corde et tenez-la près de la tête.",
+      "Gardez les hanches fixes et les fesses sur les talons.",
+      "Enroulez le haut du corps vers le sol en contractant le ventre et en expirant.",
+      "Remontez lentement jusqu'à étirer légèrement les abdominaux."
+    ],
+    "safetyTips": [
+      "Utilisez une charge modérée.",
+      "Ne tirez pas avec les bras, ils ne servent que de support.",
+      "Gardez le cou détendu."
+    ],
+    "commonMistakes": [
+      "Tirer avec les bras.",
+      "Bouger les hanches.",
+      "Tirer sur la nuque."
+    ],
+    "alternatives": [
+      "crunch",
+      "gainage-planche",
+      "gainage-lateral"
+    ],
+    "images": [
+      "/images/exercises/crunch-poulie-haute/0.jpg",
+      "/images/exercises/crunch-poulie-haute/1.jpg"
+    ]
+  },
+  {
+    "id": "burpees",
+    "slug": "burpees",
+    "name": "Burpees",
+    "description": "Le burpee enchaîne squat, planche, pompe et saut. Il sollicite tout le corps et fait monter le cœur très vite. À réserver aux personnes en bonne forme, la version sans saut ni pompe est une bonne adaptation.",
+    "primaryMuscle": "Corps entier",
+    "secondaryMuscles": [
+      "Pectoraux",
+      "Quadriceps",
+      "Épaules"
+    ],
+    "equipment": "Poids du corps",
+    "difficulty": "Avancé",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Debout, pieds à largeur d'épaules, descendez en squat et posez les mains au sol.",
+      "Projetez ou reculez les pieds en arrière pour vous retrouver en position de planche.",
+      "Descendez la poitrine au sol ou faites une pompe, puis ramenez les pieds vers les mains.",
+      "Sautez en tendant les bras au-dessus de la tête puis recommencez."
+    ],
+    "safetyTips": [
+      "Supprimez le saut ou la pompe pour faciliter.",
+      "Allez à votre rythme, la qualité prime sur la vitesse.",
+      "Arrêtez-vous en cas d'essoufflement excessif ou de vertige."
+    ],
+    "commonMistakes": [
+      "Creuser le dos en planche.",
+      "Poser les pieds trop loin des mains.",
+      "Se précipiter et perdre la technique."
+    ],
+    "alternatives": [
+      "thruster-halteres",
+      "souleve-de-terre-barre",
+      "balancier-halteres"
+    ]
+  },
+  {
+    "id": "thruster-halteres",
+    "slug": "thruster-halteres",
+    "name": "Thruster aux haltères",
+    "description": "Le thruster combine un squat et un développé d'épaules en un seul mouvement fluide. Il sollicite les jambes, les épaules et le tronc simultanément. Un excellent exercice de condition physique complète.",
+    "primaryMuscle": "Corps entier",
+    "secondaryMuscles": [
+      "Quadriceps",
+      "Épaules",
+      "Fessiers"
+    ],
+    "equipment": "Haltères",
+    "difficulty": "Intermédiaire",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Debout, un haltère dans chaque main à hauteur d'épaules, pieds à largeur d'épaules.",
+      "Descendez en squat, buste droit, genoux dans l'axe des pieds.",
+      "Remontez en poussant dans les talons et en enchaînant avec un développé des haltères au-dessus de la tête.",
+      "Redescendez les haltères aux épaules et recommencez avec fluidité."
+    ],
+    "safetyTips": [
+      "Prenez des haltères légers pour apprendre le geste.",
+      "Gardez le tronc gainé tout au long du mouvement.",
+      "Faites une pause entre les répétitions si la technique se dégrade."
+    ],
+    "commonMistakes": [
+      "Pencher le buste en avant dans le squat.",
+      "Cambrer le dos en poussant.",
+      "Aller trop vite."
+    ],
+    "alternatives": [
+      "burpees",
+      "souleve-de-terre-barre",
+      "mountain-climbers"
+    ]
+  },
+  {
+    "id": "souleve-de-terre-barre",
+    "slug": "souleve-de-terre-barre",
+    "name": "Soulevé de terre à la barre",
+    "description": "Le soulevé de terre consiste à soulever une barre du sol jusqu'à la position debout. C'est l'un des exercices les plus complets, il sollicite les jambes, le dos et le tronc. Il demande une technique rigoureuse et une progression prudente.",
+    "primaryMuscle": "Corps entier",
+    "secondaryMuscles": [
+      "Ischio-jambiers",
+      "Fessiers",
+      "Dos"
+    ],
+    "equipment": "Salle de sport",
+    "difficulty": "Avancé",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Placez les pieds sous la barre à largeur de hanches, saisissez-la mains à l'extérieur des genoux, dos plat.",
+      "Gonflez le ventre, serrez les abdominaux et tendez les bras, épaules au-dessus de la barre.",
+      "Poussez dans le sol avec les jambes et remontez la barre le long des jambes jusqu'à vous tenir droit.",
+      "Redescendez en poussant les hanches vers l'arrière et en gardant la barre contre les jambes."
+    ],
+    "safetyTips": [
+      "Gardez le dos plat du début à la fin.",
+      "Commencez avec une barre légère ou sur plots.",
+      "Faites-vous corriger par un coach si possible."
+    ],
+    "commonMistakes": [
+      "Arrondir le dos.",
+      "Tirer avec les bras avant de pousser avec les jambes.",
+      "Éloigner la barre du corps."
+    ],
+    "alternatives": [
+      "burpees",
+      "thruster-halteres",
+      "balancier-halteres"
+    ],
+    "images": [
+      "/images/exercises/souleve-de-terre-barre/0.jpg",
+      "/images/exercises/souleve-de-terre-barre/1.jpg"
+    ]
+  },
+  {
+    "id": "balancier-halteres",
+    "slug": "balancier-halteres",
+    "name": "Balancier avec un haltère (swing)",
+    "description": "Le balancier envoie un haltère de l'arrière des jambes jusqu'à hauteur de poitrine grâce à une poussée explosive des hanches. Il travaille les fessiers, le dos et le cardio. Concentrez-vous sur l'élan donné par les hanches.",
+    "primaryMuscle": "Corps entier",
+    "secondaryMuscles": [
+      "Fessiers",
+      "Ischio-jambiers",
+      "Épaules"
+    ],
+    "equipment": "Haltères",
+    "difficulty": "Intermédiaire",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Debout, pieds un peu plus larges que les épaules, tenez un haltère à deux mains devant les cuisses.",
+      "Penchez le buste, poussez les hanches en arrière et faites passer l'haltère entre les jambes.",
+      "Projetez les hanches vers l'avant pour envoyer l'haltère à hauteur de poitrine, bras tendus.",
+      "Laissez l'haltère redescendre et recommencez le balancement avec fluidité."
+    ],
+    "safetyTips": [
+      "Gardez le dos plat, l'élan vient des hanches.",
+      "Commencez avec un haltère léger.",
+      "Vérifiez que vous avez de l'espace autour de vous."
+    ],
+    "commonMistakes": [
+      "Lever l'haltère avec les bras.",
+      "Arrondir le dos.",
+      "Se pencher au lieu de pousser les hanches en arrière."
+    ],
+    "alternatives": [
+      "burpees",
+      "souleve-de-terre-barre",
+      "mountain-climbers"
+    ]
+  },
+  {
+    "id": "mountain-climbers",
+    "slug": "mountain-climbers",
+    "name": "Grimpeurs (mountain climbers)",
+    "description": "En position de planche, vous ramenez alternativement les genoux vers la poitrine, comme si vous grimpiez. Ce mouvement combine gainage et cardio et fait travailler tout le corps. Il peut se faire lentement pour une version plus douce.",
+    "primaryMuscle": "Corps entier",
+    "secondaryMuscles": [
+      "Abdominaux",
+      "Épaules",
+      "Quadriceps"
+    ],
+    "equipment": "Poids du corps",
+    "difficulty": "Débutant",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Placez-vous en position de pompe, mains sous les épaules, corps aligné.",
+      "Serrez les abdominaux et gardez les hanches à hauteur du dos.",
+      "Ramenez un genou vers la poitrine puis changez de jambe en alternance.",
+      "Maintenez un rythme régulier en respirant et en gardant le corps stable."
+    ],
+    "safetyTips": [
+      "Ralentissez ou marchez pour une version plus douce.",
+      "Placez les mains sur un banc pour faciliter.",
+      "Gardez les épaules au-dessus des mains."
+    ],
+    "commonMistakes": [
+      "Lever le bassin.",
+      "Rebondir sur les pieds.",
+      "Retenir sa respiration."
+    ],
+    "alternatives": [
+      "thruster-halteres",
+      "souleve-de-terre-barre",
+      "balancier-halteres"
+    ],
+    "images": [
+      "/images/exercises/mountain-climbers/0.jpg",
+      "/images/exercises/mountain-climbers/1.jpg"
+    ]
+  },
+  {
+    "id": "curl-biceps-serviette",
+    "slug": "curl-biceps-serviette",
+    "name": "Curl biceps avec une serviette",
+    "description": "Sans haltère, une serviette solide devient une résistance. Vous la tirez avec une main pendant que l'autre la retient, ce qui fait travailler le biceps en contraction continue. Une astuce simple pour muscler les bras à la maison ou en déplacement.",
+    "primaryMuscle": "Biceps",
+    "secondaryMuscles": [
+      "Avant-bras"
+    ],
+    "equipment": "Poids du corps",
+    "difficulty": "Débutant",
+    "mechanics": "Isolation",
+    "executionSteps": [
+      "Debout ou assis, tenez une serviette roulée avec les deux mains, mains à largeur d'épaules, coudes le long du corps.",
+      "Laissez la main du bas retenir la serviette en tirant vers le bas, comme pour la déchirer légèrement.",
+      "Fléchissez le coude de la main du haut pour monter la main vers l'épaule en contrôlant la résistance.",
+      "Redescendez lentement en trois secondes, puis changez de bras après toutes les répétitions."
+    ],
+    "safetyTips": [
+      "Dosez la résistance avec la main qui retient : elle doit rester modérée et constante.",
+      "Gardez les épaules basses et le dos droit.",
+      "Utilisez une serviette solide qui ne glisse pas dans les mains."
+    ],
+    "commonMistakes": [
+      "Résister trop fort et bloquer le mouvement.",
+      "Soulever l'épaule pour aider le bras.",
+      "Aller trop vite sans contrôler la descente."
+    ],
+    "alternatives": [
+      "traction-supination",
+      "curl-barre",
+      "curl-halteres-alternes"
+    ]
+  },
+  {
+    "id": "mollets-une-jambe",
+    "slug": "mollets-une-jambe",
+    "name": "Mollets sur une jambe",
+    "description": "En montant sur la pointe d'un seul pied, vous doublez la charge sur le mollet sans aucun matériel. Cette version avancée des élévations sur pointes de pieds renforce les mollets, améliore l'équilibre et protège la cheville.",
+    "primaryMuscle": "Mollets",
+    "secondaryMuscles": [],
+    "equipment": "Poids du corps",
+    "difficulty": "Intermédiaire",
+    "mechanics": "Isolation",
+    "executionSteps": [
+      "Tenez-vous debout près d'un mur ou d'une chaise, posez une main dessus, l'autre pied légèrement levé derrière vous.",
+      "Gardez le corps droit et la jambe d'appui presque tendue.",
+      "Montez lentement sur la pointe du pied d'appui le plus haut possible et marquez une pause d'une seconde.",
+      "Redescendez en trois secondes jusqu'au talon au sol, puis changez de jambe après la série."
+    ],
+    "safetyTips": [
+      "Gardez toujours une main sur un appui pour éviter de perdre l'équilibre.",
+      "Si c'est trop difficile, revenez aux élévations sur les deux pieds.",
+      "Descendez lentement pour protéger le tendon d'Achille."
+    ],
+    "commonMistakes": [
+      "Rebondir en bas du mouvement.",
+      "Pencher le buste vers l'avant.",
+      "Raccourcir la montée."
+    ],
+    "alternatives": [
+      "mollets-pointes-pieds",
+      "mollets-halteres-debout",
+      "mollets-debout-machine"
+    ]
+  },
+  {
+    "id": "bonjour-poids-du-corps",
+    "slug": "bonjour-poids-du-corps",
+    "name": "Inclinaison du buste mains sur la nuque",
+    "description": "Cet exercice, appelé « bonjour » en salle, apprend à plier les hanches en gardant le dos droit. Sans charge, il étire et renforce l'arrière des cuisses et prépare le corps aux soulevés. Très doux, il convient à tous les âges.",
+    "primaryMuscle": "Ischio-jambiers",
+    "secondaryMuscles": [
+      "Fessiers",
+      "Dos"
+    ],
+    "equipment": "Poids du corps",
+    "difficulty": "Débutant",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Debout, pieds à largeur de hanches, genoux légèrement fléchis, mains légères derrière la tête ou croisées sur la poitrine.",
+      "Serrez les abdominaux et gardez la poitrine ouverte, regard devant vous.",
+      "Poussez les hanches vers l'arrière pour pencher le buste, dos plat, jusqu'à sentir l'étirement derrière les cuisses.",
+      "Contractez les fessiers pour ramener les hanches vers l'avant et vous redresser sans vous cambrer."
+    ],
+    "safetyTips": [
+      "Ne descendez que dans l'amplitude où le dos reste parfaitement plat.",
+      "Gardez les genoux souples, jamais complètement verrouillés.",
+      "Faites le mouvement lentement, sans à-coups."
+    ],
+    "commonMistakes": [
+      "Arrondir le dos.",
+      "Plier les genoux pour faire un squat.",
+      "Se cambrer en remontant."
+    ],
+    "alternatives": [
+      "curl-ischio-serviette",
+      "inclinaison-buste-halteres",
+      "souleve-de-terre-roumain-halteres"
+    ]
+  },
+  {
+    "id": "anges-au-mur",
+    "slug": "anges-au-mur",
+    "name": "Anges au mur",
+    "description": "Dos et bras contre un mur, vous montez et descendez les bras comme pour faire un ange dans la neige. Cet exercice doux renforce les épaules, améliore leur mobilité et aide à redresser la posture après de longues heures assis.",
+    "primaryMuscle": "Épaules",
+    "secondaryMuscles": [
+      "Dos"
+    ],
+    "equipment": "Poids du corps",
+    "difficulty": "Débutant",
+    "mechanics": "Isolation",
+    "executionSteps": [
+      "Placez-vous dos au mur, talons à quelques centimètres, bas du dos et tête en contact avec le mur.",
+      "Levez les bras à hauteur d'épaules, coudes fléchis à 90 degrés, dos des mains et coudes contre le mur.",
+      "Montez lentement les bras au-dessus de la tête en les gardant le plus possible contre le mur.",
+      "Redescendez lentement jusqu'à hauteur d'épaules en gardant le contact, sans cambrer le dos."
+    ],
+    "safetyTips": [
+      "Restez dans une amplitude confortable, sans douleur à l'épaule.",
+      "Gardez les côtes basses et le bas du dos proche du mur.",
+      "Respirez calmement tout au long du mouvement."
+    ],
+    "commonMistakes": [
+      "Cambrer le dos pour monter plus haut.",
+      "Décoller les coudes du mur.",
+      "Hausser les épaules vers les oreilles."
+    ],
+    "alternatives": [
+      "pompes-pike",
+      "elevations-laterales",
+      "oiseau-halteres"
+    ]
+  }
+]

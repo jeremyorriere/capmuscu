@@ -1,0 +1,190 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ExerciseCard from '../../components/ExerciseCard.astro';
+import ExerciseMotion from '../../components/ExerciseMotion.astro';
+import BodyMap from '../../components/BodyMap.astro';
+import { muscleHue, levelHue, tintStyle } from '../../lib/ui';
+import { exercises, getCombos, muscleByName, exerciseById, zones } from '../../lib/data';
+import type { Combo } from '../../lib/data';
+import type { Exercise } from '../../lib/types';
+
+export function getStaticPaths() {
+  const exercisePaths = exercises.map((e) => ({ params: { slug: e.slug }, props: { exercise: e as Exercise, combo: null as Combo | null } }));
+  const comboPaths = getCombos().map((c) => ({ params: { slug: c.slug }, props: { exercise: null as Exercise | null, combo: c } }));
+  return [...exercisePaths, ...comboPaths];
+}
+
+const { exercise, combo } = Astro.props;
+const site = Astro.site!;
+
+let title = '';
+let description = '';
+let jsonLd: object[] = [];
+
+const e = exercise;
+const muscle = e ? muscleByName(e.primaryMuscle) : null;
+const alternatives = e ? e.alternatives.map((id) => exerciseById(id)).filter((x): x is Exercise => Boolean(x)) : [];
+const zone = muscle ? zones.find((z) => z.muscles.includes(muscle.slug)) : null;
+
+const faq = e
+  ? [
+      {
+        q: `Quels muscles travaille l'exercice « ${e.name} » ?`,
+        a: `${e.name} cible principalement les ${e.primaryMuscle.toLowerCase()}.${e.secondaryMuscles.length ? ` Il sollicite aussi : ${e.secondaryMuscles.map((m) => m.toLowerCase()).join(', ')}.` : ''} C'est un mouvement ${e.mechanics === 'Isolation' ? "d'isolation, qui concentre le travail sur un seul muscle" : 'polyarticulaire, qui fait travailler plusieurs articulations et plusieurs muscles à la fois'}.`,
+      },
+      {
+        q: `Par quel exercice remplacer « ${e.name} » ?`,
+        a: `Si l'appareil est occupé ou si vous voulez varier, vous pouvez le remplacer par : ${alternatives.map((a) => a.name).join(', ')}. Ces exercices ciblent aussi les ${e.primaryMuscle.toLowerCase()}.`,
+      },
+      {
+        q: `« ${e.name} » convient-il aux débutants ?`,
+        a: `Cet exercice est classé « ${e.difficulty} ». ${e.difficulty === 'Débutant' ? 'Il convient aux personnes qui débutent, à condition de choisir une charge légère et de soigner la posture.' : e.difficulty === 'Intermédiaire' ? "Il convient après quelques semaines de pratique, une fois les mouvements de base maîtrisés." : "Il est réservé aux pratiquants expérimentés ou à ceux qui sont encadrés par un coach."} Matériel nécessaire : ${e.equipment.toLowerCase()}.`,
+      },
+    ]
+  : [];
+
+if (e && muscle) {
+  title = `${e.name} : exécution, conseils et erreurs à éviter`;
+  description = `${e.name} (${e.primaryMuscle.toLowerCase()}, ${e.equipment.toLowerCase()}, niveau ${e.difficulty.toLowerCase()}) : étapes détaillées, conseils de sécurité, erreurs fréquentes et alternatives.`;
+  jsonLd = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'HowTo',
+      name: `Comment faire : ${e.name}`,
+      description: e.description,
+      step: e.executionSteps.map((text, i) => ({ '@type': 'HowToStep', position: i + 1, name: `Étape ${i + 1}`, text })),
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+    },
+  ];
+} else if (combo) {
+  title = `Exercices pour les ${combo.muscle.name.toLowerCase()} ${combo.equipment.phrase}`;
+  description = `${combo.items.length} exercices pour les ${combo.muscle.name.toLowerCase()} ${combo.equipment.phrase} : explications simples, niveaux et conseils pour s'entraîner en sécurité.`;
+  jsonLd = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: title,
+      itemListElement: combo.items.map((x, i) => ({ '@type': 'ListItem', position: i + 1, url: new URL(`/exercices/${x.slug}/`, site).href, name: x.name })),
+    },
+  ];
+}
+const otherEquip = combo ? getCombos().filter((c) => c.muscle.slug === combo.muscle.slug && c.slug !== combo.slug) : [];
+---
+<Layout title={title} description={description} jsonLd={jsonLd}>
+  {e && muscle && (
+    <>
+      <Breadcrumb items={[{ name: 'Exercices', href: '/exercices/' }, { name: muscle.name, href: `/muscles/${muscle.slug}/` }, { name: e.name }]} />
+      <article>
+        <h1>{e.name}</h1>
+        <ul class="flex flex-wrap gap-2 list-none p-0 mt-3" aria-label="Caractéristiques">
+          <li class="badge tint" style={tintStyle(muscleHue(e.primaryMuscle))}>Muscle principal : {e.primaryMuscle}</li>
+          <li class="badge">{e.equipment}</li>
+          <li class="badge tint" style={tintStyle(levelHue(e.difficulty))}>{e.difficulty}</li>
+          <li class="badge">{e.mechanics}</li>
+        </ul>
+
+        <section class="mt-6" aria-labelledby="apercu">
+          <h2 id="apercu">Le geste en un coup d'œil</h2>
+          <div class="mt-3 grid gap-6 md:grid-cols-2 items-start">
+            <ExerciseMotion exercise={e} bodyMapInFallback={false} />
+            <BodyMap primaryMuscle={e.primaryMuscle} secondaryMuscles={e.secondaryMuscles} />
+          </div>
+          <p class="mt-4">
+            <a class="btn" href={`https://www.youtube.com/results?search_query=${encodeURIComponent(`${e.name} musculation`)}`} target="_blank" rel="noopener noreferrer">
+              Voir une démonstration vidéo<span class="sr-only"> de {e.name} (s'ouvre dans un nouvel onglet)</span>
+            </a>
+          </p>
+        </section>
+
+        <section class="mt-6 prose-cm" aria-labelledby="presentation">
+          <h2 id="presentation">Présentation</h2>
+          <p class="mt-2">{e.description}</p>
+          <p>
+            <strong>Muscles travaillés :</strong> {e.primaryMuscle} (principal){e.secondaryMuscles.length > 0 && <>, puis {e.secondaryMuscles.join(', ')}</>}.
+            {muscle.benefit}
+          </p>
+          <p class="text-sm text-muted">
+            <strong>Polyarticulaire</strong> : le mouvement fait travailler plusieurs articulations. <strong>Isolation</strong> : le mouvement concentre l'effort sur un seul muscle.
+          </p>
+        </section>
+
+        <section class="mt-8" aria-labelledby="execution">
+          <h2 id="execution">Comment faire, étape par étape</h2>
+          <ol class="mt-3 space-y-3 list-none p-0">
+            {e.executionSteps.map((s, i) => (
+              <li class="card flex gap-4 items-start">
+                <span class="flex-none w-10 h-10 rounded-full bg-primary text-page font-extrabold flex items-center justify-center" style="color: var(--on-primary)" aria-hidden="true">{i + 1}</span>
+                <p class="m-0"><span class="sr-only">Étape {i + 1} : </span>{s}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <div class="mt-8 grid gap-4 md:grid-cols-2">
+          <section class="card" aria-labelledby="securite">
+            <h2 id="securite" class="text-xl">Conseils de sécurité</h2>
+            <ul class="mt-3 space-y-2 pl-5 list-disc">{e.safetyTips.map((t) => <li>{t}</li>)}</ul>
+          </section>
+          <section class="card" aria-labelledby="erreurs">
+            <h2 id="erreurs" class="text-xl">Erreurs fréquentes</h2>
+            <ul class="mt-3 space-y-2 pl-5 list-disc">{e.commonMistakes.map((t) => <li>{t}</li>)}</ul>
+          </section>
+        </div>
+
+        <section class="mt-8" aria-labelledby="alternatives">
+          <h2 id="alternatives">Machine prise ? Alternatives pour les {e.primaryMuscle.toLowerCase()}</h2>
+          <ul class="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 list-none p-0">
+            {alternatives.map((a) => <li><ExerciseCard exercise={a} /></li>)}
+          </ul>
+        </section>
+
+        <section class="mt-8" aria-labelledby="faq">
+          <h2 id="faq">Questions fréquentes</h2>
+          <div class="mt-3 space-y-3">
+            {faq.map((f) => (
+              <div class="card">
+                <h3 class="text-lg">{f.q}</h3>
+                <p class="mt-2 mb-0 text-muted">{f.a}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <p class="mt-8 flex flex-wrap gap-3">
+          {zone && <a class="btn btn-accent" href={`/seance/?zones=${zone.slug}&auto=1`}>Créer une séance pour : {zone.name}</a>}
+          <a class="btn" href={`/muscles/${muscle.slug}/`}>Tous les exercices pour les {muscle.name.toLowerCase()}</a>
+        </p>
+      </article>
+    </>
+  )}
+  {combo && (
+    <>
+      <Breadcrumb items={[{ name: 'Exercices', href: '/exercices/' }, { name: combo.muscle.name, href: `/muscles/${combo.muscle.slug}/` }, { name: combo.equipment.label }]} />
+      <h1>Exercices pour les {combo.muscle.name.toLowerCase()} {combo.equipment.phrase}</h1>
+      <div class="mt-3 prose-cm">
+        <p>{combo.muscle.description}</p>
+        <p>
+          Voici {combo.items.length} exercices pour travailler les {combo.muscle.name.toLowerCase()} {combo.equipment.phrase}, classés du plus accessible au plus exigeant.
+          Chaque fiche détaille l'exécution, les conseils de sécurité et les erreurs à éviter. {combo.muscle.benefit}
+        </p>
+      </div>
+      <ul class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 list-none p-0">
+        {[...combo.items]
+          .sort((a, b) => ['Débutant', 'Intermédiaire', 'Avancé'].indexOf(a.difficulty) - ['Débutant', 'Intermédiaire', 'Avancé'].indexOf(b.difficulty))
+          .map((x) => <li><ExerciseCard exercise={x} /></li>)}
+      </ul>
+      <section class="mt-10" aria-labelledby="autres">
+        <h2 id="autres">Autres façons de travailler les {combo.muscle.name.toLowerCase()}</h2>
+        <ul class="mt-3 space-y-1 list-none p-0">
+          <li><a class="link min-h-12 flex items-center" href={`/muscles/${combo.muscle.slug}/`}>Tous les exercices pour les {combo.muscle.name.toLowerCase()}</a></li>
+          {otherEquip.map((c) => <li><a class="link min-h-12 flex items-center" href={`/exercices/${c.slug}/`}>{combo.muscle.name} {c.equipment.phrase}</a></li>)}
+        </ul>
+      </section>
+    </>
+  )}
+</Layout>

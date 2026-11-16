@@ -1,0 +1,38 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ExerciseCard from '../../components/ExerciseCard.astro';
+import { muscles, exercisesForMuscle, getCombos, zones } from '../../lib/data';
+
+export function getStaticPaths() {
+  return muscles.map((m) => ({ params: { muscle: m.slug }, props: { m } }));
+}
+const { m } = Astro.props;
+const items = exercisesForMuscle(m.name);
+const combos = getCombos().filter((c) => c.muscle.slug === m.slug);
+const zone = zones.find((z) => z.muscles.includes(m.slug));
+const order = ['Débutant', 'Intermédiaire', 'Avancé'];
+const sorted = [...items].sort((a, b) => order.indexOf(a.difficulty) - order.indexOf(b.difficulty));
+---
+<Layout
+  title={`Exercices pour les ${m.name.toLowerCase()} : ${items.length} mouvements expliqués`}
+  description={`${items.length} exercices pour les ${m.name.toLowerCase()} : salle de sport, haltères ou poids du corps. Étapes, conseils de sécurité et erreurs à éviter, pour tous les niveaux.`}
+>
+  <Breadcrumb items={[{ name: 'Exercices', href: '/exercices/' }, { name: m.name }]} />
+  <h1>Exercices pour les {m.name.toLowerCase()}</h1>
+  <div class="mt-3 prose-cm">
+    <p>{m.description}</p>
+    <p>{m.benefit} Choisissez ci-dessous un exercice adapté à votre niveau et à votre matériel.</p>
+  </div>
+  {combos.length > 0 && (
+    <nav aria-label="Filtrer par matériel" class="mt-4">
+      <ul class="flex flex-wrap gap-2 list-none p-0">
+        {combos.map((c) => <li><a class="btn" href={`/exercices/${c.slug}/`}>{c.equipment.label}</a></li>)}
+      </ul>
+    </nav>
+  )}
+  <ul class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 list-none p-0">
+    {sorted.map((e) => <li><ExerciseCard exercise={e} /></li>)}
+  </ul>
+  {zone && <p class="mt-8"><a class="btn btn-accent" href={`/seance/?zones=${zone.slug}&auto=1`}>Créer une séance : {zone.name}</a></p>}
+</Layout>

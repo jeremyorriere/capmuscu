@@ -1,0 +1,14 @@
+---
+import { motionHtml } from '../lib/motion';
+import { bodyMapSvg } from '../lib/bodymap';
+import type { Exercise } from '../lib/types';
+interface Props { exercise: Exercise }
+const { exercise } = Astro.props;
+// Le contenu est dans un <template> : les images ne se chargent qu'à l'ouverture du tiroir.
+const html = `<div>${motionHtml(exercise, { bodyMapInFallback: false })}</div><div>${bodyMapSvg(exercise.primaryMuscle, exercise.secondaryMuscles)}</div>`;
+---
+<details class="cm-peek" data-peek>
+  <summary>Voir le geste et le muscle travaillé<span class="sr-only"> : {exercise.name}</span></summary>
+  <div class="cm-peek-body" data-peek-body></div>
+  <template set:html={html} />
+</details>

@@ -1,0 +1,152 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { WORK_PERCENTS } from '../../lib/tools';
+---
+<Layout
+  title="Outils : calculateur calories, protéines et charge maximale (1RM)"
+  description="Calculez vos besoins quotidiens en calories et en protéines, estimez votre charge maximale (1RM) et obtenez vos charges de travail de 60 % à 95 %. Gratuit, sans inscription."
+>
+  <Breadcrumb items={[{ name: 'Outils' }]} />
+  <h1>Outils pratiques</h1>
+  <p class="text-muted mt-2">Des calculs simples, faits sur votre appareil : aucune donnée n'est envoyée ni enregistrée.</p>
+
+  <section id="calories-proteines" class="card mt-8 scroll-mt-4" aria-labelledby="t-cal">
+    <h2 id="t-cal">Calories et protéines par jour</h2>
+    <p class="text-muted mt-1">Une estimation de départ à ajuster selon vos résultats après 2 à 3 semaines.</p>
+    <form id="nutri" class="mt-4 grid gap-4 sm:grid-cols-2" novalidate>
+      <div>
+        <label for="n-sex" class="font-bold block mb-1">Sexe</label>
+        <select id="n-sex" class="field"><option value="femme">Femme</option><option value="homme">Homme</option></select>
+      </div>
+      <div>
+        <label for="n-age" class="font-bold block mb-1">Âge (ans)</label>
+        <input id="n-age" class="field" type="number" inputmode="numeric" min="15" max="100" value="40" required />
+      </div>
+      <div>
+        <label for="n-weight" class="font-bold block mb-1">Poids (kg)</label>
+        <input id="n-weight" class="field" type="number" inputmode="decimal" min="30" max="250" value="70" required />
+      </div>
+      <div>
+        <label for="n-height" class="font-bold block mb-1">Taille (cm)</label>
+        <input id="n-height" class="field" type="number" inputmode="numeric" min="120" max="230" value="170" required />
+      </div>
+      <div>
+        <label for="n-activity" class="font-bold block mb-1">Activité au quotidien</label>
+        <select id="n-activity" class="field">
+          <option value="sedentaire">Peu active (bureau, peu de sport)</option>
+          <option value="leger" selected>Légère (1 à 3 séances par semaine)</option>
+          <option value="modere">Modérée (3 à 5 séances par semaine)</option>
+          <option value="intense">Intense (6 séances ou métier physique)</option>
+        </select>
+      </div>
+      <div>
+        <label for="n-goal" class="font-bold block mb-1">Objectif</label>
+        <select id="n-goal" class="field">
+          <option value="perte">Perdre un peu de graisse</option>
+          <option value="maintien" selected>Rester stable, se tonifier</option>
+          <option value="prise">Prendre du muscle</option>
+        </select>
+      </div>
+      <div class="sm:col-span-2"><button type="submit" class="btn btn-accent w-full">Calculer</button></div>
+    </form>
+    <div id="n-result" class="mt-5" role="status" aria-live="polite" hidden>
+      <div class="grid gap-3 sm:grid-cols-2">
+        <p class="rounded-xl bg-primary-soft p-4 m-0"><span class="block text-sm text-muted">Calories conseillées</span><strong id="n-kcal" class="text-3xl"></strong> <span>kcal / jour</span></p>
+        <p class="rounded-xl bg-accent-soft p-4 m-0"><span class="block text-sm text-muted">Protéines conseillées</span><strong id="n-prot" class="text-3xl"></strong> <span>g / jour</span></p>
+      </div>
+      <p id="n-explain" class="mt-3 text-muted"></p>
+    </div>
+    <p class="text-sm text-muted mt-4 mb-0">
+      Méthode : formule de Mifflin-St Jeor (énergie de base) multipliée par votre niveau d'activité. Après 60 ans, un apport en protéines un peu plus élevé aide à préserver les muscles.
+      Ces valeurs sont indicatives : en cas de maladie ou de régime particulier, demandez l'avis d'un professionnel de santé.
+    </p>
+  </section>
+
+  <section id="charge-maximale" class="card mt-8 scroll-mt-4" aria-labelledby="t-rm">
+    <h2 id="t-rm">Charge maximale (1RM) et charges de travail</h2>
+    <p class="text-muted mt-1">
+      La charge maximale, notée 1RM en anglais, est le poids le plus lourd que vous pourriez soulever <strong>une seule fois</strong>. Inutile de la tester : entrez une série plus légère, nous l'estimons pour vous.
+    </p>
+    <form id="rm" class="mt-4 grid gap-4 sm:grid-cols-2" novalidate>
+      <div>
+        <label for="r-weight" class="font-bold block mb-1">Charge soulevée (kg)</label>
+        <input id="r-weight" class="field" type="number" inputmode="decimal" min="1" max="600" value="60" required />
+      </div>
+      <div>
+        <label for="r-reps" class="font-bold block mb-1">Répétitions réussies (1 à 12)</label>
+        <input id="r-reps" class="field" type="number" inputmode="numeric" min="1" max="12" value="8" required />
+      </div>
+      <div class="sm:col-span-2"><button type="submit" class="btn btn-accent w-full">Estimer ma charge maximale</button></div>
+    </form>
+    <div id="r-result" class="mt-5" role="status" aria-live="polite" hidden>
+      <p class="rounded-xl bg-primary-soft p-4 m-0"><span class="block text-sm text-muted">Charge maximale estimée</span><strong id="r-max" class="text-3xl"></strong> <span>kg</span></p>
+      <div class="overflow-x-auto mt-4">
+        <table class="w-full text-left border-collapse">
+          <caption class="text-left font-bold mb-2">Vos charges de travail recommandées</caption>
+          <thead>
+            <tr class="border-b-2 border-line"><th scope="col" class="py-2 pr-3">% du max</th><th scope="col" class="py-2 pr-3">Charge</th><th scope="col" class="py-2 pr-3">Répétitions</th><th scope="col" class="py-2">Pour quoi faire ?</th></tr>
+          </thead>
+          <tbody id="r-body">
+            {WORK_PERCENTS.map((w) => (
+              <tr class="border-b border-line" data-pct={w.pct}>
+                <th scope="row" class="py-2 pr-3">{w.pct} %</th>
+                <td class="py-2 pr-3 font-bold" data-load>—</td>
+                <td class="py-2 pr-3">{w.reps}</td>
+                <td class="py-2">{w.use}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="text-sm text-muted mt-4 mb-0">Formule d'Epley, fiable surtout entre 2 et 10 répétitions. Au-delà de 90 %, entraînez-vous toujours avec un partenaire pareur.</p>
+  </section>
+
+  <section class="mt-8 card" aria-labelledby="t-next">
+    <h2 id="t-next">Bientôt : recettes simples et riches en protéines</h2>
+    <p class="text-muted mb-0">Une rubrique recettes est en préparation. En attendant, <a class="link" href="/seance/">créez votre séance du jour</a>.</p>
+  </section>
+
+  <script>
+    import { computeNutrition, estimate1RM, roundLoad } from '../../lib/tools';
+    import type { Activity, NutritionGoal, Sex } from '../../lib/tools';
+
+    const val = (id: string) => (document.getElementById(id) as HTMLInputElement).value;
+    const num = (id: string) => Number(val(id).replace(',', '.'));
+    const show = (id: string, text: string) => { (document.getElementById(id) as HTMLElement).textContent = text; };
+    const fmt = (n: number) => n.toLocaleString('fr-FR');
+
+    document.getElementById('nutri')!.addEventListener('submit', (ev) => {
+      ev.preventDefault();
+      const age = num('n-age'), weight = num('n-weight'), height = num('n-height');
+      const out = document.getElementById('n-result')!;
+      if (![age, weight, height].every((n) => Number.isFinite(n) && n > 0)) {
+        out.hidden = false;
+        show('n-kcal', '—'); show('n-prot', '—');
+        show('n-explain', 'Merci de renseigner votre âge, votre poids et votre taille.');
+        return;
+      }
+      const r = computeNutrition({ sex: val('n-sex') as Sex, age, weightKg: weight, heightCm: height, activity: val('n-activity') as Activity, goal: val('n-goal') as NutritionGoal });
+      show('n-kcal', fmt(r.calories));
+      show('n-prot', fmt(r.protein));
+      show('n-explain', `Pour maintenir votre poids, comptez environ ${fmt(r.maintenance)} kcal par jour. Vos protéines sont calculées à ${String(r.proteinPerKg).replace('.', ',')} g par kilo de poids de corps : répartissez-les sur 3 ou 4 repas.`);
+      out.hidden = false;
+    });
+
+    document.getElementById('rm')!.addEventListener('submit', (ev) => {
+      ev.preventDefault();
+      const weight = num('r-weight'), reps = Math.round(num('r-reps'));
+      const out = document.getElementById('r-result')!;
+      if (!(weight > 0) || !(reps >= 1 && reps <= 12)) { out.hidden = true; return; }
+      const max = estimate1RM(weight, reps);
+      show('r-max', fmt(roundLoad(max)));
+      document.querySelectorAll<HTMLElement>('#r-body tr').forEach((row) => {
+        const pct = Number(row.dataset.pct);
+        const cell = row.querySelector('[data-load]');
+        if (cell) cell.textContent = `${fmt(roundLoad((max * pct) / 100))} kg`;
+      });
+      out.hidden = false;
+    });
+  </script>
+</Layout>

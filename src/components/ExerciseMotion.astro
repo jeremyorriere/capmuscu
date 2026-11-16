@@ -1,0 +1,7 @@
+---
+import { motionHtml } from '../lib/motion';
+import type { Exercise } from '../lib/types';
+interface Props { exercise: Exercise; bodyMapInFallback?: boolean }
+const { exercise, bodyMapInFallback = true } = Astro.props;
+---
+<Fragment set:html={motionHtml(exercise, { bodyMapInFallback })} />

@@ -1,0 +1,139 @@
+---
+import '@fontsource/inter/latin-400.css';
+import '@fontsource/inter/latin-600.css';
+import '@fontsource/inter/latin-700.css';
+import '@fontsource/plus-jakarta-sans/latin-700.css';
+import '@fontsource/plus-jakarta-sans/latin-800.css';
+import '../styles/global.css';
+import { news, formatDateFr } from '../lib/data';
+import { icon } from '../lib/icons';
+import type { IconName } from '../lib/icons';
+
+interface Props {
+  title: string;
+  description: string;
+  jsonLd?: object[];
+  noindex?: boolean;
+}
+const { title, description, jsonLd = [], noindex = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const fullTitle = title.includes('CapMuscu') ? title : `${title} | CapMuscu`;
+const path = Astro.url.pathname;
+const nav: { href: string; label: string; short: string; icon: IconName; match: (p: string) => boolean }[] = [
+  { href: '/', label: 'Accueil', short: 'Accueil', icon: 'house', match: (p) => p === '/' },
+  { href: '/seance/', label: 'Créer ma séance', short: 'Ma séance', icon: 'listChecks', match: (p) => p.startsWith('/seance') },
+  { href: '/exercices/', label: 'Exercices', short: 'Exercices', icon: 'dumbbell', match: (p) => p.startsWith('/exercices') || p.startsWith('/muscles') },
+  { href: '/outils/', label: 'Outils', short: 'Outils', icon: 'calculator', match: (p) => p.startsWith('/outils') },
+];
+---
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#1D4ED8" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="CapMuscu" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+    {jsonLd.map((ld) => <script type="application/ld+json" set:html={JSON.stringify(ld)} />)}
+    <script is:inline>
+      try {
+        var t = localStorage.getItem('capmuscu-theme');
+        if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.classList.add('dark');
+      } catch (e) {}
+    </script>
+  </head>
+  <body class="min-h-screen flex flex-col pb-24 md:pb-0">
+    <a href="#contenu" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 btn btn-primary">Aller au contenu</a>
+    <header class="site-header">
+      <div class="mx-auto max-w-5xl px-4 py-2.5 flex items-center justify-between gap-3">
+        <a href="/" class="flex items-center gap-2 text-xl font-extrabold text-ink no-underline" style="font-family: var(--font-display)" aria-label="CapMuscu, retour à l'accueil">
+          <img src="/favicon.svg" alt="" width="36" height="36" />
+          CapMuscu
+        </a>
+        <nav aria-label="Navigation principale" class="hidden md:block">
+          <ul class="flex gap-1 list-none p-0 m-0">
+            {nav.map((n) => (
+              <li>
+                <a href={n.href} class="nav-link" aria-current={n.match(path) ? 'page' : undefined}>
+                  <Fragment set:html={icon(n.icon, 20)} />{n.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <button type="button" id="theme-toggle" class="btn" aria-pressed="false">
+          <span aria-hidden="true">🌙</span>
+          <span id="theme-label">Mode sombre</span>
+        </button>
+      </div>
+    </header>
+
+    <main id="contenu" class="flex-1 mx-auto w-full max-w-5xl px-4 py-6 md:py-10">
+      <slot />
+    </main>
+
+    <footer class="site-footer border-t border-line bg-card">
+      <div class="mx-auto max-w-5xl px-4 py-8 text-sm text-muted grid gap-6 md:grid-cols-[1.4fr_1fr]">
+        <div class="space-y-2">
+          <p class="m-0 text-base text-ink font-extrabold" style="font-family: var(--font-display)">CapMuscu</p>
+          <p class="m-0">Gratuit, sans publicité, sans compte. Vos séances restent sur votre appareil.</p>
+          <p class="m-0">
+            Les conseils proposés sont d'ordre général et ne remplacent pas l'avis d'un médecin ou d'un coach diplômé.
+            En cas de doute, de douleur ou de problème de santé, demandez conseil avant de vous entraîner.
+          </p>
+          <p class="m-0">Veille actualités mise à jour le {formatDateFr(news.updatedAt)}.</p>
+        </div>
+        <nav aria-label="Pied de page">
+          <ul class="list-none p-0 m-0 space-y-1">
+            {nav.map((n) => <li><a href={n.href} class="min-h-12 flex items-center font-bold">{n.label}</a></li>)}
+          </ul>
+        </nav>
+      </div>
+    </footer>
+
+    <nav class="bottom-nav md:hidden" aria-label="Navigation mobile">
+      <ul>
+        {nav.map((n) => (
+          <li>
+            <a href={n.href} class="tab" aria-current={n.match(path) ? 'page' : undefined}>
+              <Fragment set:html={icon(n.icon, 26)} />
+              <span>{n.short}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <script>
+      import '../lib/motion-client';
+    </script>
+    <script>
+      const root = document.documentElement;
+      const btn = document.getElementById('theme-toggle');
+      const label = document.getElementById('theme-label');
+      const sync = () => {
+        const dark = root.classList.contains('dark');
+        btn?.setAttribute('aria-pressed', String(dark));
+        if (label) label.textContent = dark ? 'Mode clair' : 'Mode sombre';
+        const icon = btn?.querySelector('span[aria-hidden]');
+        if (icon) icon.textContent = dark ? '☀️' : '🌙';
+      };
+      sync();
+      btn?.addEventListener('click', () => {
+        root.classList.toggle('dark');
+        try { localStorage.setItem('capmuscu-theme', root.classList.contains('dark') ? 'dark' : 'light'); } catch {}
+        sync();
+      });
+    </script>
+  </body>
+</html>

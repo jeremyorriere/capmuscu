@@ -1,0 +1,43 @@
+{
+  "recipes": [
+    {
+      "id": "bowl-skyr-fruits-rouges",
+      "slug": "bowl-skyr-fruits-rouges",
+      "name": "Bowl de skyr aux fruits rouges",
+      "description": "Un petit-déjeuner frais et rapide, riche en protéines, prêt en cinq minutes.",
+      "prepMinutes": 5,
+      "servings": 1,
+      "proteinGrams": 32,
+      "calories": 310,
+      "ingredients": ["200 g de skyr nature", "100 g de fruits rouges", "20 g de flocons d'avoine", "1 cuillère à café de miel"],
+      "steps": ["Versez le skyr dans un bol.", "Ajoutez les fruits rouges et les flocons d'avoine.", "Terminez avec le miel et servez aussitôt."],
+      "tags": ["petit-déjeuner", "sans cuisson"]
+    },
+    {
+      "id": "omelette-epinards-feta",
+      "slug": "omelette-epinards-feta",
+      "name": "Omelette épinards et feta",
+      "description": "Une omelette moelleuse, simple et très rassasiante.",
+      "prepMinutes": 10,
+      "servings": 1,
+      "proteinGrams": 28,
+      "calories": 360,
+      "ingredients": ["3 œufs", "50 g de jeunes pousses d'épinards", "30 g de feta", "1 cuillère à café d'huile d'olive", "Poivre"],
+      "steps": ["Faites tomber les épinards à la poêle avec l'huile.", "Versez les œufs battus et poivrez.", "Ajoutez la feta émiettée, repliez l'omelette et servez."],
+      "tags": ["déjeuner", "rapide"]
+    },
+    {
+      "id": "poulet-riz-legumes",
+      "slug": "poulet-riz-legumes",
+      "name": "Poulet, riz et légumes sautés",
+      "description": "Un repas équilibré classique pour récupérer après l'entraînement.",
+      "prepMinutes": 25,
+      "servings": 2,
+      "proteinGrams": 42,
+      "calories": 520,
+      "ingredients": ["300 g de blanc de poulet", "150 g de riz cru", "300 g de légumes surgelés", "1 cuillère à soupe d'huile", "Épices au choix"],
+      "steps": ["Cuisez le riz selon les indications du paquet.", "Faites revenir le poulet en dés dans l'huile.", "Ajoutez les légumes, assaisonnez et laissez cuire 8 minutes.", "Servez le poulet et les légumes sur le riz."],
+      "tags": ["dîner", "récupération"]
+    }
+  ]
+}
