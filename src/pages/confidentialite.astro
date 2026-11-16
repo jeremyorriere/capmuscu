@@ -5,7 +5,7 @@ import legal from '../data/legal.json';
 ---
 <Layout
   title="Politique de confidentialité"
-  description="CapMuscu ne demande aucun compte, n'affiche aucune publicité et ne collecte aucune donnée personnelle. Vos séances restent sur votre appareil."
+  description="CapMuscu ne demande aucun compte et ne collecte aucune donnée via le site. Vos séances restent sur votre appareil."
 >
   <Breadcrumb items={[{ name: 'Confidentialité' }]} />
   <h1>Politique de confidentialité</h1>
@@ -14,7 +14,24 @@ import legal from '../data/legal.json';
       <h2 id="resume">En résumé</h2>
       <p class="mt-2">
         CapMuscu ne demande aucun compte, n'affiche aucune publicité, n'utilise aucun traceur publicitaire ni outil
-        de mesure d'audience, et n'envoie aucune de vos données à un serveur. Aucun bandeau de cookies n'est donc nécessaire.
+        de mesure d'audience et n'enregistre aucun formulaire sur le site. Aucun bandeau de cookies n'est donc nécessaire.
+      </p>
+    </section>
+
+    <section aria-labelledby="retours">
+      <h2 id="retours">Retours envoyés par email</h2>
+      <p class="mt-2">
+        Si vous utilisez le formulaire « Donner mon avis », votre navigateur ouvre votre application de messagerie avec
+        un brouillon prérempli. Le site ne reçoit ni ne transmet ce brouillon : les informations ne sont communiquées à
+        l'éditeur que si vous choisissez d'envoyer l'email. Celui-ci peut contenir le message, la page concernée et,
+        si vous l'indiquez, votre adresse email pour recevoir une réponse. N'y inscrivez pas d'information de santé.
+      </p>
+      <p class="mt-2">
+        Ces emails sont utilisés pour traiter les retours et répondre aux demandes, sur la base de l'intérêt légitime
+        de l'éditeur à améliorer CapMuscu et à répondre aux messages. Ils ne sont pas utilisés pour vous envoyer de la
+        publicité et sont conservés dans la messagerie de l'éditeur le temps de traiter le retour et d'y répondre,
+        puis supprimés. Le fournisseur de messagerie peut également traiter ces informations pour acheminer et héberger
+        l'email.
       </p>
     </section>
 
@@ -58,9 +75,9 @@ import legal from '../data/legal.json';
     <section aria-labelledby="droits">
       <h2 id="droits">Vos droits et contact</h2>
       <p class="mt-2">
-        Aucune donnée personnelle n'étant collectée par l'éditeur, il n'y a rien à rectifier ni à supprimer de son côté.
-        Pour toute question, ou pour exercer vos droits (RGPD), écrivez à : {legal.contactEmail}. Vous pouvez aussi
-        saisir la <a href="https://www.cnil.fr/">CNIL</a>.
+        Vous pouvez demander l'accès, la rectification ou la suppression des informations personnelles que vous avez
+        envoyées par email, ou vous opposer à leur traitement. Pour toute question ou demande (RGPD), écrivez à :
+        {legal.contactEmail}. Vous pouvez aussi saisir la <a href="https://www.cnil.fr/">CNIL</a>.
       </p>
     </section>
 

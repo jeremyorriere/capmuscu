@@ -27,7 +27,9 @@ npm run update-data  # met à jour src/data/news.json (PubMed + flux RSS)
 | `src/scripts/collectors/` | Collecteurs PubMed et RSS avec repli |
 | `tests/` | Tests Vitest |
 
-Pages générées : `/`, `/seance/`, `/exercices/`, `/exercices/[slug]/`, `/exercices/[muscle]-[materiel]/` (ex. `/exercices/pectoraux-halteres/`), `/muscles/[muscle]/`, `/outils/`, `sitemap-index.xml`, `robots.txt`.
+Pages générées : `/`, `/seance/`, `/exercices/`, `/exercices/[slug]/`, `/exercices/[muscle]-[materiel]/` (ex. `/exercices/pectoraux-halteres/`), `/muscles/[muscle]/`, `/outils/`, `/feedback/`, `sitemap-index.xml`, `robots.txt`.
+
+La page `/feedback/` prépare un email avec le type de retour, la page concernée et le message. L'envoi n'a lieu qu'après confirmation dans l'application de messagerie de l'utilisateur ; le site n'enregistre pas les retours.
 
 ## Ajouter un exercice
 
