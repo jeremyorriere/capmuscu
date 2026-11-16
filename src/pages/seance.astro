@@ -66,6 +66,12 @@ const durations = [
     <p id="result-sub" class="text-muted mt-1"></p>
     <p id="live" class="sr-only" role="status" aria-live="polite"></p>
     <div id="toast" class="toast" aria-hidden="true"></div>
+    <div id="rest-timer" class="rest-timer" role="timer" aria-label="Chronomètre de repos">
+      <div class="rt-label" id="rt-label">Repos</div>
+      <div class="rt-time" id="rt-time">0:00</div>
+      <button type="button" id="rt-plus" aria-label="Ajouter 15 secondes">+15 s</button>
+      <button type="button" id="rt-stop" aria-label="Arrêter le chronomètre">Stop</button>
+    </div>
     <ol id="cards" class="mt-4 space-y-4 list-none p-0"></ol>
     <div class="mt-6 grid gap-3 sm:grid-cols-3">
       <button type="button" id="copy" class="btn">Copier ma séance</button>
@@ -248,7 +254,13 @@ const durations = [
         btn.setAttribute('aria-label', `Machine prise : remplacer « ${ex.name} » par un autre exercice pour les ${ex.primaryMuscle.toLowerCase()}`);
         btn.addEventListener('click', () => swap(index));
         btn.setAttribute('data-swap', '');
-        actions.append(doneLabel, btn);
+        const rest = document.createElement('button');
+        rest.type = 'button';
+        rest.className = 'btn btn-primary rest-start min-h-14';
+        rest.textContent = `Série terminée : repos ${item.restSeconds} s`;
+        rest.setAttribute('aria-label', `Lancer le chronomètre de repos de ${item.restSeconds} secondes après une série de ${ex.name}`);
+        rest.addEventListener('click', () => startRest(item.restSeconds, ex.name));
+        actions.append(rest, doneLabel, btn);
         // Aperçu du geste toujours visible, pour décider de garder ou de remplacer l'exercice.
         const preview = document.createElement('div');
         preview.className = 'ex-preview';
@@ -311,6 +323,54 @@ const durations = [
         setTimeout(doSwap, 160);
       } else doSwap();
     }
+
+    let restEnd = 0;
+    let restTick: ReturnType<typeof setInterval> | undefined;
+    let audioCtx: AudioContext | undefined;
+    function beep() {
+      try {
+        audioCtx = audioCtx ?? new AudioContext();
+        const o = audioCtx.createOscillator();
+        const g = audioCtx.createGain();
+        o.frequency.value = 880;
+        g.gain.value = 0.2;
+        o.connect(g).connect(audioCtx.destination);
+        o.start();
+        o.stop(audioCtx.currentTime + 0.4);
+      } catch { /* son indisponible */ }
+    }
+    function paintRest() {
+      const left = Math.max(0, Math.ceil((restEnd - Date.now()) / 1000));
+      $('rt-time').textContent = `${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}`;
+      if (left === 0) {
+        clearInterval(restTick);
+        $('rest-timer').classList.add('finished');
+        $('rt-label').textContent = 'Repos terminé : c’est reparti !';
+        $('live').textContent = 'Repos terminé.';
+        beep();
+        navigator.vibrate?.([200, 100, 200]);
+      }
+    }
+    function startRest(seconds: number, name: string) {
+      clearInterval(restTick);
+      restEnd = Date.now() + seconds * 1000;
+      const el = $('rest-timer');
+      el.classList.remove('finished');
+      el.classList.add('show');
+      $('rt-label').textContent = `Repos : ${name}`;
+      paintRest();
+      restTick = setInterval(paintRest, 250);
+    }
+    $('rt-plus').addEventListener('click', () => {
+      const el = $('rest-timer');
+      if (el.classList.contains('finished')) { startRest(15, 'repos supplémentaire'); return; }
+      restEnd += 15000;
+      paintRest();
+    });
+    $('rt-stop').addEventListener('click', () => {
+      clearInterval(restTick);
+      $('rest-timer').classList.remove('show', 'finished');
+    });
 
     let toastTimer: ReturnType<typeof setTimeout> | undefined;
     function toast(text: string) {
