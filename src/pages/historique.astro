@@ -1,0 +1,197 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+---
+<Layout
+  title="Mon historique et ma progression"
+  description="Retrouvez vos séances de musculation terminées, votre progression de charges et sauvegardez votre historique. Gratuit, sans compte, sur votre appareil."
+>
+  <Breadcrumb items={[{ name: 'Historique' }]} />
+  <h1>Mon historique</h1>
+  <p class="text-muted mt-2">Vos séances terminées et votre progression de charges. Tout reste sur cet appareil : pensez à sauvegarder.</p>
+
+  <p id="reminder" class="card mt-6 font-bold" role="status" hidden></p>
+
+  <section id="empty" class="card mt-6" hidden>
+    <h2>Pas encore de séance</h2>
+    <p class="mt-2">À la fin d'une séance, appuyez sur « Terminer et ajouter à mon historique » pour la retrouver ici.</p>
+    <p class="mt-4"><a class="btn btn-primary" href="/seance/">Créer ma séance</a></p>
+  </section>
+
+  <section id="stats" class="mt-6" aria-labelledby="stats-title" hidden>
+    <h2 id="stats-title" class="sr-only">Vos chiffres</h2>
+    <dl class="pills">
+      <div class="pill"><dt>Séances</dt><dd id="s-count">0</dd></div>
+      <div class="pill"><dt>Séries faites</dt><dd id="s-sets">0</dd></div>
+      <div class="pill"><dt>Semaines actives (sur 4)</dt><dd id="s-weeks">0</dd></div>
+    </dl>
+  </section>
+
+  <section id="progress-section" class="mt-10" aria-labelledby="prog-title" hidden>
+    <h2 id="prog-title">Progression des charges</h2>
+    <ul id="progress" class="mt-4 grid gap-4 sm:grid-cols-2 list-none p-0"></ul>
+  </section>
+
+  <section id="list-section" class="mt-10" aria-labelledby="list-title" hidden>
+    <h2 id="list-title">Séances terminées</h2>
+    <ul id="list" class="mt-4 space-y-3 list-none p-0"></ul>
+  </section>
+
+  <section class="card mt-10" aria-labelledby="backup-title">
+    <h2 id="backup-title">Sauvegarder mon historique</h2>
+    <p class="mt-2">
+      Votre historique est enregistré dans ce navigateur. Il peut disparaître si vous effacez les données du site ou
+      changez de téléphone. Exportez-le dans un fichier, et importez-le sur un autre appareil pour le retrouver.
+    </p>
+    <div class="mt-4 grid gap-3 sm:grid-cols-2">
+      <button type="button" id="export" class="btn btn-primary">Exporter mon historique</button>
+      <label class="btn cursor-pointer" for="import">Importer un fichier<input id="import" type="file" accept="application/json,.json" class="sr-only" /></label>
+    </div>
+    <p id="backup-msg" class="mt-3 font-bold text-accent" role="status" aria-live="polite"></p>
+    <p id="persist-note" class="mt-2 text-sm text-muted"></p>
+    <p class="mt-4"><button type="button" id="clear" class="btn">Effacer mon historique</button></p>
+  </section>
+
+  <script>
+    import { KEY_HISTORY, KEY_LAST_EXPORT, buildExport, isEntry, loadProgress, mergeEntries, needsExportReminder, parseExport, recentWeeks, totalSets } from '../lib/history';
+    import type { HistoryEntry } from '../lib/history';
+
+    const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+    const read = (): HistoryEntry[] => {
+      try { const raw = localStorage.getItem(KEY_HISTORY); const d = raw ? JSON.parse(raw) : []; return Array.isArray(d) ? d.filter(isEntry) : []; } catch { return []; }
+    };
+    const write = (entries: HistoryEntry[]) => { try { localStorage.setItem(KEY_HISTORY, JSON.stringify(entries)); return true; } catch { return false; } };
+    const lastExport = () => { try { return localStorage.getItem(KEY_LAST_EXPORT); } catch { return null; } };
+    const fmt = (iso: string) => new Date(iso).toLocaleDateString('fr-FR', { dateStyle: 'long' });
+    const SVG = 'http://www.w3.org/2000/svg';
+
+    function spark(points: { weight: number }[]) {
+      const w = 240, h = 70, pad = 8;
+      const ws = points.map((p) => p.weight);
+      const min = Math.min(...ws), max = Math.max(...ws);
+      const x = (i: number) => (points.length === 1 ? w / 2 : pad + (i * (w - 2 * pad)) / (points.length - 1));
+      const y = (v: number) => (max === min ? h / 2 : h - pad - ((v - min) * (h - 2 * pad)) / (max - min));
+      const svg = document.createElementNS(SVG, 'svg');
+      svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+      svg.setAttribute('class', 'w-full');
+      svg.setAttribute('aria-hidden', 'true');
+      const line = document.createElementNS(SVG, 'polyline');
+      line.setAttribute('points', points.map((p, i) => `${x(i)},${y(p.weight)}`).join(' '));
+      line.setAttribute('fill', 'none');
+      line.setAttribute('stroke', 'var(--accent-strong)');
+      line.setAttribute('stroke-width', '3');
+      line.setAttribute('stroke-linecap', 'round');
+      line.setAttribute('stroke-linejoin', 'round');
+      svg.append(line);
+      points.forEach((p, i) => {
+        const c = document.createElementNS(SVG, 'circle');
+        c.setAttribute('cx', String(x(i))); c.setAttribute('cy', String(y(p.weight))); c.setAttribute('r', '4');
+        c.setAttribute('fill', 'var(--accent-strong)');
+        svg.append(c);
+      });
+      return svg;
+    }
+
+    function render() {
+      const entries = read();
+      $('empty').hidden = entries.length > 0;
+      $('stats').hidden = $('list-section').hidden = entries.length === 0;
+      const reminder = $('reminder');
+      reminder.hidden = !needsExportReminder(entries, lastExport());
+      reminder.textContent = 'Pensez à exporter votre historique ci-dessous pour ne pas le perdre.';
+
+      $('s-count').textContent = String(entries.length);
+      $('s-sets').textContent = String(totalSets(entries));
+      $('s-weeks').textContent = String(recentWeeks(entries));
+
+      const prog = loadProgress(entries);
+      $('progress-section').hidden = prog.length === 0;
+      const pl = $('progress');
+      pl.replaceChildren();
+      for (const p of prog.slice(0, 8)) {
+        const first = p.points[0]!.weight, last = p.points[p.points.length - 1]!.weight;
+        const diff = last - first;
+        const li = document.createElement('li');
+        li.className = 'card';
+        const h = document.createElement('h3');
+        h.className = 'text-lg m-0';
+        h.textContent = p.name;
+        const t = document.createElement('p');
+        t.className = 'mt-1 mb-2 font-bold';
+        t.textContent = p.points.length === 1
+          ? `${last} kg (1 séance)`
+          : `${first} kg → ${last} kg (${diff > 0 ? '+' : ''}${Math.round(diff * 10) / 10} kg en ${p.points.length} séances)`;
+        li.append(h, t, spark(p.points));
+        pl.append(li);
+      }
+
+      const ul = $('list');
+      ul.replaceChildren();
+      for (const e of entries) {
+        const li = document.createElement('li');
+        li.className = 'card';
+        const d = document.createElement('details');
+        const s = document.createElement('summary');
+        s.className = 'font-bold cursor-pointer min-h-12 flex items-center';
+        s.textContent = `${fmt(e.date)} — ${e.title}`;
+        const items = document.createElement('ul');
+        items.className = 'mt-2 space-y-1 pl-5 list-disc';
+        for (const it of e.items) {
+          const row = document.createElement('li');
+          row.textContent = `${it.name} : ${it.setsDone}/${it.sets} séries × ${it.reps}${it.weight ? ` à ${it.weight} kg` : ''}`;
+          items.append(row);
+        }
+        const del = document.createElement('button');
+        del.type = 'button'; del.className = 'btn mt-3'; del.textContent = 'Supprimer cette séance';
+        del.addEventListener('click', () => { if (confirm('Supprimer cette séance de votre historique ?')) { write(read().filter((x) => x.id !== e.id)); render(); } });
+        d.append(s, items, del);
+        li.append(d);
+        ul.append(li);
+      }
+    }
+
+    $('export').addEventListener('click', () => {
+      const entries = read();
+      if (entries.length === 0) { $('backup-msg').textContent = "Rien à exporter pour l'instant."; return; }
+      const blob = new Blob([JSON.stringify(buildExport(entries), null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `capmuscu-historique-${new Date().toISOString().slice(0, 10)}.json`;
+      document.body.append(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+      try { localStorage.setItem(KEY_LAST_EXPORT, new Date().toISOString()); } catch { /* facultatif */ }
+      $('backup-msg').textContent = 'Fichier exporté. Gardez-le dans un endroit sûr (cloud, e-mail à vous-même).';
+      render();
+    });
+
+    $<HTMLInputElement>('import').addEventListener('change', async (ev) => {
+      const input = ev.target as HTMLInputElement;
+      const file = input.files?.[0];
+      input.value = '';
+      if (!file) return;
+      const imported = parseExport(await file.text());
+      if (!imported) { $('backup-msg').textContent = "Ce fichier n'est pas un export CapMuscu valide. Rien n'a été modifié."; return; }
+      const merged = mergeEntries(read(), imported);
+      $('backup-msg').textContent = write(merged) ? `${imported.length} séance(s) importée(s). Votre historique compte maintenant ${merged.length} séance(s).` : "Impossible d'enregistrer : le stockage du navigateur est indisponible.";
+      render();
+    });
+
+    $('clear').addEventListener('click', () => {
+      if (!confirm('Effacer tout votre historique de cet appareil ? Pensez à l\'exporter avant.')) return;
+      write([]);
+      render();
+      $('backup-msg').textContent = 'Historique effacé.';
+    });
+
+    (async () => {
+      try {
+        const ok = await navigator.storage?.persisted?.() || await navigator.storage?.persist?.();
+        $('persist-note').textContent = ok
+          ? 'Le navigateur a été prié de conserver ces données, mais une sauvegarde reste conseillée.'
+          : "Le navigateur peut supprimer ces données s'il manque de place : exportez régulièrement.";
+      } catch { /* non pris en charge */ }
+    })();
+
+    render();
+  </script>
+</Layout>

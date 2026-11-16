@@ -1,0 +1,70 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import legal from '../data/legal.json';
+---
+<Layout
+  title="Politique de confidentialité"
+  description="CapMuscu ne demande aucun compte, n'affiche aucune publicité et ne collecte aucune donnée personnelle. Vos séances restent sur votre appareil."
+>
+  <Breadcrumb items={[{ name: 'Confidentialité' }]} />
+  <h1>Politique de confidentialité</h1>
+  <div class="mt-6 space-y-8 max-w-3xl">
+    <section aria-labelledby="resume">
+      <h2 id="resume">En résumé</h2>
+      <p class="mt-2">
+        CapMuscu ne demande aucun compte, n'affiche aucune publicité, n'utilise aucun traceur publicitaire ni outil
+        de mesure d'audience, et n'envoie aucune de vos données à un serveur. Aucun bandeau de cookies n'est donc nécessaire.
+      </p>
+    </section>
+
+    <section aria-labelledby="stockage">
+      <h2 id="stockage">Ce qui est enregistré sur votre appareil</h2>
+      <p class="mt-2">
+        Pour fonctionner, le site enregistre dans le stockage local de votre navigateur (<em>localStorage</em>) :
+        votre séance en cours, les séances gardées, votre historique de séances terminées (exercices, séries, charges),
+        les exercices et séries validés, les charges saisies, le mode
+        d'affichage (clair ou sombre, un exercice à la fois). Ces informations restent sur votre appareil, ne sont
+        jamais transmises et sont nécessaires au service que vous demandez. L'export de l'historique crée un fichier
+        que vous seul conservez.
+      </p>
+      <p class="mt-2">
+        Les calculateurs (calories, protéines, charge maximale) travaillent entièrement dans votre navigateur :
+        les valeurs saisies ne sont ni envoyées ni conservées.
+      </p>
+      <p class="mt-2">
+        Le site peut aussi garder en mémoire des pages pour fonctionner sans réseau (service worker). Aucune donnée personnelle n'y figure.
+      </p>
+      <p class="mt-2"><strong>Pour tout effacer :</strong> supprimez les données du site dans les réglages de votre navigateur (« Effacer les données de navigation »).</p>
+    </section>
+
+    <section aria-labelledby="logs">
+      <h2 id="logs">Journaux de l'hébergeur</h2>
+      <p class="mt-2">
+        Comme tout site, les pages sont servies par un hébergeur ({legal.hostName}) qui peut conserver
+        temporairement des journaux techniques (adresse IP, date, page demandée) pour la sécurité et le bon
+        fonctionnement du service. L'éditeur n'y exploite aucune donnée personnelle.
+      </p>
+    </section>
+
+    <section aria-labelledby="externes">
+      <h2 id="externes">Liens externes</h2>
+      <p class="mt-2">
+        Si vous cliquez sur un lien vers un site tiers (source d'une étude, recherche YouTube), vous quittez CapMuscu et
+        la politique de ce site s'applique.
+      </p>
+    </section>
+
+    <section aria-labelledby="droits">
+      <h2 id="droits">Vos droits et contact</h2>
+      <p class="mt-2">
+        Aucune donnée personnelle n'étant collectée par l'éditeur, il n'y a rien à rectifier ni à supprimer de son côté.
+        Pour toute question, ou pour exercer vos droits (RGPD), écrivez à : {legal.contactEmail}. Vous pouvez aussi
+        saisir la <a href="https://www.cnil.fr/">CNIL</a>.
+      </p>
+    </section>
+
+    <p class="text-sm text-muted">Dernière mise à jour : {new Date(legal.updatedAt).toLocaleDateString('fr-FR', { dateStyle: 'long' })}.</p>
+    <p><a href="/mentions-legales/">Mentions légales</a></p>
+  </div>
+</Layout>

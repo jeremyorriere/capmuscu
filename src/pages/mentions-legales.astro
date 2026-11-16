@@ -1,0 +1,62 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import legal from '../data/legal.json';
+---
+<Layout
+  title="Mentions légales"
+  description="Mentions légales de CapMuscu : éditeur du site, hébergeur, propriété intellectuelle, sources des images et avertissement santé."
+>
+  <Breadcrumb items={[{ name: 'Mentions légales' }]} />
+  <h1>Mentions légales</h1>
+  <div class="mt-6 space-y-8 max-w-3xl">
+    <section aria-labelledby="editeur">
+      <h2 id="editeur">Éditeur du site</h2>
+      <ul class="mt-2 space-y-1">
+        <li><strong>Site :</strong> CapMuscu — https://capmuscu.fr</li>
+        <li><strong>Éditeur :</strong> {legal.publisherName}</li>
+        <li><strong>Statut :</strong> {legal.publisherStatus}</li>
+        <li><strong>Adresse :</strong> {legal.publisherAddress}</li>
+        <li><strong>Contact :</strong> {legal.contactEmail}</li>
+        <li><strong>Directeur de la publication :</strong> {legal.publicationDirector}</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="hebergeur">
+      <h2 id="hebergeur">Hébergeur</h2>
+      <p class="mt-2">{legal.hostName}, {legal.hostAddress}. <a href={legal.hostUrl}>Site de l'hébergeur</a>.</p>
+    </section>
+
+    <section aria-labelledby="sante">
+      <h2 id="sante">Avertissement santé</h2>
+      <p class="mt-2">
+        Les séances, exercices et calculateurs de CapMuscu sont donnés à titre d'information générale. Ils ne remplacent
+        ni l'avis d'un médecin, ni celui d'un coach diplômé. En cas de maladie, de blessure, de douleur, de grossesse ou
+        de doute, demandez un avis médical avant de vous entraîner. Arrêtez l'exercice en cas de douleur, de vertige ou
+        de gêne respiratoire. Vous vous entraînez sous votre propre responsabilité.
+      </p>
+    </section>
+
+    <section aria-labelledby="pi">
+      <h2 id="pi">Propriété intellectuelle et sources</h2>
+      <p class="mt-2">
+        Les textes et les schémas de CapMuscu sont la propriété de l'éditeur. Les photographies de démonstration
+        proviennent de la base libre de droits
+        <a href="https://github.com/yuhonas/free-exercise-db">free-exercise-db</a> (licence Unlicense, domaine public).
+        Les actualités et études présentées sont des résumés avec lien vers leur source (PubMed, flux RSS spécialisés) :
+        les contenus complets restent la propriété de leurs auteurs.
+      </p>
+    </section>
+
+    <section aria-labelledby="liens">
+      <h2 id="liens">Liens externes</h2>
+      <p class="mt-2">
+        Le site contient des liens vers des sites tiers (par exemple une recherche YouTube). L'éditeur n'est pas
+        responsable de leur contenu ni de leurs pratiques en matière de données personnelles.
+      </p>
+    </section>
+
+    <p class="text-sm text-muted">Dernière mise à jour : {new Date(legal.updatedAt).toLocaleDateString('fr-FR', { dateStyle: 'long' })}.</p>
+    <p><a href="/confidentialite/">Politique de confidentialité</a></p>
+  </div>
+</Layout>

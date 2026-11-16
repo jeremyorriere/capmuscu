@@ -65,6 +65,14 @@ const durations = [
     <h2 id="result-title" tabindex="-1">Votre séance</h2>
     <p id="result-sub" class="text-muted mt-1"></p>
     <p id="live" class="sr-only" role="status" aria-live="polite"></p>
+    <div class="session-bar">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <p id="progress-text" class="m-0 font-extrabold">0 sur 0 exercices terminés</p>
+        <button type="button" id="focus-toggle" class="btn" aria-pressed="false">Un exercice à la fois</button>
+      </div>
+      <div id="progress-bar" class="progress" role="progressbar" aria-label="Progression de la séance" aria-valuemin="0" aria-valuenow="0" aria-valuemax="1"><span id="progress-fill"></span></div>
+      <p id="wake-note" class="text-sm text-muted m-0" hidden>Écran maintenu allumé pendant la séance.</p>
+    </div>
     <div id="toast" class="toast" aria-hidden="true"></div>
     <div id="rest-timer" class="rest-timer" role="timer" aria-label="Chronomètre de repos">
       <div class="rt-label" id="rt-label">Repos</div>
@@ -73,13 +81,21 @@ const durations = [
       <button type="button" id="rt-stop" aria-label="Arrêter le chronomètre">Stop</button>
     </div>
     <ol id="cards" class="mt-4 space-y-4 list-none p-0"></ol>
-    <div class="mt-6 grid gap-3 sm:grid-cols-3">
+    <div id="focus-nav" class="focus-nav" hidden>
+      <button type="button" id="f-prev" class="btn">← Précédent</button>
+      <span id="f-pos" class="font-bold text-center"></span>
+      <button type="button" id="f-next" class="btn btn-primary">Suivant →</button>
+    </div>
+    <div class="mt-6">
+      <button type="button" id="finish" class="btn btn-accent w-full text-lg min-h-16">Terminer et ajouter à mon historique</button>
+    </div>
+    <div class="mt-3 grid gap-3 sm:grid-cols-3">
       <button type="button" id="copy" class="btn">Copier ma séance</button>
       <button type="button" id="keep" class="btn btn-primary">Garder sur cet appareil</button>
       <button type="button" id="again" class="btn">Nouvelle séance</button>
     </div>
     <p id="msg" class="mt-3 font-bold text-accent" role="status" aria-live="polite"></p>
-    <p class="text-sm text-muted mt-2">Votre séance en cours est enregistrée automatiquement sur cet appareil. Écoutez votre corps : arrêtez en cas de douleur.</p>
+    <p class="text-sm text-muted mt-2">Votre séance en cours est enregistrée automatiquement sur cet appareil. Écoutez votre corps : arrêtez en cas de douleur. <a href="/historique/">Voir mon historique</a>.</p>
   </section>
 
   <section id="saved-section" class="mt-10" aria-labelledby="saved-title" hidden>
@@ -97,6 +113,8 @@ const durations = [
     import { bodyMapSvg } from '../lib/bodymap';
     import { initMotion } from '../lib/motion-client';
     import { icon } from '../lib/icons';
+    import { KEY_HISTORY, isEntry, mergeEntries } from '../lib/history';
+    import type { HistoryEntry } from '../lib/history';
     import { muscleHue, tintStyle } from '../lib/ui';
 
     const openPeeks = new Set<number>();
@@ -106,8 +124,10 @@ const durations = [
     const GOAL_LABEL: Record<Goal, string> = { sante: 'Tonification & Santé', muscle: 'Prise de muscle', force: 'Force' };
     const KEY_CURRENT = 'capmuscu-seance-en-cours';
     const KEY_SAVED = 'capmuscu-seances-gardees';
+    const KEY_LOADS = 'capmuscu-charges';
+    const KEY_FOCUS = 'capmuscu-mode-pas-a-pas';
 
-    interface State { params: SessionParams; items: SessionItem[]; createdAt: string; done?: boolean[] }
+    interface State { params: SessionParams; items: SessionItem[]; createdAt: string; done?: boolean[]; sets?: number[]; weights?: number[] }
     interface Saved extends State { id: string }
 
     const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
@@ -226,6 +246,59 @@ const durations = [
           tips.append(tip);
         }
 
+        const total = item.sets;
+        const isBodyweight = ex.equipment === 'Poids du corps';
+        const lastLoad = (load<Record<string, number>>(KEY_LOADS) ?? {})[ex.id];
+        const setCount = () => state?.sets?.[index] ?? 0;
+
+        const track = document.createElement('div');
+        track.className = 'ex-track';
+        const dots = document.createElement('div');
+        dots.className = 'set-dots';
+        dots.setAttribute('role', 'img');
+        const dotEls: HTMLSpanElement[] = [];
+        for (let n = 0; n < total; n++) {
+          const d = document.createElement('span');
+          d.className = 'set-dot';
+          dotEls.push(d);
+          dots.append(d);
+        }
+        track.append(dots);
+
+        let saveLoad = () => {};
+        if (!isBodyweight) {
+          const wl = document.createElement('label');
+          wl.className = 'weight-field';
+          const wt = document.createElement('span');
+          wt.textContent = lastLoad != null ? `Charge (kg) · dernière fois : ${lastLoad}` : 'Charge (kg)';
+          const wi = document.createElement('input');
+          wi.type = 'number';
+          wi.inputMode = 'decimal';
+          wi.min = '0';
+          wi.step = '0.5';
+          wi.placeholder = '0';
+          const current = state?.weights?.[index] ?? lastLoad;
+          if (current != null) wi.value = String(current);
+          saveLoad = () => {
+            const v = parseFloat(wi.value.replace(',', '.'));
+            if (!state || !Number.isFinite(v) || v < 0) return;
+            state.weights = state.weights ?? [];
+            state.weights[index] = v;
+            const loads = load<Record<string, number>>(KEY_LOADS) ?? {};
+            loads[ex.id] = v;
+            store(KEY_LOADS, loads);
+            persist();
+          };
+          wi.addEventListener('change', saveLoad);
+          wl.append(wt, wi);
+          track.append(wl);
+        }
+
+        const setBtn = document.createElement('button');
+        setBtn.type = 'button';
+        setBtn.className = 'btn btn-primary set-btn';
+        track.append(setBtn);
+
         const actions = document.createElement('div');
         actions.className = 'ex-actions';
 
@@ -233,20 +306,47 @@ const durations = [
         doneLabel.className = 'done-toggle justify-center';
         const doneInput = document.createElement('input');
         doneInput.type = 'checkbox';
-        doneInput.checked = Boolean(state?.done?.[index]);
-        doneInput.setAttribute('aria-label', `Fait : ${ex.name}`);
+        doneInput.setAttribute('aria-label', `Exercice terminé : ${ex.name}`);
         const doneBox = document.createElement('span');
         doneBox.className = 'done-box';
         doneBox.innerHTML = icon('check', 20);
         doneLabel.append(doneInput, doneBox, document.createTextNode('Fait ✓'));
-        doneInput.addEventListener('change', () => {
-          if (!state) return;
-          state.done = state.done ?? [];
-          state.done[index] = doneInput.checked;
-          li.classList.toggle('is-done', doneInput.checked);
-          persist();
-        });
 
+        const sync = () => {
+          const c = setCount();
+          const finished = c >= total;
+          dotEls.forEach((d, i) => d.classList.toggle('on', i < c));
+          dots.setAttribute('aria-label', `${c} série${c > 1 ? 's' : ''} faite${c > 1 ? 's' : ''} sur ${total}`);
+          li.classList.toggle('is-done', finished);
+          doneInput.checked = finished;
+          setBtn.textContent = finished ? 'Exercice terminé ✓ (annuler)' : `Valider la série ${c + 1} sur ${total}`;
+          updateProgress();
+        };
+        const setProgress = (count: number) => {
+          if (!state) return;
+          state.sets = state.sets ?? [];
+          state.done = state.done ?? [];
+          state.sets[index] = count;
+          state.done[index] = count >= total;
+          persist();
+          sync();
+        };
+        setBtn.addEventListener('click', () => {
+          const c = setCount();
+          if (c >= total) { setProgress(0); return; }
+          saveLoad();
+          setProgress(c + 1);
+          keepAwake();
+          if (c + 1 < total) { startRest(item.restSeconds, ex.name); return; }
+          stopRest();
+          toast(allDone() ? 'Séance terminée, bravo !' : `Exercice terminé : ${ex.name}`);
+          advanceFocus(index);
+        });
+        doneInput.addEventListener('change', () => {
+          setProgress(doneInput.checked ? total : 0);
+          if (doneInput.checked) advanceFocus(index);
+        });
+        sync();
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'btn btn-accent swap-btn min-h-14';
@@ -254,13 +354,7 @@ const durations = [
         btn.setAttribute('aria-label', `Machine prise : remplacer « ${ex.name} » par un autre exercice pour les ${ex.primaryMuscle.toLowerCase()}`);
         btn.addEventListener('click', () => swap(index));
         btn.setAttribute('data-swap', '');
-        const rest = document.createElement('button');
-        rest.type = 'button';
-        rest.className = 'btn btn-primary rest-start min-h-14';
-        rest.textContent = `Série terminée : repos ${item.restSeconds} s`;
-        rest.setAttribute('aria-label', `Lancer le chronomètre de repos de ${item.restSeconds} secondes après une série de ${ex.name}`);
-        rest.addEventListener('click', () => startRest(item.restSeconds, ex.name));
-        actions.append(rest, doneLabel, btn);
+        actions.append(doneLabel, btn);
         // Aperçu du geste toujours visible, pour décider de garder ou de remplacer l'exercice.
         const preview = document.createElement('div');
         preview.className = 'ex-preview';
@@ -285,12 +379,72 @@ const durations = [
         body.className = 'ex-body';
         const info = document.createElement('div');
         info.className = 'ex-info';
-        info.append(dl, tipsTitle, tips, ...(ex.images ? [peek] : []), actions);
+        info.append(dl, track, tipsTitle, tips, ...(ex.images ? [peek] : []), actions);
         body.append(preview, info);
         li.append(head, body);
         list.append(li);
       });
+      updateProgress();
+      applyFocus();
+      keepAwake();
     }
+
+    const allDone = () => !!state && state.items.length > 0 && state.items.every((_, i) => state?.done?.[i]);
+
+    function updateProgress() {
+      if (!state) return;
+      const n = state.items.length;
+      const d = state.items.filter((_, i) => state?.done?.[i]).length;
+      $('progress-text').textContent = `${d} sur ${n} exercices terminés`;
+      $('progress-fill').style.width = `${n ? (d / n) * 100 : 0}%`;
+      $('progress-bar').setAttribute('aria-valuenow', String(d));
+      $('progress-bar').setAttribute('aria-valuemax', String(n));
+    }
+
+    let focusMode = load<boolean>(KEY_FOCUS) === true;
+    let focusIdx = 0;
+    function applyFocus() {
+      if (!state) return;
+      const n = state.items.length;
+      focusIdx = Math.min(Math.max(focusIdx, 0), n - 1);
+      $('focus-toggle').setAttribute('aria-pressed', String(focusMode));
+      $('focus-toggle').textContent = focusMode ? 'Voir tous les exercices' : 'Un exercice à la fois';
+      $('focus-nav').hidden = !focusMode;
+      document.querySelectorAll<HTMLElement>('#cards > li').forEach((li, i) => { li.hidden = focusMode && i !== focusIdx; });
+      $('f-pos').textContent = `Exercice ${focusIdx + 1} sur ${n}`;
+      $<HTMLButtonElement>('f-prev').disabled = focusIdx === 0;
+      $<HTMLButtonElement>('f-next').disabled = focusIdx >= n - 1;
+    }
+    function advanceFocus(from: number) {
+      if (!focusMode || !state || from >= state.items.length - 1) return;
+      setTimeout(() => {
+        focusIdx = from + 1;
+        applyFocus();
+        $('progress-bar').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 700);
+    }
+    $('focus-toggle').addEventListener('click', () => {
+      focusMode = !focusMode;
+      store(KEY_FOCUS, focusMode);
+      if (focusMode && state) {
+        const first = state.items.findIndex((_, i) => !state?.done?.[i]);
+        focusIdx = first === -1 ? 0 : first;
+      }
+      applyFocus();
+    });
+    $('f-prev').addEventListener('click', () => { focusIdx -= 1; applyFocus(); $('progress-bar').scrollIntoView({ block: 'start' }); });
+    $('f-next').addEventListener('click', () => { focusIdx += 1; applyFocus(); $('progress-bar').scrollIntoView({ block: 'start' }); });
+
+    let wake: WakeLockSentinel | null = null;
+    async function keepAwake() {
+      try {
+        if (!('wakeLock' in navigator) || wake || document.visibilityState !== 'visible') return;
+        wake = await navigator.wakeLock.request('screen');
+        wake.addEventListener('release', () => { wake = null; });
+        $('wake-note').hidden = false;
+      } catch { /* non pris en charge */ }
+    }
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && !$('result').hidden) keepAwake(); });
 
     function persist() { if (state) store(KEY_CURRENT, state); }
 
@@ -307,6 +461,8 @@ const durations = [
         if (!state) return;
         state.items[index] = next;
         if (state.done) state.done[index] = false;
+        if (state.sets) state.sets[index] = 0;
+        if (state.weights) delete state.weights[index];
         persist();
         render(index);
         const now = exercises.find((e) => e.id === next.exerciseId);
@@ -367,10 +523,11 @@ const durations = [
       restEnd += 15000;
       paintRest();
     });
-    $('rt-stop').addEventListener('click', () => {
+    function stopRest() {
       clearInterval(restTick);
       $('rest-timer').classList.remove('show', 'finished');
-    });
+    }
+    $('rt-stop').addEventListener('click', stopRest);
 
     let toastTimer: ReturnType<typeof setTimeout> | undefined;
     function toast(text: string) {
@@ -384,7 +541,9 @@ const durations = [
     function generate(p: SessionParams) {
       const names = targetMuscles(zones, p.zones).map((slug) => musclesJson.muscles.find((m) => m.slug === slug)?.name ?? slug);
       const items = generateSession(exercises, names, p, rng);
-      state = { params: p, items, createdAt: new Date().toISOString(), done: [] };
+      state = { params: p, items, createdAt: new Date().toISOString(), done: [], sets: [], weights: [] };
+      focusIdx = 0;
+      stopRest();
       openPeeks.clear();
       persist();
       say('');
@@ -407,6 +566,32 @@ const durations = [
         say(document.execCommand('copy') ? 'Séance copiée.' : 'Copie impossible : sélectionnez le texte manuellement.');
         area.remove();
       }
+    });
+
+    $('finish').addEventListener('click', async () => {
+      if (!state) return;
+      const done = state.items.filter((_, i) => (state?.sets?.[i] ?? 0) > 0 || state?.done?.[i]);
+      if (done.length === 0) { say('Validez au moins une série avant de terminer la séance.'); return; }
+      const entry: HistoryEntry = {
+        id: `${state.createdAt}|${state.items.map((i) => i.exerciseId).join(',')}`,
+        date: new Date().toISOString(),
+        title: titleOf(state.params),
+        items: state.items.flatMap((item, i) => {
+          const ex = exercises.find((e) => e.id === item.exerciseId);
+          const setsDone = state?.done?.[i] ? item.sets : (state?.sets?.[i] ?? 0);
+          if (!ex || setsDone === 0) return [];
+          const weight = state?.weights?.[i];
+          return [{ exerciseId: ex.id, name: ex.name, muscle: ex.primaryMuscle, sets: item.sets, setsDone, reps: item.reps, ...(weight !== undefined ? { weight } : {}) }];
+        }),
+      };
+      const saved = (load<HistoryEntry[]>(KEY_HISTORY) ?? []).filter(isEntry);
+      // Une même séance terminée deux fois remplace l'enregistrement précédent.
+      if (!store(KEY_HISTORY, mergeEntries(saved, [entry]))) { say("Impossible d'enregistrer : le stockage du navigateur est indisponible."); return; }
+      try { await navigator.storage?.persist?.(); } catch { /* facultatif */ }
+      stopRest();
+      say('');
+      $('msg').innerHTML = 'Séance ajoutée à votre historique. <a href="/historique/">Voir mon historique</a>';
+      toast('Bravo, séance enregistrée !');
     });
 
     function renderSaved() {
@@ -458,7 +643,7 @@ const durations = [
       generate(p);
     } else if (valid(current)) {
       state = current;
-      writeParams(current.params);
+      focusIdx = Math.max(0, current.items.findIndex((_, i) => !current.done?.[i]));      writeParams(current.params);
       render();
       say('Votre séance en cours a été retrouvée sur cet appareil.');
     } else {

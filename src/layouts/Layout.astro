@@ -37,7 +37,8 @@ const nav: { href: string; label: string; short: string; icon: IconName; match: 
     {noindex && <meta name="robots" content="noindex" />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta name="theme-color" content="#1D4ED8" />
-    <meta property="og:type" content="website" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="/icon-192.png" />    <meta property="og:type" content="website" />
     <meta property="og:site_name" content="CapMuscu" />
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:title" content={fullTitle} />
@@ -97,8 +98,14 @@ const nav: { href: string; label: string; short: string; icon: IconName; match: 
           <ul class="list-none p-0 m-0 space-y-1">
             {nav.map((n) => <li><a href={n.href} class="min-h-12 flex items-center font-bold">{n.label}</a></li>)}
           </ul>
+          <ul class="list-none p-0 m-0 mt-3 pt-3 border-t border-line space-y-1">
+            <li><a href="/historique/" class="min-h-12 flex items-center font-bold">Mon historique</a></li>
+            <li><a href="/mentions-legales/" class="min-h-12 flex items-center">Mentions légales</a></li>
+            <li><a href="/confidentialite/" class="min-h-12 flex items-center">Confidentialité</a></li>
+          </ul>
         </nav>
       </div>
+      <p class="mx-auto max-w-5xl px-4 pb-8 text-sm text-muted m-0">© {new Date().getFullYear()} CapMuscu — capmuscu.fr</p>
     </footer>
 
     <nav class="bottom-nav md:hidden" aria-label="Navigation mobile">
@@ -116,6 +123,9 @@ const nav: { href: string; label: string; short: string; icon: IconName; match: 
 
     <script>
       import '../lib/motion-client';
+      if ('serviceWorker' in navigator && import.meta.env.PROD) {
+        navigator.serviceWorker.register('/sw.js').catch(() => {});
+      }
     </script>
     <script>
       const root = document.documentElement;

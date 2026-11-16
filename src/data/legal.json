@@ -1,0 +1,11 @@
+{
+  "publisherName": "À COMPLÉTER : nom et prénom (ou raison sociale)",
+  "publisherStatus": "À COMPLÉTER : particulier / auto-entrepreneur (SIRET) / association / société",
+  "publisherAddress": "À COMPLÉTER : adresse postale (ou celle de l'hébergeur si vous êtes un particulier et que vous avez demandé l'anonymat)",
+  "contactEmail": "À COMPLÉTER : adresse e-mail de contact",
+  "publicationDirector": "À COMPLÉTER : nom du directeur de la publication",
+  "hostName": "Cloudflare, Inc.",
+  "hostAddress": "101 Townsend St, San Francisco, CA 94107, États-Unis",
+  "hostUrl": "https://www.cloudflare.com/fr-fr/",
+  "updatedAt": "2026-11-16"
+}
