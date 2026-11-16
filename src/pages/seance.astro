@@ -25,7 +25,7 @@ const durations = [
 >
   <Breadcrumb items={[{ name: 'Créer ma séance' }]} />
   <h1>Créer ma séance</h1>
-  <p class="text-muted mt-2">Quatre choix rapides, et votre séance est prête : 4 à 6 exercices, sans volume excessif.</p>
+  
 
   <form id="form" class="mt-6 space-y-6" novalidate>
     <fieldset class="card">
@@ -71,7 +71,6 @@ const durations = [
         <button type="button" id="focus-toggle" class="btn" aria-pressed="false">Un exercice à la fois</button>
       </div>
       <div id="progress-bar" class="progress" role="progressbar" aria-label="Progression de la séance" aria-valuemin="0" aria-valuenow="0" aria-valuemax="1"><span id="progress-fill"></span></div>
-      <p id="wake-note" class="text-sm text-muted m-0" hidden>Écran maintenu allumé pendant la séance.</p>
     </div>
     <div id="toast" class="toast" aria-hidden="true"></div>
     <div id="rest-timer" class="rest-timer" role="timer" aria-label="Chronomètre de repos">
@@ -95,7 +94,7 @@ const durations = [
       <button type="button" id="again" class="btn">Nouvelle séance</button>
     </div>
     <p id="msg" class="mt-3 font-bold text-accent" role="status" aria-live="polite"></p>
-    <p class="text-sm text-muted mt-2">Votre séance en cours est enregistrée automatiquement sur cet appareil. Écoutez votre corps : arrêtez en cas de douleur. <a href="/historique/">Voir mon historique</a>.</p>
+    <p class="text-sm text-muted mt-2">Séance enregistrée automatiquement. Douleur : arrêtez. <a href="/historique/">Mon historique</a></p>
   </section>
 
   <section id="saved-section" class="mt-10" aria-labelledby="saved-title" hidden>
@@ -441,7 +440,6 @@ const durations = [
         if (!('wakeLock' in navigator) || wake || document.visibilityState !== 'visible') return;
         wake = await navigator.wakeLock.request('screen');
         wake.addEventListener('release', () => { wake = null; });
-        $('wake-note').hidden = false;
       } catch { /* non pris en charge */ }
     }
     document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && !$('result').hidden) keepAwake(); });

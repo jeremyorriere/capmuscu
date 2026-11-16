@@ -35,7 +35,7 @@ const ld = [
 >
   <section class="hero" aria-labelledby="titre-zone">
     <h1 id="titre-zone">Que voulez-vous travailler aujourd'hui ?</h1>
-    <p class="hero-sub text-lg mt-2 mb-0">Touchez une zone : votre séance est prête en quelques secondes, claire et sans excès. Pour tous les âges, sans compte.</p>
+    <p class="hero-sub text-lg mt-2 mb-0">Touchez une zone : votre séance est prête en quelques secondes.</p>
     <ul class="zone-grid">
       {zoneCards.map((z) => (
         <li>
@@ -52,12 +52,12 @@ const ld = [
         </a>
       </li>
     </ul>
-    <p class="mt-4 mb-0 text-sm" style="color: #e0ecff">Envie de choisir vous-même ? <a href="/exercices/" class="underline font-bold" style="color:#fff">Parcourir tous les exercices</a>.</p>
+   
   </section>
 
   <section class="mt-12" aria-labelledby="titre-decouverte">
     <h2 id="titre-decouverte">L'exercice découverte du jour</h2>
-    <p class="text-muted mt-1 mb-4">Pour casser la routine : un nouvel exercice chaque jour, à essayer à votre rythme.</p>
+    
     <article class="card featured">
       <ExerciseMotion exercise={daily} />
       <div class="flex flex-col gap-3">
@@ -76,7 +76,7 @@ const ld = [
 
   <section class="mt-12" aria-labelledby="titre-actu">
     <h2 id="titre-actu">L'essentiel de l'actu &amp; science muscu</h2>
-    <p class="text-muted mt-1 mb-4">Mis à jour le {formatDateFr(news.updatedAt)}. Chaque carte renvoie vers la source d'origine.</p>
+    <p class="text-muted mt-1 mb-4">Mis à jour le {formatDateFr(news.updatedAt)}.</p>
     <ul class="grid gap-4 md:grid-cols-3 list-none p-0 m-0">
       {shown.map((n) => (
         <li class="card flex flex-col gap-2">
@@ -95,11 +95,11 @@ const ld = [
     <div class="grid gap-4 md:grid-cols-2 mt-4">
       <a href="/outils/#calories-proteines" class="card no-underline text-ink hover:border-primary">
         <h3>Calculateur calories &amp; protéines</h3>
-        <p class="text-muted m-0">Connaissez vos besoins quotidiens selon votre âge, votre poids et votre objectif.</p>
+        
       </a>
       <a href="/outils/#charge-maximale" class="card no-underline text-ink hover:border-primary">
         <h3>Calculateur de charge maximale (1RM)</h3>
-        <p class="text-muted m-0">Estimez votre charge maximale et vos charges de travail sans vous mettre en danger.</p>
+        
       </a>
     </div>
   </section>

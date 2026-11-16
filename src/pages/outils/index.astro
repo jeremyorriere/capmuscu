@@ -9,11 +9,11 @@ import { WORK_PERCENTS } from '../../lib/tools';
 >
   <Breadcrumb items={[{ name: 'Outils' }]} />
   <h1>Outils pratiques</h1>
-  <p class="text-muted mt-2">Des calculs simples, faits sur votre appareil : aucune donnée n'est envoyée ni enregistrée.</p>
+  
 
   <section id="calories-proteines" class="card mt-8 scroll-mt-4" aria-labelledby="t-cal">
     <h2 id="t-cal">Calories et protéines par jour</h2>
-    <p class="text-muted mt-1">Une estimation de départ à ajuster selon vos résultats après 2 à 3 semaines.</p>
+    
     <form id="nutri" class="mt-4 grid gap-4 sm:grid-cols-2" novalidate>
       <div>
         <label for="n-sex" class="font-bold block mb-1">Sexe</label>
@@ -57,17 +57,12 @@ import { WORK_PERCENTS } from '../../lib/tools';
       </div>
       <p id="n-explain" class="mt-3 text-muted"></p>
     </div>
-    <p class="text-sm text-muted mt-4 mb-0">
-      Méthode : formule de Mifflin-St Jeor (énergie de base) multipliée par votre niveau d'activité. Après 60 ans, un apport en protéines un peu plus élevé aide à préserver les muscles.
-      Ces valeurs sont indicatives : en cas de maladie ou de régime particulier, demandez l'avis d'un professionnel de santé.
-    </p>
+    <p class="text-sm text-muted mt-4 mb-0">Valeurs indicatives : en cas de maladie ou de régime particulier, demandez l'avis d'un professionnel de santé.</p>
   </section>
 
   <section id="charge-maximale" class="card mt-8 scroll-mt-4" aria-labelledby="t-rm">
     <h2 id="t-rm">Charge maximale (1RM) et charges de travail</h2>
-    <p class="text-muted mt-1">
-      La charge maximale, notée 1RM en anglais, est le poids le plus lourd que vous pourriez soulever <strong>une seule fois</strong>. Inutile de la tester : entrez une série plus légère, nous l'estimons pour vous.
-    </p>
+    <p class="text-muted mt-1">Le poids le plus lourd que vous pourriez soulever <strong>une seule fois</strong>, estimé à partir d'une série plus légère.</p>
     <form id="rm" class="mt-4 grid gap-4 sm:grid-cols-2" novalidate>
       <div>
         <label for="r-weight" class="font-bold block mb-1">Charge soulevée (kg)</label>
