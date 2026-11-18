@@ -49,20 +49,16 @@ export function allowedEquipment(mode: EquipmentMode): Exercise['equipment'][] {
 
 export function prescribe(exercise: Exercise, goal: Goal, duration: Duration): SessionItem {
   const iso = exercise.mechanics === 'Isolation';
-  const short = duration === 30;
-  let sets = 3;
+  const sets = 4;
   let reps = '';
   let rest = 60;
   if (goal === 'sante') {
-    sets = short ? 2 : 3;
     reps = iso ? '12 à 15' : '10 à 12';
     rest = 60;
   } else if (goal === 'muscle') {
-    sets = short ? 3 : iso ? 3 : 4;
     reps = iso ? '10 à 15' : '8 à 12';
     rest = iso ? 60 : 90;
   } else {
-    sets = short ? 3 : iso ? 3 : 4;
     reps = iso ? '8 à 10' : '4 à 6';
     rest = iso ? 90 : 150;
     if (exercise.equipment === 'Poids du corps') {
@@ -72,7 +68,6 @@ export function prescribe(exercise: Exercise, goal: Goal, duration: Duration): S
   }
   if (TIMED_SLUGS.has(exercise.slug)) {
     reps = goal === 'sante' ? '20 à 30 secondes' : '30 à 45 secondes';
-    sets = Math.min(sets, 3);
     rest = 45;
   }
   return { exerciseId: exercise.id, sets, reps, restSeconds: rest };

@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+﻿import { describe, expect, it } from 'vitest';
 import exercisesJson from '../src/data/exercises.json';
 import musclesJson from '../src/data/muscles.json';
 import recipesJson from '../src/data/recipes.json';
@@ -13,8 +13,8 @@ const filled = (v: unknown): boolean => {
 };
 
 describe('exercises.json', () => {
-  it('contient au moins 60 exercices', () => {
-    expect(exercisesJson.length).toBeGreaterThanOrEqual(60);
+  it('contient au moins 560 exercices', () => {
+    expect(exercisesJson.length).toBeGreaterThanOrEqual(560);
   });
 
   it('a des identifiants et slugs uniques, valides et cohérents', () => {

@@ -1,6 +1,6 @@
-# CapMuscu — capmuscu.fr
+﻿# CapMuscu — capmuscu.fr
 
-Compagnon de musculation gratuit, lumineux et accessible à tous les âges : générateur de séance avec bouton « Machine prise », encyclopédie de plus de 60 exercices, outils pratiques (calories, protéines, 1RM) et veille quotidienne.
+Compagnon de musculation gratuit, lumineux et accessible à tous les âges : générateur de séance avec bouton « Machine prise », encyclopédie de 560 exercices, outils pratiques (calories, protéines, 1RM) et veille quotidienne.
 
 Stack : Astro (SSG, TypeScript strict), Tailwind CSS 4, données JSON locales, scripts Node.js. Aucune API payante, aucun compte, aucune base de données serveur.
 
@@ -19,7 +19,7 @@ npm run update-data  # met à jour src/data/news.json (PubMed + flux RSS)
 
 | Chemin | Rôle |
 | --- | --- |
-| `src/data/exercises.json` | Base des exercices (+60) |
+| `src/data/exercises.json` | Base des exercices (100) |
 | `src/data/muscles.json` | Muscles et zones (accueil / générateur) |
 | `src/data/news.json` | Actus et études (écrit par le collecteur) |
 | `src/data/recipes.json` | Modèle des recettes (3 exemples, futur `/recettes`) |
