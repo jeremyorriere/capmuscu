@@ -1,6 +1,7 @@
 export type Difficulty = 'Débutant' | 'Intermédiaire' | 'Avancé';
 export type Mechanics = 'Polyarticulaire' | 'Isolation';
-export type EquipmentLabel = 'Salle de sport' | 'Haltères' | 'Poids du corps';
+export type EquipmentLabel = 'Salle de sport' | 'Haltères' | 'Poids du corps' | 'Kettlebell' | 'Élastiques' | 'Accessoires';
+export type ExerciseCategory = 'Étirement' | 'Cardio';
 
 export interface Exercise {
   id: string;
@@ -12,6 +13,8 @@ export interface Exercise {
   equipment: EquipmentLabel;
   difficulty: Difficulty;
   mechanics: Mechanics;
+  /** Étirements et cardio : listés dans l'encyclopédie mais jamais proposés par le générateur de séance. */
+  category?: ExerciseCategory;
   executionSteps: string[];
   safetyTips: string[];
   commonMistakes: string[];

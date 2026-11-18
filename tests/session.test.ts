@@ -48,7 +48,7 @@ describe('générateur de séance', () => {
 
   it('propose une alternative pour chaque exercice de chaque mode (sauf indisponibilité réelle)', () => {
     for (const mode of modes) {
-      for (const e of exercises.filter((x) => allowedEquipment(mode).includes(x.equipment))) {
+      for (const e of exercises.filter((x) => !x.category && allowedEquipment(mode).includes(x.equipment))) {
         const params: SessionParams = { goal: 'muscle', zones: [], equipment: mode, duration: 45 };
         const session = [{ exerciseId: e.id, sets: 3, reps: '10', restSeconds: 60 }];
         const next = replaceExercise(exercises, session, 0, params, createRng(1));

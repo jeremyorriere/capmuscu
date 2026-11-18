@@ -14,6 +14,9 @@ export const equipmentList: { slug: string; label: EquipmentLabel; phrase: strin
   { slug: 'salle', label: 'Salle de sport', phrase: 'en salle de sport' },
   { slug: 'halteres', label: 'Haltères', phrase: 'avec des haltères' },
   { slug: 'poids-du-corps', label: 'Poids du corps', phrase: 'au poids du corps' },
+  { slug: 'kettlebell', label: 'Kettlebell', phrase: 'avec un kettlebell' },
+  { slug: 'elastiques', label: 'Élastiques', phrase: 'avec des élastiques' },
+  { slug: 'accessoires', label: 'Accessoires', phrase: 'avec des accessoires (ballon, rouleau…)' },
 ];
 
 export const difficulties = ['Débutant', 'Intermédiaire', 'Avancé'] as const;

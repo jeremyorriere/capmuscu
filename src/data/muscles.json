@@ -2,9 +2,9 @@
   "zones": [
     { "slug": "pectoraux", "name": "Pectoraux", "emoji": "💪", "muscles": ["pectoraux"] },
     { "slug": "dos", "name": "Dos", "emoji": "🧗", "muscles": ["dos"] },
-    { "slug": "epaules", "name": "Épaules", "emoji": "🏋️", "muscles": ["epaules"] },
-    { "slug": "jambes", "name": "Jambes", "emoji": "🦵", "muscles": ["quadriceps", "ischio-jambiers", "fessiers", "mollets"] },
-    { "slug": "bras", "name": "Bras", "emoji": "💪", "muscles": ["biceps", "triceps"] },
+    { "slug": "epaules", "name": "Épaules", "emoji": "🏋️", "muscles": ["epaules", "cou"] },
+    { "slug": "jambes", "name": "Jambes", "emoji": "🦵", "muscles": ["quadriceps", "ischio-jambiers", "fessiers", "mollets", "adducteurs"] },
+    { "slug": "bras", "name": "Bras", "emoji": "💪", "muscles": ["biceps", "triceps", "avant-bras"] },
     { "slug": "abdos", "name": "Abdos", "emoji": "🎯", "muscles": ["abdominaux"] },
     { "slug": "corps-entier", "name": "Corps entier", "emoji": "🏃", "muscles": ["corps-entier"] }
   ],
@@ -19,6 +19,9 @@
     { "slug": "biceps", "name": "Biceps", "description": "Le biceps est situé à l'avant du bras. Il plie le coude et tourne l'avant-bras paume vers le haut. Il intervient dès que vous tirez un objet vers vous ou soulevez un sac.", "benefit": "Il intervient quand vous portez un sac, ouvrez une porte lourde ou soulevez un enfant." },
     { "slug": "triceps", "name": "Triceps", "description": "Le triceps occupe l'arrière du bras et représente environ les deux tiers de son volume. Il tend le coude et participe à tous les mouvements de poussée. Un triceps fort donne de la stabilité aux épaules.", "benefit": "Il vous aide à pousser une porte, vous relever d'un fauteuil et stabiliser vos épaules." },
     { "slug": "abdominaux", "name": "Abdominaux", "description": "Les abdominaux forment la sangle du ventre : grand droit, obliques et transverse. Ils stabilisent le tronc, protègent la colonne vertébrale et transmettent la force entre le haut et le bas du corps. Ils se travaillent mieux par le gainage que par des centaines de crunchs.", "benefit": "Ils protègent la colonne vertébrale et améliorent l'équilibre dans tous vos gestes." },
-    { "slug": "corps-entier", "name": "Corps entier", "description": "Les exercices corps entier mobilisent plusieurs grands groupes musculaires en même temps. Ils améliorent la coordination, la condition physique et dépensent beaucoup d'énergie. Ils sont efficaces quand le temps est compté.", "benefit": "Ils vous font gagner du temps et renforcent la condition physique générale." }
+    { "slug": "corps-entier", "name": "Corps entier", "description": "Les exercices corps entier mobilisent plusieurs grands groupes musculaires en même temps. Ils améliorent la coordination, la condition physique et dépensent beaucoup d'énergie. Ils sont efficaces quand le temps est compté.", "benefit": "Ils vous font gagner du temps et renforcent la condition physique générale." },
+    { "slug": "avant-bras", "name": "Avant-bras", "description": "Les avant-bras r?unissent les muscles qui fl?chissent et ?tendent le poignet et les doigts. Ils assurent la force de pr?hension, indispensable pour tirer, porter et tenir une barre. Des avant-bras solides stabilisent le poignet et soulagent le coude.", "benefit": "Ils vous aident ? serrer, porter des sacs lourds, ouvrir un bocal et tenir vos charges ? l'entra?nement." },
+    { "slug": "cou", "name": "Cou", "description": "Les muscles du cou soutiennent la t?te, la fl?chissent, l'?tendent et la font pivoter. Souvent tendus par le travail sur ?cran, ils se renforcent et s'assouplissent avec des mouvements lents et contr?l?s. Un cou fort am?liore la posture et aide ? prot?ger les cervicales.", "benefit": "Ils portent votre t?te toute la journ?e et limitent les raideurs li?es au travail sur ?cran." },
+    { "slug": "adducteurs", "name": "Adducteurs", "description": "Les adducteurs forment l'int?rieur des cuisses et rapprochent les jambes l'une de l'autre. Ils stabilisent le bassin, aident ? la marche lat?rale et prot?gent le genou. Souvent n?glig?s, ils am?liorent l'?quilibre et la stabilit? dans la plupart des sports.", "benefit": "Ils stabilisent le bassin et le genou ? la marche, en course et lors des changements de direction." }
   ]
 }

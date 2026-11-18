@@ -13,8 +13,8 @@ const filled = (v: unknown): boolean => {
 };
 
 describe('exercises.json', () => {
-  it('contient au moins 560 exercices', () => {
-    expect(exercisesJson.length).toBeGreaterThanOrEqual(560);
+  it('contient   au moins 900 exercices', () => {
+      expect(exercisesJson.length).toBeGreaterThanOrEqual(900);
   });
 
   it('a des identifiants et slugs uniques, valides et cohérents', () => {
@@ -31,7 +31,7 @@ describe('exercises.json', () => {
   it("n'a aucun champ vide et respecte la structure", () => {
     const keys = ['id', 'slug', 'name', 'description', 'primaryMuscle', 'secondaryMuscles', 'equipment', 'difficulty', 'mechanics', 'executionSteps', 'safetyTips', 'commonMistakes', 'alternatives'];
     for (const e of exercises) {
-      expect(Object.keys(e).filter((k) => k !== 'images').sort()).toEqual([...keys].sort());
+      expect(Object.keys(e).filter((k) => k !== 'images' && k !== 'category').sort()).toEqual([...keys].sort());
       for (const k of keys) {
         if (k === 'secondaryMuscles') {
           expect(Array.isArray(e.secondaryMuscles)).toBe(true);
@@ -42,7 +42,8 @@ describe('exercises.json', () => {
       }
       expect(['Débutant', 'Intermédiaire', 'Avancé']).toContain(e.difficulty);
       expect(['Polyarticulaire', 'Isolation']).toContain(e.mechanics);
-      expect(['Salle de sport', 'Haltères', 'Poids du corps']).toContain(e.equipment);
+      expect(['Salle de sport', 'Haltères', 'Poids du corps', 'Kettlebell', 'Élastiques', 'Accessoires']).toContain(e.equipment);
+      if (e.category) expect(['Étirement', 'Cardio']).toContain(e.category);
       expect(e.executionSteps.length).toBeGreaterThanOrEqual(4);
     }
   });

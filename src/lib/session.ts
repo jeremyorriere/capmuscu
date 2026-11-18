@@ -42,8 +42,8 @@ function shuffle<T>(list: T[], rng: Rng): T[] {
 }
 
 export function allowedEquipment(mode: EquipmentMode): Exercise['equipment'][] {
-  if (mode === 'salle') return ['Salle de sport', 'Haltères', 'Poids du corps'];
-  if (mode === 'halteres') return ['Haltères', 'Poids du corps'];
+  if (mode === 'salle') return ['Salle de sport', 'Haltères', 'Poids du corps', 'Kettlebell', 'Élastiques', 'Accessoires'];
+  if (mode === 'halteres') return ['Haltères', 'Poids du corps', 'Kettlebell', 'Élastiques', 'Accessoires'];
   return ['Poids du corps'];
 }
 
@@ -75,7 +75,7 @@ export function prescribe(exercise: Exercise, goal: Goal, duration: Duration): S
 
 function pool(all: Exercise[], params: SessionParams): Exercise[] {
   const allowed = allowedEquipment(params.equipment);
-  const byEquip = all.filter((e) => allowed.includes(e.equipment));
+  const byEquip = all.filter((e) => !e.category && allowed.includes(e.equipment));
   if (params.goal === 'sante') {
     const gentle = byEquip.filter((e) => e.difficulty !== 'Avancé');
     return gentle.length > 0 ? gentle : byEquip;
