@@ -73,7 +73,7 @@ Complétez `src/data/recipes.json` (modèle déjà en place : nom, durée, prot�
 - Polices auto-hébergées (aucun appel externe) : Plus Jakarta Sans (titres) et Inter (texte) via `@fontsource`.
 - Icônes : [Lucide](https://lucide.dev) (licence ISC), intégrées en SVG par `src/lib/icons.ts`.
 - Badges colorés par muscle et par niveau : teintes dans `src/lib/ui.ts` (contraste ≥ 7:1 en clair et en sombre).
-- Mobile : barre d'onglets fixe en bas d'écran ; sur ordinateur, navigation dans l'en-tête.
+- Mobile : typographie compacte et fluide, barre d'onglets fixe en bas d'écran ; sur ordinateur, navigation dans l'en-tête.
 - `/seance` : cases « Fait ✓ » enregistrées dans le `localStorage` avec la séance en cours.
 
 ## Automatisation quotidienne
@@ -94,4 +94,4 @@ Après la mise en ligne, soumettez `https://capmuscu.fr/sitemap-index.xml` dans 
 
 ## Accessibilité
 
-Contraste élevé par défaut, mode sombre, police de base 18 px, cibles tactiles d'au moins 48 px, navigation clavier avec lien d'évitement et focus visible, régions `aria-live` pour les résultats. Le contenu est donné à titre informatif et ne remplace pas un avis médical.
+Contraste élevé par défaut, mode sombre, police de base 16 px ajustée selon l'écran, cibles tactiles d'au moins 48 px, navigation clavier avec lien d'évitement et focus visible, régions `aria-live` pour les résultats. Le contenu est donné à titre informatif et ne remplace pas un avis médical.
