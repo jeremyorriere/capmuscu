@@ -515,10 +515,9 @@ const durations = [
         document.querySelectorAll<HTMLButtonElement>('#cards [data-swap]')[index]?.focus({ preventScroll: true });
         const newCard = document.querySelectorAll<HTMLElement>('#cards > li')[index];
         if (newCard) {
-          // Bloc entier visible : centré s'il tient dans l'écran, sinon haut du bloc en haut.
-          const fits = newCard.getBoundingClientRect().height <= window.innerHeight - 24;
+          // Haut du bloc aligné sous les barres collantes (scroll-margin-top dans le CSS).
           newCard.scrollIntoView({
-            block: fits ? 'center' : 'start',
+            block: 'start',
             behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
           });
         }

@@ -230,7 +230,18 @@ a.card:active, .card-hover:active { transform: translateY(0) scale(0.99); }
 .featured-tag { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent-strong); }
 
 /* ===== SÃ©ance : mode salle ===== */
-.ex-card { padding: 1rem; }
+.ex-card { padding: 1rem; scroll-margin-top: 9.5rem; }
+@media (max-width: 767px) {
+  .ex-card { padding: 0.75rem; }
+  .ex-card h3 { font-size: 1.1rem; }
+  .ex-preview { margin-top: 0.4rem; }
+  .ex-preview .cm-photos { aspect-ratio: 16 / 8; max-height: 30vh; }
+  .ex-body { gap: 0.5rem; }
+  .pill dd { font-size: 1.25rem; }
+  .ex-info > p { margin-top: 0.4rem; font-size: 0.85rem; }
+  .ex-info ul { font-size: 0.85rem; line-height: 1.3; }
+  .ex-info ul li:nth-child(n+2) { display: none; }
+}
 @media (min-width: 640px) { .ex-card { padding: 1.5rem; } }
 .ex-card.is-done { opacity: 0.62; background: color-mix(in srgb, var(--card) 70%, var(--line)); }
 .ex-card.is-done h3 a { text-decoration: line-through; text-decoration-thickness: 2px; }
