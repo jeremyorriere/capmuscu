@@ -102,14 +102,24 @@ export function generateSession(all: Exercise[], muscleNames: string[], params: 
   const has = (e: Exercise) => chosen.some((c) => c.id === e.id);
   const order = shuffle(muscleNames, rng);
 
-  const take = (list: Exercise[]) => {
-    for (const e of shuffle(list, rng)) {
-      if (!has(e)) {
-        chosen.push(e);
-        return true;
-      }
+  // Variété : à muscle égal, on évite les variantes du même mouvement (même mot de tête), du même matériel et de la même mécanique.
+  const family = (e: Exercise) => e.name.toLowerCase().split(/[\s-]+/)[0]!;
+  const penalty = (e: Exercise) => {
+    let p = 0;
+    for (const c of chosen) {
+      if (family(c) === family(e)) p += 3;
+      if (c.equipment === e.equipment) p += 1;
+      if (c.mechanics === e.mechanics && c.primaryMuscle === e.primaryMuscle) p += 1;
     }
-    return false;
+    return p;
+  };
+
+  const take = (list: Exercise[]) => {
+    const ranked = shuffle(list, rng).filter((e) => !has(e)).map((e) => [e, penalty(e)] as const);
+    if (ranked.length === 0) return false;
+    ranked.sort((a, b) => a[1] - b[1]);
+    chosen.push(ranked[0]![0]);
+    return true;
   };
 
   for (let round = 0; round < count && chosen.length < count; round++) {

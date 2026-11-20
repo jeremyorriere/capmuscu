@@ -11,6 +11,12 @@ const zone = zones.find((z) => z.muscles.includes(muscleSlug))?.slug ?? '';
 ---
 <article class="card card-hover flex flex-col gap-3" data-name={e.name.toLowerCase()} data-muscle={e.primaryMuscle} data-zone={zone} data-equipment={e.equipment} data-level={e.difficulty}>
   <H class="text-xl"><a href={`/exercices/${e.slug}/`} class="text-ink no-underline hover:underline">{e.name}</a></H>
+  {e.images && e.images.length === 2 && (
+    <a href={`/exercices/${e.slug}/`} class="card-photo cm-photos" tabindex="-1" aria-hidden="true">
+      <img class="cm-img" src={e.images[0]} alt="" loading="lazy" decoding="async" width="850" height="567" />
+      <img class="cm-img cm-anim cm-img-b" src={e.images[1]} alt="" loading="lazy" decoding="async" width="850" height="567" />
+    </a>
+  )}
   <p class="text-muted m-0">{e.description.split('. ')[0]!.replace(/\.$/, '')}.</p>
   <ul class="flex flex-wrap gap-2 list-none p-0 m-0" aria-label="Caractéristiques">
     <li class="badge tint" style={tintStyle(muscleHue(e.primaryMuscle))}>{e.primaryMuscle}</li>
