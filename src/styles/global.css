@@ -368,3 +368,13 @@ body:has(.rest-timer.show) .toast { bottom: 9rem; }
   .ex-info .cm-peek { margin-top: 0.4rem; }
   .ex-info .cm-peek > summary { min-height: 40px; }
 }
+
+/* Admin : graphiques */
+.chart svg { width: 100%; height: auto; display: block; }
+.chart-legend { display: flex; gap: 1rem; margin: 0.25rem 0 0; font-size: 0.85rem; color: var(--muted); }
+.chart-legend i { display: inline-block; width: 0.8rem; height: 0.8rem; border-radius: 3px; margin-right: 0.35rem; vertical-align: -1px; }
+.hbars { display: grid; gap: 0.4rem; margin-top: 0.75rem; }
+.hbar { display: grid; grid-template-columns: minmax(6rem, 38%) 1fr auto; gap: 0.5rem; align-items: center; font-size: 0.9rem; }
+.hbar-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hbar-track { height: 0.9rem; background: var(--primary-soft); border-radius: 999px; overflow: hidden; }
+.hbar-track > span { display: block; height: 100%; background: var(--primary); border-radius: 999px; }

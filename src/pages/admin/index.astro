@@ -34,22 +34,26 @@ import Breadcrumb from '../../components/Breadcrumb.astro';
       <section>
         <h2>Exercices les plus utilisés (13 mois)</h2>
         <p class="text-sm text-muted">Consultations des fiches, séances créées/terminées et remplacements. Un même exercice peut compter plusieurs fois.</p>
-        <div class="overflow-x-auto"><table class="w-full text-left"><thead><tr class="border-b border-line"><th class="py-2 pr-3">Exercice</th><th class="py-2 pr-3">Fiches vues</th><th class="py-2 pr-3">Séances créées</th><th class="py-2 pr-3">Terminées</th><th class="py-2">Remplacements</th></tr></thead><tbody id="top-exercises"></tbody></table></div>
+        <div id="chart-exercises" class="hbars"></div>
+        <details class="mt-2"><summary class="cursor-pointer font-bold">Voir le tableau</summary><div class="overflow-x-auto"><table class="w-full text-left"><thead><tr class="border-b border-line"><th class="py-2 pr-3">Exercice</th><th class="py-2 pr-3">Fiches vues</th><th class="py-2 pr-3">Séances créées</th><th class="py-2 pr-3">Terminées</th><th class="py-2">Remplacements</th></tr></thead>        <tbody id="top-exercises"></tbody></table></div></details>
       </section>
       <section>
         <h2>Pages les plus consultées (13 mois)</h2>
-        <div class="overflow-x-auto"><table class="w-full text-left"><thead><tr class="border-b border-line"><th class="py-2 pr-3">Page</th><th class="py-2">Vues</th></tr></thead><tbody id="top-pages"></tbody></table></div>
+                <div id="chart-pages" class="hbars"></div>
+                <details class="mt-2"><summary class="cursor-pointer font-bold">Voir le tableau</summary><div class="overflow-x-auto"><table class="w-full text-left"><thead><tr class="border-b border-line"><th class="py-2 pr-3">Page</th><th class="py-2">Vues</th></tr></thead><tbody id="top-pages"></tbody></table></div></details>
         <h2 class="mt-8">Outils utilisés (13 mois)</h2>
         <div class="overflow-x-auto"><table class="w-full text-left"><thead><tr class="border-b border-line"><th class="py-2 pr-3">Outil</th><th class="py-2">Calculs</th></tr></thead><tbody id="top-tools"></tbody></table></div>
       </section>
     </div>
     <section class="mt-8">
       <h2>Visiteurs et activité par mois</h2>
-      <div class="overflow-x-auto"><table class="w-full text-left"><thead><tr class="border-b border-line"><th class="py-2 pr-3">Mois</th><th class="py-2 pr-3">Visiteurs uniques</th><th class="py-2">Pages vues</th></tr></thead><tbody id="monthly-stats"></tbody></table></div>
+      <div id="chart-monthly" class="chart"></div>
+      <details class="mt-2"><summary class="cursor-pointer font-bold">Voir le tableau</summary><div class="overflow-x-auto"><table class="w-full text-left"><thead><tr class="border-b border-line"><th class="py-2 pr-3">Mois</th><th class="py-2 pr-3">Visiteurs uniques</th><th class="py-2">Pages vues</th></tr></thead>      <tbody id="monthly-stats"></tbody></table></div></details>
     </section>
     <section class="mt-8">
       <h2>Activité quotidienne (30 jours)</h2>
-      <div class="overflow-x-auto"><table class="w-full text-left"><thead><tr class="border-b border-line"><th class="py-2 pr-3">Date</th><th class="py-2 pr-3">Visiteurs</th><th class="py-2 pr-3">Pages vues</th><th class="py-2 pr-3">Séances créées</th><th class="py-2">Terminées</th></tr></thead><tbody id="daily-stats"></tbody></table></div>
+            <div id="chart-daily" class="chart"></div>
+            <details class="mt-2"><summary class="cursor-pointer font-bold">Voir le tableau</summary><div class="overflow-x-auto"><table class="w-full text-left"><thead><tr class="border-b border-line"><th class="py-2 pr-3">Date</th><th class="py-2 pr-3">Visiteurs</th><th class="py-2 pr-3">Pages vues</th><th class="py-2 pr-3">Séances créées</th><th class="py-2">Terminées</th></tr></thead><tbody id="daily-stats"></tbody></table></div></details>
     </section>
     <p id="updated-at" class="mt-6 text-sm text-muted"></p>
     <section class="mt-10" aria-labelledby="subscribers-heading">
@@ -219,6 +223,104 @@ import Breadcrumb from '../../components/Breadcrumb.astro';
       window.setTimeout(() => URL.revokeObjectURL(url), 1000);
     });
 
+    interface Bar { label: string; values: number[] }
+    const SERIES_COLORS = ['var(--primary)', 'var(--accent-strong)'];
+
+    // Histogramme groupé en SVG, sans bibliothèque externe.
+    function columnChart(target: HTMLElement, bars: Bar[], names: string[]) {
+      target.replaceChildren();
+      const max = Math.max(1, ...bars.flatMap((b) => b.values));
+      const W = 600, H = 200, padL = 34, padB = 22, padT = 8;
+      const innerW = W - padL, innerH = H - padB - padT;
+      const group = innerW / Math.max(1, bars.length);
+      const barW = Math.max(2, (group * 0.8) / names.length);
+      const ns = 'http://www.w3.org/2000/svg';
+      const svg = document.createElementNS(ns, 'svg');
+      svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+      svg.setAttribute('role', 'img');
+      svg.setAttribute('aria-label', `Graphique : ${names.join(', ')}`);
+      const make = (tag: string, attrs: Record<string, string>, text?: string) => {
+        const el = document.createElementNS(ns, tag);
+        for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v);
+        if (text) el.textContent = text;
+        return el;
+      };
+      for (const frac of [0, 0.5, 1]) {
+        const y = padT + innerH * (1 - frac);
+        svg.append(make('line', { x1: String(padL), x2: String(W), y1: String(y), y2: String(y), stroke: 'var(--line)', 'stroke-width': '1' }));
+        svg.append(make('text', { x: String(padL - 4), y: String(y + 4), 'text-anchor': 'end', 'font-size': '11', fill: 'var(--muted)' }, format(Math.round(max * frac))));
+      }
+      const step = Math.ceil(bars.length / 8);
+      bars.forEach((bar, i) => {
+        const x0 = padL + i * group + (group - barW * names.length) / 2;
+        bar.values.forEach((value, s) => {
+          const h = (value / max) * innerH;
+          const rect = make('rect', {
+            x: String(x0 + s * barW), y: String(padT + innerH - h), width: String(Math.max(1, barW - 1)),
+            height: String(h), rx: '2', fill: SERIES_COLORS[s % SERIES_COLORS.length]!,
+          });
+          rect.append(make('title', {}, `${bar.label} · ${names[s]} : ${format(value)}`));
+          svg.append(rect);
+        });
+        if (i % step === 0) {
+          svg.append(make('text', { x: String(padL + i * group + group / 2), y: String(H - 6), 'text-anchor': 'middle', 'font-size': '11', fill: 'var(--muted)' }, bar.label));
+        }
+      });
+      const legend = document.createElement('p');
+      legend.className = 'chart-legend';
+      names.forEach((name, s) => {
+        const item = document.createElement('span');
+        const dot = document.createElement('i');
+        dot.style.background = SERIES_COLORS[s % SERIES_COLORS.length]!;
+        item.append(dot, name);
+        legend.append(item);
+      });
+      target.append(svg, legend);
+    }
+
+    function barList(target: HTMLElement, rows: { label: string; value: number }[]) {
+      target.replaceChildren();
+      const max = Math.max(1, ...rows.map((r) => r.value));
+      for (const row of rows.slice(0, 10)) {
+        const line = document.createElement('div');
+        line.className = 'hbar';
+        const label = document.createElement('span');
+        label.className = 'hbar-label';
+        label.textContent = row.label;
+        const track = document.createElement('span');
+        track.className = 'hbar-track';
+        const fill = document.createElement('span');
+        fill.style.width = `${Math.max(2, (row.value / max) * 100)}%`;
+        track.append(fill);
+        const value = document.createElement('strong');
+        value.textContent = format(row.value);
+        line.append(label, track, value);
+        target.append(line);
+      }
+      if (rows.length === 0) target.textContent = 'Pas encore de données.';
+    }
+
+    function renderCharts(data: Dashboard) {
+      const days = [...data.daily].sort((a, b) => a.event_date.localeCompare(b.event_date));
+      columnChart(
+        document.getElementById('chart-daily')!,
+        days.map((d) => ({ label: d.event_date.slice(8) + '/' + d.event_date.slice(5, 7), values: [d.visitors, d.page_views] })),
+        ['Visiteurs', 'Pages vues'],
+      );
+      const months = [...data.monthly].sort((a, b) => a.month.localeCompare(b.month));
+      columnChart(
+        document.getElementById('chart-monthly')!,
+        months.map((m) => ({ label: m.month.slice(2), values: [m.visitors, m.page_views] })),
+        ['Visiteurs', 'Pages vues'],
+      );
+      barList(document.getElementById('chart-exercises')!, data.exercises
+        .map((e) => ({ label: e.entity_id, value: (e.views ?? 0) + (e.generated ?? 0) + (e.completed ?? 0) + (e.replacements ?? 0) }))
+        .sort((a, b) => b.value - a.value));
+      barList(document.getElementById('chart-pages')!, data.pages
+        .map((p) => ({ label: p.entity_id, value: p.views ?? 0 }))
+        .sort((a, b) => b.value - a.value));
+    }
+
     async function loadDashboard() {
       status.textContent = 'Chargement des statistiques…';
       status.hidden = false;
@@ -263,6 +365,7 @@ import Breadcrumb from '../../components/Breadcrumb.astro';
         new Date(`${day.event_date}T00:00:00Z`).toLocaleDateString('fr-FR'),
         format(day.visitors), format(day.page_views), format(day.sessions_generated), format(day.sessions_completed),
       ]);
+      renderCharts(data);
       await loadSubscribers();
       document.getElementById('updated-at')!.textContent = `Mis à jour le ${new Date(data.generatedAt).toLocaleString('fr-FR')} · Données conservées ${data.retentionMonths} mois.`;
       status.hidden = true;
