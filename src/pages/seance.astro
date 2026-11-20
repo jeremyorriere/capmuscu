@@ -115,6 +115,7 @@ const durations = [
     import { KEY_HISTORY, isEntry, mergeEntries } from '../lib/history';
     import type { HistoryEntry } from '../lib/history';
     import { muscleHue, tintStyle } from '../lib/ui';
+    import { trackAnalytics } from '../lib/analytics';
 
     const openPeeks = new Set<number>();
 
@@ -505,6 +506,7 @@ const durations = [
         if (state.sets) state.sets[index] = 0;
         if (state.weights) delete state.weights[index];
         persist();
+        trackAnalytics('exercise_swap', [next.exerciseId]);
         render(index);
         const now = exercises.find((e) => e.id === next.exerciseId);
         $('live').textContent = `« ${previous?.name} » remplacé par « ${now?.name} » (${now?.primaryMuscle}).`;
@@ -587,6 +589,7 @@ const durations = [
       stopRest();
       openPeeks.clear();
       persist();
+      trackAnalytics('session_generated', items.map((item) => item.exerciseId));
       say('');
       render();
       const heading = $('result-title');
@@ -629,6 +632,7 @@ const durations = [
       // Une même séance terminée deux fois remplace l'enregistrement précédent.
       if (!store(KEY_HISTORY, mergeEntries(saved, [entry]))) { say("Impossible d'enregistrer : le stockage du navigateur est indisponible."); return; }
       try { await navigator.storage?.persist?.(); } catch { /* facultatif */ }
+      trackAnalytics('session_completed', entry.items.map((item) => item.exerciseId));
       stopRest();
       say('');
       $('msg').innerHTML = 'Séance ajoutée à votre historique. <a href="/historique/">Voir mon historique</a>';

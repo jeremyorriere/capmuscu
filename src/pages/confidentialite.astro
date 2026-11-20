@@ -5,7 +5,7 @@ import legal from '../data/legal.json';
 ---
 <Layout
   title="Politique de confidentialité"
-  description="CapMuscu ne demande aucun compte et ne collecte aucune donnée via le site. Vos séances restent sur votre appareil."
+  description="Politique de confidentialité de CapMuscu : données des séances conservées sur votre appareil, consentement aux statistiques et gestion de la newsletter."
 >
   <Breadcrumb items={[{ name: 'Confidentialité' }]} />
   <h1>Politique de confidentialité</h1>
@@ -13,8 +13,57 @@ import legal from '../data/legal.json';
     <section aria-labelledby="resume">
       <h2 id="resume">En résumé</h2>
       <p class="mt-2">
-        CapMuscu ne demande aucun compte, n'affiche aucune publicité, n'utilise aucun traceur publicitaire ni outil
-        de mesure d'audience et n'enregistre aucun formulaire sur le site. Aucun bandeau de cookies n'est donc nécessaire.
+        CapMuscu ne demande aucun compte, n'affiche aucune publicité et n'utilise aucun traceur publicitaire ni outil
+        de mesure d'audience automatique. Vos séances restent sur votre appareil. Si vous choisissez de vous inscrire à la newsletter,
+        votre adresse email et vos choix de consentement sont enregistrés dans un stockage privé fourni par Vercel.
+      </p>
+    </section>
+
+    <section aria-labelledby="statistiques">
+      <h2 id="statistiques">Statistiques d'utilisation facultatives</h2>
+      <p class="mt-2">
+        Seulement si vous l'acceptez, CapMuscu mesure les pages consultées, les fiches d'exercice vues, les exercices
+        inclus dans les séances créées ou terminées, les remplacements et l'utilisation des calculateurs. Aucune charge,
+        répétition, mesure corporelle, valeur saisie dans un calculateur, séance personnelle ni adresse email n'est
+        transmise à cette fin.
+      </p>
+      <p class="mt-2">
+        Un identifiant aléatoire conservé dans le navigateur permet de compter les visiteurs uniques de ce navigateur.
+        L'identifiant est pseudonymisé avec une clé secrète ; les événements associés expirent après environ
+        13 mois. Les statistiques agrégées ne permettent pas de
+        retrouver votre historique d'entraînement. Un même utilisateur utilisant plusieurs navigateurs ou appareils
+        peut être compté plusieurs fois.
+      </p>
+      <p class="mt-2">
+        Vous pouvez refuser ou retirer votre accord à tout moment. Le retrait arrête les nouvelles mesures et demande
+        l'effacement des événements associés à cet identifiant. Le fonctionnement du site et le stockage local de vos
+        séances ne dépendent pas de votre choix.
+      </p>
+      <button id="analytics-settings" class="btn mt-3" type="button">Modifier mon choix sur les statistiques</button>
+      <script>
+        document.querySelector('#analytics-settings')?.addEventListener('click', () => {
+          document.dispatchEvent(new CustomEvent('capmuscu:analytics-settings'));
+        });
+      </script>
+    </section>
+
+    <section aria-labelledby="newsletter">
+      <h2 id="newsletter">Newsletter et informations sur les futurs comptes</h2>
+      <p class="mt-2">
+        L'inscription à la newsletter est facultative et nécessite votre consentement. Votre adresse email et la date
+        de votre consentement sont enregistrées dans un stockage privé Vercel Blob, hébergé par Vercel. Elles sont
+        utilisées pour conserver votre inscription et, si vous avez coché la case distincte, votre intérêt pour un futur
+        compte. Aucun email de confirmation ou d'actualité n'est envoyé automatiquement pour le moment.
+      </p>
+      <p class="mt-2">
+        Une case distincte, facultative, vous permet de demander à être informé(e) de l'arrivée d'un compte pour suivre
+        vos séances et vos progrès. Ce choix est enregistré séparément.
+        Il ne crée pas de compte et ne transmet ni votre historique ni vos données d'entraînement.
+      </p>
+      <p class="mt-2">
+        Vous pouvez retirer votre consentement ou demander la suppression de votre adresse à tout moment en écrivant à
+        l'éditeur. Les données sont conservées jusqu'à votre demande de désinscription ou d'effacement. Vercel traite
+        les données nécessaires à l'hébergement du stockage selon ses conditions et sa politique de confidentialité.
       </p>
     </section>
 
@@ -50,7 +99,8 @@ import legal from '../data/legal.json';
         les valeurs saisies ne sont ni envoyées ni conservées.
       </p>
       <p class="mt-2">
-        Le site peut aussi garder en mémoire des pages pour fonctionner sans réseau (service worker). Aucune donnée personnelle n'y figure.
+        Le site peut aussi garder en mémoire des pages pour fonctionner sans réseau (service worker). Les pages et données
+        de l'administration ne sont jamais mises en cache par ce service worker.
       </p>
       <p class="mt-2"><strong>Pour tout effacer :</strong> supprimez les données du site dans les réglages de votre navigateur (« Effacer les données de navigation »).</p>
     </section>

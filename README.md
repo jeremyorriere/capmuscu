@@ -1,35 +1,45 @@
 ﻿# CapMuscu — capmuscu.fr
 
-Compagnon de musculation gratuit, lumineux et accessible à tous les âges : générateur de séance avec bouton « Machine prise », encyclopédie de 923 exercices, outils pratiques (calories, protéines, 1RM) et veille quotidienne.
+Compagnon de musculation gratuit, lumineux et accessible à tous les âges : générateur de séance avec bouton « Machine prise », encyclopédie de 926 exercices, outils pratiques (calories, protéines, 1RM) et veille quotidienne.
 
-Stack : Astro (SSG, TypeScript strict), Tailwind CSS 4, données JSON locales, scripts Node.js. Aucune API payante, aucun compte, aucune base de données serveur.
+Stack : Astro (SSG, TypeScript strict), Tailwind CSS 4, données JSON locales, fonctions Vercel et Vercel Blob privé. Aucun compte n'est nécessaire pour utiliser le site et les données d'entraînement restent sur l'appareil. Les inscriptions email ne sont enregistrées qu'après consentement ; aucun email n'est envoyé automatiquement.
 
 ## Lancer en local
 
 ```bash
 npm install
-npm run dev          # http://localhost:4321
+npm run dev          # interface seule : http://localhost:4321
 npm test             # tests d'intégrité des données + générateur de séance
 npm run build        # génère le site statique dans dist/
 npm run preview      # prévisualise dist/
 npm run update-data  # met à jour src/data/news.json (PubMed + flux RSS)
 ```
 
+Pour tester aussi les API Vercel en local, installez la CLI Vercel (`npm install --global vercel`), liez le projet avec `vercel link`, récupérez les variables d'environnement avec `vercel env pull .env.local`, puis lancez `vercel dev`. Les secrets ne doivent jamais être ajoutés au dépôt.
+
 ## Structure
 
 | Chemin | Rôle |
 | --- | --- |
-| `src/data/exercises.json` | Base des exercices (100) |
+| `src/data/exercises.json` | Base des exercices (926) |
 | `src/data/muscles.json` | Muscles et zones (accueil / générateur) |
 | `src/data/news.json` | Actus et études (écrit par le collecteur) |
 | `src/data/recipes.json` | Modèle des recettes (3 exemples, futur `/recettes`) |
 | `src/lib/session.ts` | Générateur de séance et remplacement d'exercice |
+| `api/newsletter.ts` | Inscription email avec consentement, enregistrée dans Blob privé |
+| `api/analytics.ts` | Événements facultatifs pseudonymisés et suppression après retrait du consentement |
+| `api/admin/` | Connexion, statistiques et gestion privée des inscriptions |
+| `src/lib/server/` | Authentification et accès serveur au stockage Vercel Blob |
 | `src/scripts/collectors/` | Collecteurs PubMed et RSS avec repli |
 | `tests/` | Tests Vitest |
 
 Pages générées : `/`, `/seance/`, `/exercices/`, `/exercices/[slug]/`, `/exercices/[muscle]-[materiel]/` (ex. `/exercices/pectoraux-halteres/`), `/muscles/[muscle]/`, `/outils/`, `/feedback/`, `sitemap-index.xml`, `robots.txt`.
 
 La page `/feedback/` prépare un email avec le type de retour, la page concernée et le message. L'envoi n'a lieu qu'après confirmation dans l'application de messagerie de l'utilisateur ; le site n'enregistre pas les retours.
+
+## Installer CapMuscu
+
+CapMuscu est une application web installable (PWA). Sur téléphone ou ordinateur, ouvrez `/installer/` sur le site publié en HTTPS et suivez les instructions du navigateur. Sur iPhone/iPad, utilisez Safari → **Partager** → **Sur l'écran d'accueil**. L'application s'ouvre sur le générateur de séance (`/seance/`) et peut aussi fonctionner hors ligne pour les pages déjà visitées. L'installation ne crée pas de compte et ne synchronise pas l'historique, qui reste sur l'appareil.
 
 ## Ajouter un exercice
 
@@ -80,15 +90,23 @@ Complétez `src/data/recipes.json` (modèle déjà en place : nom, durée, prot�
 
 `.github/workflows/daily-update.yml` s'exécute chaque matin à 05h00 (heure de Paris), lance `npm run update-data`, teste, construit et pousse `news.json`. Si une source est indisponible, les dernières données valides sont conservées et la date de dernière mise à jour affichée reste exacte. L'hébergeur reconstruit le site à chaque commit, ce qui renouvelle aussi « L'exercice découverte du jour ».
 
-## Déploiement gratuit
+## Déploiement Vercel
 
-Réglages communs : commande de build `npm run build`, dossier de sortie `dist`, Node 20 ou plus.
+Importez le dépôt depuis *Vercel → Add New → Project*, gardez la commande `npm run build` et le dossier de sortie `dist`, puis ajoutez le domaine `capmuscu.fr` dans *Settings → Domains*. Les fonctions placées dans `api/` sont déployées avec le site.
 
-**Cloudflare Pages** : *Workers & Pages → Create → Pages → Connect to Git*, choisissez le dépôt, puis ajoutez le domaine dans *Custom domains* → `capmuscu.fr`. Cloudflare configure le DNS automatiquement si le domaine est géré chez eux.
+Dans le tableau de bord Vercel, créez un **Blob Store privé** et connectez-le au projet. Ajoutez les variables d'environnement suivantes dans *Settings → Environment Variables* :
 
-**Vercel** : *Add New → Project*, importez le dépôt (Astro est détecté), puis *Settings → Domains* → `capmuscu.fr` et créez les enregistrements DNS indiqués.
+- `ANALYTICS_HASH_SECRET` : secret aléatoire d'au moins 32 caractères pour pseudonymiser les visiteurs.
+- `ADMIN_AUTH_SECRET` : secret aléatoire distinct d'au moins 32 caractères pour signer les sessions admin.
+- `ADMIN_PASSWORD` : mot de passe admin unique d'au moins 16 caractères.
 
-**Netlify** : *Add new site → Import from Git*, puis *Domain management → Add a domain* → `capmuscu.fr`.
+Vous pouvez générer chaque secret avec `node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"` et conserver le mot de passe dans un gestionnaire de mots de passe. Ne réutilisez pas les secrets et ne les mettez jamais dans le code. La liaison du Blob Store fournit au serveur les accès privés nécessaires ; aucune clé n'est exposée au navigateur.
+
+### Statistiques et tableau de bord admin
+
+Les statistiques ne démarrent qu'après consentement. Les visiteurs uniques sont des navigateurs ayant accepté, pas un décompte garanti de personnes ; les identifiants sont propres à chaque appareil. Aucune charge, historique de séance, donnée de santé ou valeur de calculateur n'est envoyée. Les événements sont pseudonymisés, expirent après environ 13 mois et sont supprimés au retrait du consentement.
+
+Le tableau de bord est accessible à `/admin/`. La connexion vérifie le mot de passe côté serveur, limite les tentatives à cinq par adresse IP sur 15 minutes (seul un hash est conservé) et utilise un cookie de session `HttpOnly`, `Secure`, `SameSite=Strict` valable huit heures. L'administration permet aussi de consulter, exporter en CSV et supprimer les inscriptions email. Ces inscriptions et leurs choix de consentement sont conservés dans le Blob Store privé ; aucun service d'envoi d'emails n'est utilisé. Pour révoquer les sessions, changez `ADMIN_AUTH_SECRET` ; pour changer le mot de passe, modifiez `ADMIN_PASSWORD`.
 
 Après la mise en ligne, soumettez `https://capmuscu.fr/sitemap-index.xml` dans la Google Search Console.
 

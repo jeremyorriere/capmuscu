@@ -17,6 +17,7 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const req = event.request;
   if (req.method !== 'GET' || new URL(req.url).origin !== self.location.origin) return;
+  if (new URL(req.url).pathname.startsWith('/admin/') || new URL(req.url).pathname.startsWith('/api/admin/')) return;
   event.respondWith(
     fetch(req)
       .then((res) => {

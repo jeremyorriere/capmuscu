@@ -1,0 +1,330 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+---
+<Layout
+  title="Administration — statistiques"
+  description="Tableau de bord privé des statistiques d’usage de CapMuscu."
+  noindex
+>
+  <Breadcrumb items={[{ name: 'Administration' }]} />
+  <h1>Statistiques CapMuscu</h1>
+  <p class="mt-2 text-muted">Visiteurs ayant accepté les statistiques sur ce navigateur. Les identifiants sont pseudonymisés et les événements expirent après environ 13 mois.</p>
+  <section id="admin-login-section" class="card mt-5 max-w-lg" aria-labelledby="admin-login-title" hidden>
+    <h2 id="admin-login-title" class="text-xl">Connexion administrateur</h2>
+    <form id="admin-login-form" class="mt-4 grid gap-3">
+      <label class="font-bold" for="admin-password">Mot de passe administrateur</label>
+      <input id="admin-password" class="field" type="password" name="password" autocomplete="current-password" required maxlength="1024" />
+      <button id="admin-login-button" class="btn btn-primary justify-self-start" type="submit">Se connecter</button>
+      <p id="admin-login-status" class="m-0 text-sm text-muted" role="status" aria-live="polite"></p>
+    </form>
+  </section>
+  <p id="admin-status" class="card mt-5" role="status" aria-live="polite">Vérification de la connexion…</p>
+  <div id="admin-dashboard" hidden>
+    <button id="admin-logout" class="btn mt-5" type="button">Se déconnecter</button>
+    <dl class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="card"><dt class="text-muted">Visiteurs uniques aujourd’hui</dt><dd id="stat-today" class="m-0 text-3xl font-extrabold">—</dd></div>
+      <div class="card"><dt class="text-muted">Visiteurs uniques ce mois</dt><dd id="stat-month" class="m-0 text-3xl font-extrabold">—</dd></div>
+      <div class="card"><dt class="text-muted">Visiteurs uniques cette année</dt><dd id="stat-year" class="m-0 text-3xl font-extrabold">—</dd></div>
+      <div class="card"><dt class="text-muted">Pages vues aujourd’hui</dt><dd id="stat-views" class="m-0 text-3xl font-extrabold">—</dd></div>
+      <div class="card"><dt class="text-muted">Séances créées ce mois</dt><dd id="stat-sessions" class="m-0 text-3xl font-extrabold">—</dd></div>
+      <div class="card"><dt class="text-muted">Séances terminées ce mois</dt><dd id="stat-completed" class="m-0 text-3xl font-extrabold">—</dd></div>
+    </dl>
+    <div class="mt-8 grid gap-8 lg:grid-cols-2">
+      <section>
+        <h2>Exercices les plus utilisés (13 mois)</h2>
+        <p class="text-sm text-muted">Consultations des fiches, séances créées/terminées et remplacements. Un même exercice peut compter plusieurs fois.</p>
+        <div class="overflow-x-auto"><table class="w-full text-left"><thead><tr class="border-b border-line"><th class="py-2 pr-3">Exercice</th><th class="py-2 pr-3">Fiches vues</th><th class="py-2 pr-3">Séances créées</th><th class="py-2 pr-3">Terminées</th><th class="py-2">Remplacements</th></tr></thead><tbody id="top-exercises"></tbody></table></div>
+      </section>
+      <section>
+        <h2>Pages les plus consultées (13 mois)</h2>
+        <div class="overflow-x-auto"><table class="w-full text-left"><thead><tr class="border-b border-line"><th class="py-2 pr-3">Page</th><th class="py-2">Vues</th></tr></thead><tbody id="top-pages"></tbody></table></div>
+        <h2 class="mt-8">Outils utilisés (13 mois)</h2>
+        <div class="overflow-x-auto"><table class="w-full text-left"><thead><tr class="border-b border-line"><th class="py-2 pr-3">Outil</th><th class="py-2">Calculs</th></tr></thead><tbody id="top-tools"></tbody></table></div>
+      </section>
+    </div>
+    <section class="mt-8">
+      <h2>Visiteurs et activité par mois</h2>
+      <div class="overflow-x-auto"><table class="w-full text-left"><thead><tr class="border-b border-line"><th class="py-2 pr-3">Mois</th><th class="py-2 pr-3">Visiteurs uniques</th><th class="py-2">Pages vues</th></tr></thead><tbody id="monthly-stats"></tbody></table></div>
+    </section>
+    <section class="mt-8">
+      <h2>Activité quotidienne (30 jours)</h2>
+      <div class="overflow-x-auto"><table class="w-full text-left"><thead><tr class="border-b border-line"><th class="py-2 pr-3">Date</th><th class="py-2 pr-3">Visiteurs</th><th class="py-2 pr-3">Pages vues</th><th class="py-2 pr-3">Séances créées</th><th class="py-2">Terminées</th></tr></thead><tbody id="daily-stats"></tbody></table></div>
+    </section>
+    <p id="updated-at" class="mt-6 text-sm text-muted"></p>
+    <section class="mt-10" aria-labelledby="subscribers-heading">
+      <h2 id="subscribers-heading">Inscriptions email</h2>
+      <p class="text-sm text-muted">Adresses et consentements enregistrés dans le stockage privé. Aucun email n'est envoyé automatiquement.</p>
+      <div class="mt-3 flex flex-wrap gap-2">
+        <button id="load-subscribers" class="btn" type="button">Actualiser les inscriptions</button>
+        <button id="export-subscribers" class="btn" type="button" disabled>Exporter en CSV</button>
+      </div>
+      <p id="subscriber-status" class="mt-2 text-sm text-muted" role="status" aria-live="polite"></p>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left">
+          <thead><tr class="border-b border-line"><th class="py-2 pr-3">Adresse email</th><th class="py-2 pr-3">Inscription</th><th class="py-2 pr-3">Futurs comptes</th><th class="py-2 pr-3">Consentement</th><th class="py-2">Action</th></tr></thead>
+          <tbody id="subscribers-list"></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+  <script>
+    interface AnalyticsRow {
+      entity_id: string;
+      views?: number;
+      generated?: number;
+      completed?: number;
+      replacements?: number;
+      uses?: number;
+    }
+    interface DailyRow {
+      event_date: string;
+      visitors: number;
+      page_views: number;
+      sessions_generated: number;
+      sessions_completed: number;
+    }
+    interface Dashboard {
+      generatedAt: string;
+      retentionMonths: number;
+      summary: {
+        visitors_today?: number;
+        visitors_month?: number;
+        visitors_year?: number;
+        views_today?: number;
+        sessions_month?: number;
+        completed_month?: number;
+      };
+      daily: DailyRow[];
+      monthly: { month: string; visitors: number; page_views: number }[];
+      exercises: AnalyticsRow[];
+      pages: AnalyticsRow[];
+      tools: AnalyticsRow[];
+    }
+    interface Subscriber {
+      id: string;
+      email: string;
+      createdAt: string;
+      updatedAt: string;
+      accountUpdatesConsent: boolean;
+      consentAt: string;
+    }
+
+    const status = document.querySelector<HTMLElement>('#admin-status')!;
+    const dashboard = document.querySelector<HTMLElement>('#admin-dashboard')!;
+    const format = (value: number | undefined) => new Intl.NumberFormat('fr-FR').format(value ?? 0);
+    const addRow = (target: HTMLElement, cells: string[]) => {
+      const row = document.createElement('tr');
+      row.className = 'border-b border-line';
+      for (const value of cells) {
+        const cell = document.createElement('td');
+        cell.className = 'py-2 pr-3';
+        cell.textContent = value;
+        row.append(cell);
+      }
+      target.append(row);
+    };
+
+    const loginSection = document.querySelector<HTMLElement>('#admin-login-section')!;
+    const loginForm = document.querySelector<HTMLFormElement>('#admin-login-form')!;
+    const loginStatus = document.querySelector<HTMLElement>('#admin-login-status')!;
+    const loginButton = document.querySelector<HTMLButtonElement>('#admin-login-button')!;
+    const loginPassword = document.querySelector<HTMLInputElement>('#admin-password')!;
+    const logoutButton = document.querySelector<HTMLButtonElement>('#admin-logout')!;
+    const subscribersList = document.querySelector<HTMLElement>('#subscribers-list')!;
+    const subscriberStatus = document.querySelector<HTMLElement>('#subscriber-status')!;
+    const loadSubscribersButton = document.querySelector<HTMLButtonElement>('#load-subscribers')!;
+    const exportSubscribersButton = document.querySelector<HTMLButtonElement>('#export-subscribers')!;
+    let subscribers: Subscriber[] = [];
+
+    const dateLabel = (value: string) => new Date(value).toLocaleDateString('fr-FR');
+
+    async function loadSubscribers() {
+      loadSubscribersButton.disabled = true;
+      subscriberStatus.textContent = 'Chargement des inscriptions…';
+      try {
+        const response = await fetch('/api/admin/subscribers', { headers: { Accept: 'application/json' } });
+        const result = await response.json() as { error?: string; subscribers?: Subscriber[] };
+        if (!response.ok || !result.subscribers) throw new Error(result.error ?? 'Inscriptions indisponibles.');
+        subscribers = result.subscribers;
+        subscribersList.replaceChildren();
+        for (const subscriber of subscribers) {
+          const row = document.createElement('tr');
+          row.className = 'border-b border-line';
+          for (const value of [
+            subscriber.email,
+            dateLabel(subscriber.createdAt),
+            subscriber.accountUpdatesConsent ? 'Oui' : 'Non',
+            dateLabel(subscriber.consentAt),
+          ]) {
+            const cell = document.createElement('td');
+            cell.className = 'py-2 pr-3';
+            cell.textContent = value;
+            row.append(cell);
+          }
+          const actionCell = document.createElement('td');
+          actionCell.className = 'py-2';
+          const deleteButton = document.createElement('button');
+          deleteButton.className = 'btn';
+          deleteButton.type = 'button';
+          deleteButton.textContent = 'Supprimer';
+          deleteButton.setAttribute('aria-label', `Supprimer l’inscription de ${subscriber.email}`);
+          deleteButton.addEventListener('click', async () => {
+            if (!window.confirm(`Supprimer l’inscription de ${subscriber.email} ?`)) return;
+            deleteButton.disabled = true;
+            try {
+              const deleted = await fetch('/api/admin/subscribers', {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: subscriber.id }),
+              });
+              const outcome = await deleted.json() as { error?: string };
+              if (!deleted.ok) throw new Error(outcome.error ?? 'Suppression impossible.');
+              await loadSubscribers();
+            } catch (error) {
+              subscriberStatus.textContent = error instanceof Error ? error.message : 'Suppression impossible.';
+              deleteButton.disabled = false;
+            }
+          });
+          actionCell.append(deleteButton);
+          row.append(actionCell);
+          subscribersList.append(row);
+        }
+        exportSubscribersButton.disabled = subscribers.length === 0;
+        subscriberStatus.textContent = `${format(subscribers.length)} inscription(s).`;
+      } catch (error) {
+        subscriberStatus.textContent = error instanceof Error ? error.message : 'Impossible de charger les inscriptions.';
+      } finally {
+        loadSubscribersButton.disabled = false;
+      }
+    }
+
+    loadSubscribersButton.addEventListener('click', () => void loadSubscribers());
+    exportSubscribersButton.addEventListener('click', () => {
+      const csvCell = (value: string) => `"${(/^[\t\r=+\-@]/.test(value) ? `'${value}` : value).replace(/"/g, '""')}"`;
+      const rows = [
+        ['email', 'inscription', 'consentement_newsletter', 'consentement_futurs_comptes', 'date_consentement'],
+        ...subscribers.map((subscriber) => [
+          subscriber.email, subscriber.createdAt, 'oui', subscriber.accountUpdatesConsent ? 'oui' : 'non', subscriber.consentAt,
+        ]),
+      ];
+      const csv = `\uFEFF${rows.map((row) => row.map(csvCell).join(';')).join('\r\n')}`;
+      const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'inscriptions-capmuscu.csv';
+      document.body.append(link);
+      link.click();
+      link.remove();
+      window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+    });
+
+    async function loadDashboard() {
+      status.textContent = 'Chargement des statistiques…';
+      status.hidden = false;
+      loginSection.hidden = true;
+      dashboard.hidden = true;
+      const response = await fetch('/api/admin/analytics', { headers: { Accept: 'application/json' } });
+      if (response.status === 401) {
+        status.hidden = true;
+        loginSection.hidden = false;
+        loginPassword.focus();
+        return;
+      }
+      if (!response.ok) throw new Error('Statistiques indisponibles. Vérifiez la configuration Vercel Blob.');
+      const data = await response.json() as Dashboard;
+      const summary = data.summary;
+      for (const [id, value] of [
+        ['stat-today', summary.visitors_today],
+        ['stat-month', summary.visitors_month],
+        ['stat-year', summary.visitors_year],
+        ['stat-views', summary.views_today],
+        ['stat-sessions', summary.sessions_month],
+        ['stat-completed', summary.completed_month],
+      ] as const) {
+        document.getElementById(id)!.textContent = format(value);
+      }
+      for (const exercise of data.exercises) {
+        addRow(document.getElementById('top-exercises')!, [
+          exercise.entity_id, format(exercise.views), format(exercise.generated),
+          format(exercise.completed), format(exercise.replacements),
+        ]);
+      }
+      for (const page of data.pages) addRow(document.getElementById('top-pages')!, [page.entity_id, format(page.views)]);
+      for (const tool of data.tools) {
+        addRow(document.getElementById('top-tools')!, [
+          tool.entity_id === 'nutrition' ? 'Calories et protéines' : 'Charge maximale (1RM)', format(tool.uses),
+        ]);
+      }
+      for (const month of data.monthly) addRow(document.getElementById('monthly-stats')!, [
+        month.month, format(month.visitors), format(month.page_views),
+      ]);
+      for (const day of data.daily) addRow(document.getElementById('daily-stats')!, [
+        new Date(`${day.event_date}T00:00:00Z`).toLocaleDateString('fr-FR'),
+        format(day.visitors), format(day.page_views), format(day.sessions_generated), format(day.sessions_completed),
+      ]);
+      await loadSubscribers();
+      document.getElementById('updated-at')!.textContent = `Mis à jour le ${new Date(data.generatedAt).toLocaleString('fr-FR')} · Données conservées ${data.retentionMonths} mois.`;
+      status.hidden = true;
+      dashboard.hidden = false;
+    }
+
+    loginForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!loginForm.reportValidity()) return;
+      loginButton.disabled = true;
+      loginStatus.textContent = 'Connexion…';
+      try {
+        const response = await fetch('/api/admin/session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password: loginPassword.value }),
+        });
+        const result = await response.json() as { error?: string };
+        if (!response.ok) throw new Error(result.error ?? 'Connexion impossible.');
+        loginPassword.value = '';
+        loginStatus.textContent = '';
+        await loadDashboard();
+      } catch (error) {
+        loginStatus.textContent = error instanceof Error ? error.message : 'Connexion impossible.';
+      } finally {
+        loginButton.disabled = false;
+      }
+    });
+
+    logoutButton.addEventListener('click', async () => {
+      logoutButton.disabled = true;
+      try {
+        const response = await fetch('/api/admin/session', { method: 'DELETE' });
+        if (!response.ok) throw new Error('Déconnexion impossible.');
+        dashboard.hidden = true;
+        subscribers = [];
+        subscribersList.replaceChildren();
+        exportSubscribersButton.disabled = true;
+        subscriberStatus.textContent = '';
+        loginSection.hidden = false;
+        loginStatus.textContent = 'Vous êtes déconnecté(e).';
+        loginPassword.focus();
+      } catch (error) {
+        status.hidden = false;
+        status.textContent = error instanceof Error ? error.message : 'Déconnexion impossible.';
+      } finally {
+        logoutButton.disabled = false;
+      }
+    });
+
+    try {
+      const response = await fetch('/api/admin/session', { headers: { Accept: 'application/json' } });
+      if (!response.ok) throw new Error('Service de connexion indisponible.');
+      const session = await response.json() as { authenticated: boolean };
+      if (session.authenticated) await loadDashboard();
+      else {
+        status.hidden = true;
+        loginSection.hidden = false;
+        loginPassword.focus();
+      }
+    } catch (error) {
+      status.textContent = error instanceof Error ? error.message : 'Impossible de vérifier la connexion.';
+    }
+  </script>
+</Layout>

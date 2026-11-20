@@ -105,6 +105,7 @@ import { WORK_PERCENTS } from '../../lib/tools';
 
   <script>
     import { computeNutrition, estimate1RM, roundLoad } from '../../lib/tools';
+    import { trackAnalytics } from '../../lib/analytics';
     import type { Activity, NutritionGoal, Sex } from '../../lib/tools';
 
     const val = (id: string) => (document.getElementById(id) as HTMLInputElement).value;
@@ -127,6 +128,7 @@ import { WORK_PERCENTS } from '../../lib/tools';
       show('n-prot', fmt(r.protein));
       show('n-explain', `Pour maintenir votre poids, comptez environ ${fmt(r.maintenance)} kcal par jour. Vos protéines sont calculées à ${String(r.proteinPerKg).replace('.', ',')} g par kilo de poids de corps : répartissez-les sur 3 ou 4 repas.`);
       out.hidden = false;
+      trackAnalytics('calculator_used', ['nutrition']);
     });
 
     document.getElementById('rm')!.addEventListener('submit', (ev) => {
@@ -142,6 +144,7 @@ import { WORK_PERCENTS } from '../../lib/tools';
         if (cell) cell.textContent = `${fmt(roundLoad((max * pct) / 100))} kg`;
       });
       out.hidden = false;
+      trackAnalytics('calculator_used', ['one_rm']);
     });
   </script>
 </Layout>

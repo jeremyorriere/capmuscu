@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ExerciseMotion from '../components/ExerciseMotion.astro';
+import NewsletterSignup from '../components/NewsletterSignup.astro';
 import { zones, news, dailyExercise, formatDateFr, exercises, muscleByName } from '../lib/data';
 import { icon, ZONE_ICON } from '../lib/icons';
 import { muscleHue, levelHue, tintStyle } from '../lib/ui';
@@ -105,6 +106,16 @@ const ld = [
   </section>
 
   <p class="mt-10 text-muted">{exercises.length} exercices expliqués pas à pas, sans jargon. <a class="link" href="/exercices/">Parcourir l'encyclopédie</a>.</p>
+
+  <section class="card mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between" aria-labelledby="titre-installation">
+    <div>
+      <h2 id="titre-installation" class="m-0 text-xl">Retrouver CapMuscu rapidement</h2>
+      <p class="mt-1 mb-0 text-muted">Ajoutez l'application à votre écran d'accueil ou installez-la sur votre ordinateur.</p>
+    </div>
+    <a class="btn btn-primary shrink-0" href="/installer/">Installer CapMuscu</a>
+  </section>
+
+  <NewsletterSignup />
 
   <section class="card mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between" aria-labelledby="titre-avis">
     <div>

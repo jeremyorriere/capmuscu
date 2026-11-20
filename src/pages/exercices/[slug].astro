@@ -75,7 +75,7 @@ if (e && muscle) {
 }
 const otherEquip = combo ? getCombos().filter((c) => c.muscle.slug === combo.muscle.slug && c.slug !== combo.slug) : [];
 ---
-<Layout title={title} description={description} jsonLd={jsonLd}>
+<Layout title={title} description={description} jsonLd={jsonLd} analyticsExerciseId={e?.id}>
   {e && muscle && (
     <>
       <Breadcrumb items={[{ name: 'Exercices', href: '/exercices/' }, { name: muscle.name, href: `/muscles/${muscle.slug}/` }, { name: e.name }]} />

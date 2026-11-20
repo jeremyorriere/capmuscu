@@ -1036,6 +1036,10 @@
       "squat-barre",
       "presse-cuisses",
       "squat-gobelet"
+    ],
+    "images": [
+      "/images/exercises/squat-bulgare/0.jpg",
+      "/images/exercises/squat-bulgare/1.jpg"
     ]
   },
   {
@@ -2282,6 +2286,10 @@
       "burpees",
       "souleve-de-terre-barre",
       "mountain-climbers"
+    ],
+    "images": [
+      "/images/exercises/thruster-halteres/0.jpg",
+      "/images/exercises/thruster-halteres/1.jpg"
     ]
   },
   {
@@ -2636,6 +2644,10 @@
       "rowing-barre",
       "rowing-halteres-penche",
       "tirage-vertical-poulie"
+    ],
+    "images": [
+      "/images/exercises/face-pull-poulie/0.jpg",
+      "/images/exercises/face-pull-poulie/1.jpg"
     ]
   },
   {
@@ -2773,6 +2785,10 @@
       "presse-cuisses",
       "squat-barre",
       "squat-gobelet"
+    ],
+    "images": [
+      "/images/exercises/hack-squat-machine/0.jpg",
+      "/images/exercises/hack-squat-machine/1.jpg"
     ]
   },
   {
@@ -2807,6 +2823,10 @@
       "fentes-avant-halteres",
       "squat-poids-du-corps",
       "squat-bulgare"
+    ],
+    "images": [
+      "/images/exercises/step-up-poids-du-corps/0.jpg",
+      "/images/exercises/step-up-poids-du-corps/1.jpg"
     ]
   },
   {
@@ -3173,6 +3193,10 @@
       "gainage-lateral",
       "gainage-planche",
       "dead-bug"
+    ],
+    "images": [
+      "/images/exercises/pallof-press/0.jpg",
+      "/images/exercises/pallof-press/1.jpg"
     ]
   },
   {
@@ -36096,6 +36120,113 @@
     "images": [
       "/images/exercises/marche-avec-le-yoke/0.jpg",
       "/images/exercises/marche-avec-le-yoke/1.jpg"
+    ]
+  },
+  {
+    "id": "releve-turc-kettlebell",
+    "slug": "releve-turc-kettlebell",
+    "name": "Relevé turc avec kettlebell",
+    "description": "Le relevé turc est un mouvement au sol qui enchaîne plusieurs positions pour passer de la position allongée à la station debout, puis revenir au sol. Le kettlebell reste bras tendu au-dessus de l'épaule pendant toute la séquence. Il demande surtout de la coordination, de la stabilité et un bon contrôle du tronc plutôt qu'une charge élevée. Apprenez d'abord le geste sans poids, puis avec une chaussure posée sur le poing avant d'utiliser une kettlebell légère.",
+    "primaryMuscle": "Corps entier",
+    "secondaryMuscles": [
+      "Épaules",
+      "Abdominaux",
+      "Fessiers",
+      "Quadriceps"
+    ],
+    "equipment": "Kettlebell",
+    "difficulty": "Avancé",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Allongez-vous sur le dos, pliez la jambe du côté du kettlebell et tenez la poignée bras tendu au-dessus de l'épaule.",
+      "Poussez sur le pied plié pour vous redresser sur l'avant-bras opposé, puis sur la main, en gardant les yeux sur la charge.",
+      "Soulevez le bassin et passez la jambe tendue sous vous pour arriver en position à genou, sans déplacer le bras porteur.",
+      "Redressez-vous, puis inversez lentement les étapes pour revenir au sol. Terminez toutes les répétitions d'un côté avant de changer."
+    ],
+    "safetyTips": [
+      "Commencez sans charge et ne prenez un kettlebell que lorsque chaque transition est stable et maîtrisée.",
+      "Gardez le poignet droit et le bras verrouillé sans douleur ; arrêtez si l'épaule ne peut pas rester stable.",
+      "Choisissez un espace dégagé et demandez conseil à un coach si vous ne maîtrisez pas les transitions au sol."
+    ],
+    "commonMistakes": [
+      "Regarder ailleurs que la charge, ce qui rend le bras moins stable.",
+      "Prendre trop lourd avant d'avoir appris les transitions sans poids.",
+      "Se précipiter entre les positions ou laisser le bras s'incliner."
+    ],
+    "alternatives": [
+      "thruster-halteres",
+      "souleve-de-terre-barre",
+      "bear-crawl"
+    ]
+  },
+  {
+    "id": "squat-espagnol-elastique",
+    "slug": "squat-espagnol-elastique",
+    "name": "Squat espagnol avec élastique",
+    "description": "Le squat espagnol est une variante de squat où un élastique placé derrière les genoux aide à garder le buste droit pendant la flexion. Les tibias restent relativement verticaux et les genoux avancent dans la sangle, ce qui rend le mouvement différent d'un squat classique. Il cible principalement les quadriceps et peut se faire avec une amplitude confortable. L'élastique doit être solidement ancré à un support fixe, assez bas et placé derrière les jambes.",
+    "primaryMuscle": "Quadriceps",
+    "secondaryMuscles": [
+      "Fessiers",
+      "Mollets"
+    ],
+    "equipment": "Élastiques",
+    "difficulty": "Intermédiaire",
+    "mechanics": "Polyarticulaire",
+    "executionSteps": [
+      "Fixez un élastique solide à un support stable, à hauteur des genoux, puis placez-le derrière les deux genoux.",
+      "Reculez pour tendre la bande, écartez les pieds à largeur confortable et gardez le buste droit.",
+      "Pliez les genoux et descendez sous contrôle, sans laisser les talons décoller ni les genoux s'effondrer vers l'intérieur.",
+      "Poussez dans le sol pour revenir debout, puis réajustez la distance au support si la tension ou l'équilibre ne sont pas adaptés."
+    ],
+    "safetyTips": [
+      "Inspectez l'élastique et son ancrage avant chaque série ; ne l'utilisez pas s'il est abîmé ou instable.",
+      "Commencez par une amplitude modérée et arrêtez en cas de douleur au genou.",
+      "Gardez un appui stable et évitez de tirer brusquement contre la bande."
+    ],
+    "commonMistakes": [
+      "Ancrer l'élastique à un objet mobile ou le laisser glisser sur les jambes.",
+      "Descendre trop bas avant de contrôler l'équilibre et la trajectoire des genoux.",
+      "Rebondir en bas ou laisser les genoux rentrer vers l'intérieur."
+    ],
+    "alternatives": [
+      "squat-gobelet",
+      "squat-poids-du-corps",
+      "squat-barre"
+    ]
+  },
+  {
+    "id": "gainage-copenhagen",
+    "slug": "gainage-copenhagen",
+    "name": "Gainage de Copenhague",
+    "description": "Le gainage de Copenhague est un exercice latéral où la jambe du dessus repose sur un banc et soutient une partie du poids du corps. Le bassin est soulevé et le corps reste aligné, ce qui sollicite fortement les adducteurs de la cuisse du dessus ainsi que les muscles du tronc. Pour débuter, placez le genou sur le banc plutôt que la cheville afin de réduire le levier. Tenez la position sans chercher à prolonger si l'alignement se dégrade.",
+    "primaryMuscle": "Adducteurs",
+    "secondaryMuscles": [
+      "Abdominaux",
+      "Épaules"
+    ],
+    "equipment": "Accessoires",
+    "difficulty": "Intermédiaire",
+    "mechanics": "Isolation",
+    "executionSteps": [
+      "Allongez-vous sur le côté, l'avant-bras sous l'épaule, puis posez le genou ou la cheville du dessus sur un banc stable.",
+      "Alignez la tête, le bassin et les jambes, puis soulevez les hanches en poussant dans l'avant-bras et la jambe d'appui.",
+      "Gardez le bassin haut et le corps tourné vers l'avant pendant une durée courte et contrôlée.",
+      "Reposez les hanches sans tomber, récupérez, puis répétez de l'autre côté avec la même position."
+    ],
+    "safetyTips": [
+      "Commencez avec le genou posé sur le banc et réduisez la durée si vous perdez l'alignement.",
+      "Utilisez un banc stable et une surface antidérapante pour éviter qu'il ne bouge.",
+      "Arrêtez en cas de douleur aiguë à l'aine, à la hanche ou à l'épaule."
+    ],
+    "commonMistakes": [
+      "Commencer avec la cheville surélevée avant de maîtriser la variante genou.",
+      "Laisser le bassin tomber ou tourner vers le sol pendant le maintien.",
+      "Chercher à tenir longtemps malgré une perte de contrôle."
+    ],
+    "alternatives": [
+      "adduction-de-hanche-a-l-elastique",
+      "bond-lateral",
+      "machine-a-adducteurs-thigh-adductor"
     ]
   }
 ]

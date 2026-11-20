@@ -4,8 +4,8 @@
   "publisherAddress": "À COMPLÉTER : adresse postale (ou celle de l'hébergeur si vous êtes un particulier et que vous avez demandé l'anonymat)",
   "contactEmail": "jeremyorriere.aveo@gmail.com",
   "publicationDirector": "À COMPLÉTER : nom du directeur de la publication",
-  "hostName": "Cloudflare, Inc.",
-  "hostAddress": "101 Townsend St, San Francisco, CA 94107, États-Unis",
-  "hostUrl": "https://www.cloudflare.com/fr-fr/",
-  "updatedAt": "2026-11-16"
+  "hostName": "Vercel Inc.",
+  "hostAddress": "440 N Barranca Ave #4133, Covina, CA 91723, États-Unis",
+  "hostUrl": "https://vercel.com/",
+  "updatedAt": "2026-11-20"
 }

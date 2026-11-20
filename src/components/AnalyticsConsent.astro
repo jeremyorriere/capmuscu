@@ -1,0 +1,78 @@
+<aside id="analytics-consent" class="fixed inset-x-3 bottom-24 z-40 mx-auto max-w-3xl rounded-2xl border border-line bg-card p-4 shadow-md md:bottom-4" aria-labelledby="analytics-consent-title" aria-describedby="analytics-consent-description" role="region" hidden>
+  <h2 id="analytics-consent-title" class="m-0 text-lg">Aidez-nous à améliorer CapMuscu</h2>
+  <p id="analytics-consent-description" class="mt-2 mb-0 text-sm text-muted">
+    Avec votre accord, nous mesurerons les pages consultées, les exercices utilisés et les séances créées ou terminées.
+    Aucune charge, donnée de santé ou séance personnelle n'est envoyée. Votre choix est modifiable à tout moment dans
+    la <a class="link" href="/confidentialite/">politique de confidentialité</a>.
+  </p>
+  <p id="analytics-consent-status" class="mt-2 mb-0 text-sm text-muted" role="status" aria-live="polite" tabindex="-1"></p>
+  <div class="mt-3 flex flex-wrap gap-2">
+    <button id="analytics-accept" class="btn btn-primary" type="button">Accepter les statistiques</button>
+    <button id="analytics-reject" class="btn" type="button">Refuser</button>
+  </div>
+</aside>
+
+<script>
+  import {
+    clearAnalyticsVisitor,
+    currentAnalyticsVisitor,
+    ensureAnalyticsVisitor,
+    getAnalyticsConsent,
+    setAnalyticsConsent,
+    trackAnalytics,
+  } from '../lib/analytics';
+
+  const banner = document.querySelector<HTMLElement>('#analytics-consent');
+  const status = document.querySelector<HTMLElement>('#analytics-consent-status');
+  const accept = document.querySelector<HTMLButtonElement>('#analytics-accept');
+  const reject = document.querySelector<HTMLButtonElement>('#analytics-reject');
+
+  const recordPage = () => {
+    if (window.location.pathname.startsWith('/admin/')) return;
+    trackAnalytics('page_view', [window.location.pathname]);
+    const exerciseId = document.documentElement.dataset.analyticsExercise;
+    if (exerciseId) trackAnalytics('exercise_view', [exerciseId]);
+  };
+
+  if (getAnalyticsConsent() === null && banner) banner.hidden = false;
+  if (getAnalyticsConsent() === 'accepted') recordPage();
+
+  document.addEventListener('capmuscu:analytics-settings', () => {
+    if (banner) banner.hidden = false;
+    status?.focus();
+  });
+
+  accept?.addEventListener('click', () => {
+    try {
+      setAnalyticsConsent('accepted');
+      if (!ensureAnalyticsVisitor()) throw new Error('Stockage local indisponible');
+      if (banner) banner.hidden = true;
+      recordPage();
+    } catch {
+      if (status) status.textContent = 'Impossible d’enregistrer votre choix sur cet appareil.';
+    }
+  });
+
+  reject?.addEventListener('click', async () => {
+    reject.disabled = true;
+    accept!.disabled = true;
+    try {
+      const visitorId = currentAnalyticsVisitor();
+      setAnalyticsConsent('rejected');
+      if (visitorId) {
+        const response = await fetch('/api/analytics', {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ visitorId }),
+        });
+        if (!response.ok) throw new Error('Suppression indisponible');
+      }
+      clearAnalyticsVisitor();
+      if (banner) banner.hidden = true;
+    } catch {
+      if (status) status.textContent = 'Votre choix est enregistré, mais la suppression des anciennes statistiques n’a pas abouti. Réessayez.';
+      reject.disabled = false;
+      accept!.disabled = false;
+    }
+  });
+</script>

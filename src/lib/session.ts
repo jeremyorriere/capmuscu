@@ -17,7 +17,7 @@ export interface SessionItem {
 export const EXERCISE_COUNT: Record<Duration, number> = { 30: 4, 45: 5, 60: 6 };
 
 const FULL_BODY_MUSCLES = ['Quadriceps', 'Pectoraux', 'Dos', 'Épaules', 'Fessiers', 'Abdominaux', 'Biceps', 'Triceps', 'Ischio-jambiers', 'Mollets'];
-const TIMED_SLUGS = new Set(['gainage-planche', 'gainage-lateral']);
+const TIMED_SLUGS = new Set(['gainage-planche', 'gainage-lateral', 'gainage-copenhagen']);
 
 export type Rng = () => number;
 

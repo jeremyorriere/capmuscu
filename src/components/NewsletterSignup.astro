@@ -1,0 +1,66 @@
+<section class="card mt-8 grid gap-5 md:grid-cols-[1fr_1.2fr] md:items-center" aria-labelledby="titre-newsletter">
+  <div>
+    <h2 id="titre-newsletter" class="m-0 text-xl">Recevoir les nouvelles de CapMuscu</h2>
+    <p class="mt-2 mb-0 text-muted">
+      Les actualités et conseils CapMuscu par email. Aucun email automatique de confirmation ou d'actualité n'est envoyé pour le moment.
+    </p>
+  </div>
+  <form id="newsletter-form" class="grid gap-3">
+    <div>
+      <label class="font-bold" for="newsletter-email">Votre adresse email</label>
+      <input class="field mt-1" id="newsletter-email" name="email" type="email" autocomplete="email" maxlength="254" required />
+    </div>
+    <label class="flex items-start gap-3 text-sm">
+      <input class="mt-1 h-5 w-5 shrink-0" name="newsletterConsent" type="checkbox" required />
+      <span>J'accepte de recevoir par email les actualités et conseils CapMuscu. Je pourrai me désinscrire à tout moment. <a class="link" href="/confidentialite/">En savoir plus</a>.</span>
+    </label>
+    <label class="flex items-start gap-3 text-sm">
+      <input class="mt-1 h-5 w-5 shrink-0" name="accountUpdatesConsent" type="checkbox" />
+      <span>Je souhaite aussi être prévenu(e) quand un compte permettra d'enregistrer mes séances et de suivre mes progrès.</span>
+    </label>
+    <div class="absolute -left-[10000px] h-px w-px overflow-hidden" aria-hidden="true">
+      <label for="newsletter-website">Ne pas remplir ce champ</label>
+      <input id="newsletter-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+    </div>
+    <button class="btn btn-primary justify-self-start" type="submit">M'inscrire</button>
+    <p id="newsletter-status" class="m-0 text-sm text-muted" role="status" aria-live="polite" aria-atomic="true"></p>
+  </form>
+</section>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('#newsletter-form');
+  const status = document.querySelector<HTMLElement>('#newsletter-status');
+  const button = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!form.reportValidity() || !button) return;
+
+    const data = new FormData(form);
+    button.disabled = true;
+    button.textContent = 'Inscription…';
+    if (status) status.textContent = '';
+
+    try {
+      const response = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: data.get('email'),
+          newsletterConsent: data.get('newsletterConsent') === 'on',
+          accountUpdatesConsent: data.get('accountUpdatesConsent') === 'on',
+          website: data.get('website'),
+        }),
+      });
+
+      if (!response.ok) throw new Error('Inscription impossible');
+      form.reset();
+      if (status) status.textContent = 'Votre inscription est enregistrée. Aucun email automatique ne sera envoyé pour le moment. Pour vous désinscrire, écrivez à l’adresse de contact indiquée dans les mentions légales.';
+    } catch {
+      if (status) status.textContent = 'L’inscription est momentanément indisponible. Réessayez un peu plus tard.';
+    } finally {
+      button.disabled = false;
+      button.textContent = "M'inscrire";
+    }
+  });
+</script>

@@ -1,0 +1,86 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+---
+<Layout
+  title="Installer CapMuscu sur votre appareil"
+  description="Ajoutez CapMuscu à votre écran d'accueil ou installez l'application pour retrouver rapidement vos séances de musculation."
+>
+  <Breadcrumb items={[{ name: 'Installer CapMuscu' }]} />
+  <section class="card mt-6 max-w-3xl" aria-labelledby="titre-installation">
+    <h1 id="titre-installation">Retrouvez CapMuscu en un geste</h1>
+    <p class="mt-3 text-muted">
+      Ajoutez CapMuscu à l'écran d'accueil de votre téléphone ou installez l'application sur votre ordinateur.
+      Son icône sera accessible comme celle d'une application classique, sans passer par la boutique.
+    </p>
+    <button id="install-app" class="btn btn-primary mt-3" type="button" hidden>Installer CapMuscu</button>
+    <p id="install-status" class="mt-3 text-muted" role="status" aria-live="polite" aria-atomic="true"></p>
+
+    <div class="mt-6 grid gap-5 sm:grid-cols-2">
+      <section aria-labelledby="titre-mobile">
+        <h2 id="titre-mobile">Sur iPhone ou iPad</h2>
+        <ol class="mt-2 list-decimal space-y-2 pl-6">
+          <li>Ouvrez <a class="link" href="https://capmuscu.fr/">capmuscu.fr</a> dans Safari.</li>
+          <li>Appuyez sur le bouton <strong>Partager</strong> (le carré avec la flèche vers le haut).</li>
+          <li>Choisissez <strong>Sur l'écran d'accueil</strong>, puis appuyez sur <strong>Ajouter</strong>.</li>
+        </ol>
+      </section>
+      <section aria-labelledby="titre-ordinateur">
+        <h2 id="titre-ordinateur">Sur Android ou ordinateur</h2>
+        <p class="mt-2">
+          Dans Chrome ou Edge, ouvrez CapMuscu puis choisissez <strong>Installer CapMuscu</strong> dans le menu du
+          navigateur. Sur Android, vous pouvez aussi utiliser <strong>Ajouter à l'écran d'accueil</strong>.
+          Selon le navigateur, le bouton d'installation peut aussi apparaître en haut de cette page.
+        </p>
+      </section>
+    </div>
+
+    <p class="mt-6 text-sm text-muted">
+      CapMuscu fonctionne aussi sans installation. L'installation ne crée pas de compte : votre historique de séances
+      reste enregistré sur cet appareil et n'est pas synchronisé.
+    </p>
+  </section>
+  <script>
+    type InstallPromptEvent = Event & {
+      prompt: () => Promise<void>;
+      userChoice: Promise<{ outcome: 'accepted' | 'dismissed'; platform: string }>;
+    };
+
+    const installButton = document.querySelector<HTMLButtonElement>('#install-app');
+    const installStatus = document.querySelector<HTMLElement>('#install-status');
+    let installPrompt: InstallPromptEvent | undefined;
+
+    const isStandalone = () =>
+      window.matchMedia('(display-mode: standalone)').matches ||
+      ('standalone' in navigator && navigator.standalone === true);
+
+    if (isStandalone()) {
+      if (installStatus) installStatus.textContent = 'CapMuscu est déjà installée sur cet appareil.';
+    } else {
+      window.addEventListener('beforeinstallprompt', (event) => {
+        event.preventDefault();
+        installPrompt = event as InstallPromptEvent;
+        if (installButton) installButton.hidden = false;
+      });
+
+      window.addEventListener('appinstalled', () => {
+        installPrompt = undefined;
+        if (installButton) installButton.hidden = true;
+        if (installStatus) installStatus.textContent = 'CapMuscu a bien été installée.';
+      });
+    }
+
+    installButton?.addEventListener('click', async () => {
+      if (!installPrompt) return;
+      await installPrompt.prompt();
+      const choice = await installPrompt.userChoice;
+      installPrompt = undefined;
+      installButton.hidden = true;
+      if (installStatus) {
+        installStatus.textContent = choice.outcome === 'accepted'
+          ? 'CapMuscu va être installée sur votre appareil.'
+          : 'Installation annulée. Vous pouvez la relancer depuis le menu de votre navigateur.';
+      }
+    });
+  </script>
+</Layout>

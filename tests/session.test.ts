@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { exercises, zones } from '../src/lib/data';
-import { allowedEquipment, createRng, generateSession, replaceExercise, targetMuscles } from '../src/lib/session';
+import { allowedEquipment, createRng, generateSession, prescribe, replaceExercise, targetMuscles } from '../src/lib/session';
 import type { SessionParams } from '../src/lib/session';
 import { computeNutrition, estimate1RM } from '../src/lib/tools';
 import { muscleBySlug } from '../src/lib/data';
@@ -8,6 +8,11 @@ import { muscleBySlug } from '../src/lib/data';
 const modes = ['salle', 'halteres', 'corps'] as const;
 
 describe('générateur de séance', () => {
+  it('prescrit le gainage de Copenhague en durée', () => {
+    const exercise = exercises.find((e) => e.id === 'gainage-copenhagen')!;
+    expect(prescribe(exercise, 'muscle', 45).reps).toBe('30 à 45 secondes');
+  });
+
   for (const mode of modes) {
     for (const zone of [[], ...zones.map((z) => [z.slug])]) {
       it(`${mode} / ${zone.join('+') || 'complet'} : 4 à 6 exercices compatibles`, () => {
