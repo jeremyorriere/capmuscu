@@ -512,7 +512,16 @@ const durations = [
         $('live').textContent = `« ${previous?.name} » remplacé par « ${now?.name} » (${now?.primaryMuscle}).`;
         say('');
         toast(`Remplacé par : ${now?.name}`);
-        document.querySelectorAll<HTMLButtonElement>('#cards [data-swap]')[index]?.focus();
+        document.querySelectorAll<HTMLButtonElement>('#cards [data-swap]')[index]?.focus({ preventScroll: true });
+        const newCard = document.querySelectorAll<HTMLElement>('#cards > li')[index];
+        if (newCard) {
+          // Bloc entier visible : centré s'il tient dans l'écran, sinon haut du bloc en haut.
+          const fits = newCard.getBoundingClientRect().height <= window.innerHeight - 24;
+          newCard.scrollIntoView({
+            block: fits ? 'center' : 'start',
+            behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+          });
+        }
       };
       const card = document.querySelectorAll<HTMLElement>('#cards > li')[index];
       if (card && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
