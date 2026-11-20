@@ -1,6 +1,6 @@
-import { isAdminSession } from '../../src/lib/server/admin-auth';
-import { listPrivateBlobs } from '../../src/lib/server/storage';
-import { jsonResponse, type ServerEnv } from '../../src/lib/server/analytics';
+import { isAdminSession } from '../../src/lib/server/admin-auth.js';
+import { listPrivateBlobs } from '../../src/lib/server/storage.js';
+import { jsonResponse, type ServerEnv } from '../../src/lib/server/analytics.js';
 
 interface EventRecord {
   date: string;
@@ -39,9 +39,9 @@ function emptyDaily(date: string) {
 
 export async function GET(request: Request): Promise<Response> {
   const env = process.env as ServerEnv;
-  if (request.method !== 'GET') return jsonResponse(405, { error: 'Méthode non autorisée.' });
+  if (request.method !== 'GET') return jsonResponse(405, { error: 'MÃ©thode non autorisÃ©e.' });
   if (!env.ADMIN_AUTH_SECRET || !(await isAdminSession(request, env.ADMIN_AUTH_SECRET))) {
-    return jsonResponse(401, { error: 'Accès admin requis.' });
+    return jsonResponse(401, { error: 'AccÃ¨s admin requis.' });
   }
 
   try {

@@ -1,6 +1,6 @@
-import { hashVisitorId, isSameOrigin, jsonResponse, type ServerEnv } from '../src/lib/server/analytics';
-import { readJsonBody } from '../src/lib/server/read-body';
-import { readPrivateJson, writePrivateJson } from '../src/lib/server/storage';
+import { hashVisitorId, isSameOrigin, jsonResponse, type ServerEnv } from '../src/lib/server/analytics.js';
+import { readJsonBody } from '../src/lib/server/read-body.js';
+import { readPrivateJson, writePrivateJson } from '../src/lib/server/storage.js';
 
 interface NewsletterRequest {
   email?: unknown;
@@ -19,10 +19,10 @@ interface Subscriber {
 }
 
 export async function POST(request: Request): Promise<Response> {
-  if (request.method !== 'POST') return jsonResponse(405, { error: 'Méthode non autorisée.' });
-  if (!isSameOrigin(request)) return jsonResponse(403, { error: 'Requête refusée.' });
+  if (request.method !== 'POST') return jsonResponse(405, { error: 'MÃ©thode non autorisÃ©e.' });
+  if (!isSameOrigin(request)) return jsonResponse(403, { error: 'RequÃªte refusÃ©e.' });
   const contentType = request.headers.get('Content-Type')?.split(';', 1)[0]?.trim().toLowerCase();
-  if (contentType !== 'application/json') return jsonResponse(415, { error: 'Format de requête invalide.' });
+  if (contentType !== 'application/json') return jsonResponse(415, { error: 'Format de requÃªte invalide.' });
 
   const body = await readJsonBody(request);
   if (!body || typeof body !== 'object' || Array.isArray(body)) {
@@ -36,14 +36,14 @@ export async function POST(request: Request): Promise<Response> {
   if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return jsonResponse(400, { error: 'Adresse email invalide.' });
   }
-  if (payload.newsletterConsent !== true) return jsonResponse(400, { error: 'Le consentement à la newsletter est requis.' });
+  if (payload.newsletterConsent !== true) return jsonResponse(400, { error: 'Le consentement Ã  la newsletter est requis.' });
   if (payload.accountUpdatesConsent !== undefined && typeof payload.accountUpdatesConsent !== 'boolean') {
     return jsonResponse(400, { error: 'Informations invalides.' });
   }
 
   const env = process.env as ServerEnv;
   if (!env.ANALYTICS_HASH_SECRET || env.ANALYTICS_HASH_SECRET.length < 32) {
-    return jsonResponse(503, { error: 'Service d’inscription momentanément indisponible.' });
+    return jsonResponse(503, { error: 'Service dâ€™inscription momentanÃ©ment indisponible.' });
   }
 
   try {
@@ -63,6 +63,6 @@ export async function POST(request: Request): Promise<Response> {
     return jsonResponse(202, { accepted: true });
   } catch {
     console.error('CapMuscu: private newsletter file operation failed.');
-    return jsonResponse(503, { error: 'Service d’inscription momentanément indisponible.' });
+    return jsonResponse(503, { error: 'Service dâ€™inscription momentanÃ©ment indisponible.' });
   }
 }

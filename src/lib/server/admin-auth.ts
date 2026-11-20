@@ -1,5 +1,5 @@
-import { hashVisitorId } from './analytics';
-import { deletePrivateBlobs, listPrivateBlobs } from './storage';
+import { hashVisitorId } from './analytics.js';
+import { deletePrivateBlobs, listPrivateBlobs } from './storage.js';
 
 const SESSION_COOKIE = '__Host-capmuscu-admin';
 export const SESSION_MAX_AGE_SECONDS = 8 * 60 * 60;
