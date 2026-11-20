@@ -39,5 +39,5 @@ export async function hashVisitorId(value: string, secret: string): Promise<stri
 }
 
 export function hasPrivateBlobConfiguration(env: ServerEnv): boolean {
-  return !!((env.VERCEL_OIDC_TOKEN && env.BLOB_STORE_ID) || env.BLOB_READ_WRITE_TOKEN);
+  return !!(env.BLOB_STORE_ID || env.BLOB_READ_WRITE_TOKEN);
 }

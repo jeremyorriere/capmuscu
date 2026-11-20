@@ -16,11 +16,11 @@ interface Subscriber {
 async function handler(request: Request): Promise<Response> {
   const env = process.env as ServerEnv;
   if (!env.ADMIN_AUTH_SECRET || !(await isAdminSession(request, env.ADMIN_AUTH_SECRET))) {
-    return jsonResponse(401, { error: 'AccÃ¨s admin requis.' });
+    return jsonResponse(401, { error: 'Accès admin requis.' });
   }
 
   if (request.method === 'DELETE') {
-    if (!isSameOrigin(request)) return jsonResponse(403, { error: 'RequÃªte refusÃ©e.' });
+    if (!isSameOrigin(request)) return jsonResponse(403, { error: 'Requête refusée.' });
     const body = await readJsonBody(request);
     const id = body && typeof body === 'object' ? (body as { id?: unknown }).id : null;
     if (typeof id !== 'string' || !/^[a-f0-9]{64}$/.test(id)) return jsonResponse(400, { error: 'Inscription invalide.' });
@@ -32,11 +32,11 @@ async function handler(request: Request): Promise<Response> {
       return jsonResponse(200, { deleted: true });
     } catch {
       console.error('CapMuscu: private subscriber deletion failed.');
-      return jsonResponse(503, { error: 'Suppression momentanÃ©ment indisponible.' });
+      return jsonResponse(503, { error: 'Suppression momentanément indisponible.' });
     }
   }
 
-  if (request.method !== 'GET') return jsonResponse(405, { error: 'MÃ©thode non autorisÃ©e.' });
+  if (request.method !== 'GET') return jsonResponse(405, { error: 'Méthode non autorisée.' });
 
   try {
     const blobs = await listPrivateBlobs('newsletter/subscribers/', 5000);

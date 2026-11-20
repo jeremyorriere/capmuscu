@@ -39,9 +39,9 @@ function emptyDaily(date: string) {
 
 export async function GET(request: Request): Promise<Response> {
   const env = process.env as ServerEnv;
-  if (request.method !== 'GET') return jsonResponse(405, { error: 'MÃ©thode non autorisÃ©e.' });
+  if (request.method !== 'GET') return jsonResponse(405, { error: 'Méthode non autorisée.' });
   if (!env.ADMIN_AUTH_SECRET || !(await isAdminSession(request, env.ADMIN_AUTH_SECRET))) {
-    return jsonResponse(401, { error: 'AccÃ¨s admin requis.' });
+    return jsonResponse(401, { error: 'Accès admin requis.' });
   }
 
   try {

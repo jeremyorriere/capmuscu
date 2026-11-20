@@ -33,17 +33,17 @@ function payloadOf(value: unknown): AnalyticsPayload | null {
 async function handler(request: Request): Promise<Response> {
   const env = process.env as ServerEnv;
   if (request.method !== 'POST' && request.method !== 'DELETE') {
-    return jsonResponse(405, { error: 'MÃ©thode non autorisÃ©e.' });
+    return jsonResponse(405, { error: 'Méthode non autorisée.' });
   }
 
-  if (!isSameOrigin(request)) return jsonResponse(403, { error: 'RequÃªte refusÃ©e.' });
+  if (!isSameOrigin(request)) return jsonResponse(403, { error: 'Requête refusée.' });
   const contentType = request.headers.get('Content-Type')?.split(';', 1)[0]?.trim().toLowerCase();
-  if (contentType !== 'application/json') return jsonResponse(415, { error: 'Format de requÃªte invalide.' });
+  if (contentType !== 'application/json') return jsonResponse(415, { error: 'Format de requête invalide.' });
 
   const payload = payloadOf(await readJsonBody(request));
   if (!payload || !validVisitorId(payload.visitorId)) return jsonResponse(400, { error: 'Identifiant invalide.' });
   const secret = env.ANALYTICS_HASH_SECRET;
-  if (!secret || secret.length < 32) return jsonResponse(503, { error: 'Statistiques momentanÃ©ment indisponibles.' });
+  if (!secret || secret.length < 32) return jsonResponse(503, { error: 'Statistiques momentanément indisponibles.' });
 
   try {
     const visitorHash = await hashVisitorId(`visitor:${payload.visitorId}`, secret);
@@ -64,17 +64,17 @@ async function handler(request: Request): Promise<Response> {
     }
 
     if (payload.consent !== true || typeof payload.type !== 'string' || !eventTypes.has(payload.type)) {
-      return jsonResponse(400, { error: 'Consentement ou Ã©vÃ©nement invalide.' });
+      return jsonResponse(400, { error: 'Consentement ou événement invalide.' });
     }
     if (!Array.isArray(payload.entityIds) || payload.entityIds.length > 40 ||
         !payload.entityIds.every((id) => validEntity(id, payload.type as string))) {
-      return jsonResponse(400, { error: 'Ã‰lÃ©ments invalides.' });
+      return jsonResponse(400, { error: 'Éléments invalides.' });
     }
     if (payload.type === 'page_view' && payload.entityIds.length !== 1) {
       return jsonResponse(400, { error: 'Page invalide.' });
     }
     if (['exercise_view', 'exercise_swap', 'calculator_used'].includes(payload.type) && payload.entityIds.length > 1) {
-      return jsonResponse(400, { error: 'Ã‰vÃ©nement invalide.' });
+      return jsonResponse(400, { error: 'Événement invalide.' });
     }
     const entities = [...new Set(payload.entityIds)];
     if (entities.length === 0) return jsonResponse(202, { accepted: true });
@@ -91,7 +91,7 @@ async function handler(request: Request): Promise<Response> {
     return jsonResponse(202, { accepted: true });
   } catch {
     console.error('CapMuscu: private analytics file operation failed.');
-    return jsonResponse(503, { error: 'Statistiques momentanÃ©ment indisponibles.' });
+    return jsonResponse(503, { error: 'Statistiques momentanément indisponibles.' });
   }
 }
 

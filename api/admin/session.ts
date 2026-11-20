@@ -29,7 +29,7 @@ async function handler(request: Request): Promise<Response> {
   }
 
   if (request.method === 'DELETE') {
-    if (!isSameOrigin(request)) return jsonResponse(403, { error: 'RequÃªte refusÃ©e.' });
+    if (!isSameOrigin(request)) return jsonResponse(403, { error: 'Requête refusée.' });
     return new Response(JSON.stringify({ authenticated: false }), {
       status: 200,
       headers: {
@@ -39,12 +39,12 @@ async function handler(request: Request): Promise<Response> {
       },
     });
   }
-  if (request.method !== 'POST') return jsonResponse(405, { error: 'MÃ©thode non autorisÃ©e.' });
-  if (!isSameOrigin(request)) return jsonResponse(403, { error: 'RequÃªte refusÃ©e.' });
+  if (request.method !== 'POST') return jsonResponse(405, { error: 'Méthode non autorisée.' });
+  if (!isSameOrigin(request)) return jsonResponse(403, { error: 'Requête refusée.' });
   if (request.headers.get('Content-Type')?.split(';', 1)[0]?.trim().toLowerCase() !== 'application/json') {
-    return jsonResponse(415, { error: 'Format de requÃªte invalide.' });
+    return jsonResponse(415, { error: 'Format de requête invalide.' });
   }
-  if (!configured(env)) return jsonResponse(503, { error: 'Connexion admin momentanÃ©ment indisponible.' });
+  if (!configured(env)) return jsonResponse(503, { error: 'Connexion admin momentanément indisponible.' });
 
   const body = await readJsonBody(request);
   if (!body || typeof body !== 'object' || Array.isArray(body)) {
@@ -63,7 +63,7 @@ async function handler(request: Request): Promise<Response> {
     if (recent.length >= MAX_ATTEMPTS) {
       const oldest = Math.min(...recent.map((blob) => blob.uploadedAt.getTime()));
       const retryAfter = Math.max(1, Math.ceil((oldest + WINDOW_MS - Date.now()) / 1000));
-      return new Response(JSON.stringify({ error: 'Trop de tentatives. RÃ©essayez dans quelques minutes.' }), {
+      return new Response(JSON.stringify({ error: 'Trop de tentatives. Réessayez dans quelques minutes.' }), {
         status: 429,
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
@@ -88,9 +88,9 @@ async function handler(request: Request): Promise<Response> {
         'Set-Cookie': adminSessionCookie(token),
       },
     });
-  } catch {
-    console.error('CapMuscu: private admin session file operation failed.');
-    return jsonResponse(503, { error: 'Connexion admin momentanÃ©ment indisponible.' });
+  } catch (error) {
+    console.error('CapMuscu: private admin session file operation failed.', error instanceof Error ? error.message : 'unknown');
+    return jsonResponse(503, { error: 'Connexion admin momentanément indisponible.' });
   }
 }
 
