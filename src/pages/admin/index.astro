@@ -315,7 +315,7 @@ import Breadcrumb from '../../components/Breadcrumb.astro';
 
     try {
       const response = await fetch('/api/admin/session', { headers: { Accept: 'application/json' } });
-      if (!response.ok) throw new Error('Service de connexion indisponible.');
+      if (!response.ok) throw new Error(`Service de connexion indisponible (HTTP ${response.status}).`);
       const session = await response.json() as { authenticated: boolean };
       if (session.authenticated) await loadDashboard();
       else {

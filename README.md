@@ -92,7 +92,7 @@ Complétez `src/data/recipes.json` (modèle déjà en place : nom, durée, prot�
 
 ## Déploiement Vercel
 
-Importez le dépôt depuis *Vercel → Add New → Project*, gardez la commande `npm run build` et le dossier de sortie `dist`, puis ajoutez le domaine `capmuscu.fr` dans *Settings → Domains*. Les fonctions placées dans `api/` sont déployées avec le site.
+Importez le dépôt depuis *Vercel → Add New → Project* et laissez Vercel détecter Astro et appliquer ses réglages de build par défaut. Ne remplacez pas le réglage de sortie détecté par un dossier personnalisé : les fonctions placées dans `api/` doivent être déployées avec les pages statiques. Ajoutez ensuite le domaine `capmuscu.fr` dans *Settings → Domains*.
 
 Dans le tableau de bord Vercel, créez un **Blob Store privé** et connectez-le au projet. Ajoutez les variables d'environnement suivantes dans *Settings → Environment Variables* :
 
