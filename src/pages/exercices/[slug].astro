@@ -26,6 +26,22 @@ const e = exercise;
 const muscle = e ? muscleByName(e.primaryMuscle) : null;
 const alternatives = e ? e.alternatives.map((id) => exerciseById(id)).filter((x): x is Exercise => Boolean(x)) : [];
 const zone = muscle ? zones.find((z) => z.muscles.includes(muscle.slug)) : null;
+const titleQualifiers: Record<string, string> = {
+  'pompes-pieds-surelevees': 'sur marche ou banc',
+  'pompes-pieds-sureleves': 'variante au banc',
+  'hack-squat-machine': 'apprendre le mouvement guidé',
+  'hack-squat-a-la-machine': 'placement sur la machine',
+  'crunch-inverse': 'bascule contrôlée du bassin',
+  'crunch-inverse-2': 'genoux vers la poitrine',
+  'pallof-press': 'anti-rotation au câble',
+  'pallof-press-a-la-poulie': 'stabiliser le tronc',
+  'developpe-arnold': 'rotation des poignets',
+  'developpe-arnold-aux-halteres': 'poussée avec haltères',
+  'good-morning-barre': 'apprendre la charnière de hanche',
+  'good-morning-a-la-barre': 'technique à la barre',
+  'curl-incline-halteres': 'bras derrière le buste',
+  'curl-incline-aux-halteres': 'curl sur banc incliné',
+};
 
 const faq = e
   ? [
@@ -45,7 +61,8 @@ const faq = e
   : [];
 
 if (e && muscle) {
-  title = `${e.name} : exécution, conseils et erreurs à éviter`;
+  const qualifier = titleQualifiers[e.slug];
+  title = `${e.name}${qualifier ? ` — ${qualifier}` : ''} : muscles et exécution`;
   description = `${e.name} (${e.primaryMuscle.toLowerCase()}, ${e.equipment.toLowerCase()}, niveau ${e.difficulty.toLowerCase()}) : étapes détaillées, conseils de sécurité, erreurs fréquentes et alternatives.`;
   jsonLd = [
     {

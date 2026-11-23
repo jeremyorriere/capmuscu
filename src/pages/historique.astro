@@ -5,12 +5,14 @@ import Breadcrumb from '../components/Breadcrumb.astro';
 <Layout
   title="Mon historique et ma progression"
   description="Retrouvez vos séances de musculation terminées, votre progression de charges et sauvegardez votre historique. Gratuit, sans compte, sur votre appareil."
+  noindex
 >
   <Breadcrumb items={[{ name: 'Historique' }]} />
   <h1>Mon historique</h1>
   
 
   <p id="reminder" class="card mt-6 font-bold" role="status" hidden></p>
+  <p id="persist-note" class="mt-3 text-sm text-muted" role="status" aria-live="polite"></p>
 
   <section id="empty" class="card mt-6" hidden>
     <h2>Pas encore de séance</h2>

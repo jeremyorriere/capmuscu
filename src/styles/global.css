@@ -56,7 +56,7 @@ html {
 html.dark { color-scheme: dark; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  *:not(.cm-anim) { transition: none !important; animation: none !important; }
+  *, *::before, *::after { transition: none !important; animation: none !important; }
 }
 
 /* ===== Silhouette anatomique ===== */

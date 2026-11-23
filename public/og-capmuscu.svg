@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#102247"/>
+      <stop offset="0.58" stop-color="#173c87"/>
+      <stop offset="1" stop-color="#075985"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="translate(1030 125) rotate(90) scale(360)">
+      <stop stop-color="#34d399" stop-opacity=".42"/>
+      <stop offset="1" stop-color="#34d399" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" rx="36" fill="url(#background)"/>
+  <rect width="1200" height="630" rx="36" fill="url(#glow)"/>
+  <g transform="translate(92 110)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="16">
+    <path d="M37 62h30m-55 0h8m10-21v42m-23-21H0m92 0h-8m-10-21v42"/>
+    <path d="M15 62h12m40 0h12"/>
+  </g>
+  <text x="220" y="188" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="68" font-weight="700">CapMuscu</text>
+  <text x="92" y="330" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="700">Votre entraînement,</text>
+  <text x="92" y="405" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="700">plus simple et plus régulier.</text>
+  <text x="96" y="500" fill="#dbeafe" font-family="Arial, Helvetica, sans-serif" font-size="30">Séances · exercices · suivi de progression</text>
+  <rect x="92" y="545" width="130" height="8" rx="4" fill="#34d399"/>
+</svg>
