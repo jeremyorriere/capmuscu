@@ -62,5 +62,5 @@ export interface Recipe {
 }
 
 export type Goal = 'sante' | 'muscle' | 'force';
-export type EquipmentMode = 'salle' | 'halteres' | 'corps';
+export type EquipmentMode = 'salle' | 'maison' | 'halteres' | 'corps';
 export type Duration = 30 | 45 | 60;

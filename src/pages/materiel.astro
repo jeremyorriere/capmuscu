@@ -1,0 +1,125 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import { gymMachines } from '../data/gym-machines';
+import { exercises } from '../lib/data';
+
+const machineGroups = [...new Set(gymMachines.map((machine) => machine.category))].map((category) => ({
+  category,
+  machines: gymMachines.filter((machine) => machine.category === category),
+}));
+const homeExercises = exercises
+  .filter((exercise) => exercise.equipment !== 'Salle de sport' && exercise.equipment !== 'Poids du corps' && !exercise.category)
+  .sort((a, b) => a.name.localeCompare(b.name, 'fr'));
+const bodyweightExercises = exercises
+  .filter((exercise) => exercise.equipment === 'Poids du corps' && !exercise.category)
+  .sort((a, b) => a.name.localeCompare(b.name, 'fr'));
+---
+<Layout
+  title="Exercices selon votre matériel"
+  description="Trouvez des exercices selon votre équipement : machines de salle, matériel à la maison ou poids du corps. Recherchez par nom, appareil ou muscle."
+>
+  <Breadcrumb items={[{ name: 'Exercices', href: '/exercices/' }, { name: 'Selon mon matériel' }]} />
+  <h1>Trouver un exercice selon mon matériel</h1>
+  <p class="text-muted mt-2">Choisissez votre mode, puis recherchez par nom de machine, exercice ou muscle.</p>
+
+  <div class="mt-5 grid grid-cols-3 gap-2" role="group" aria-label="Choisir le matériel">
+    <button class="btn mode-button" type="button" data-mode-button="salle" aria-pressed="true">Salle de sport</button>
+    <button class="btn mode-button" type="button" data-mode-button="maison" aria-pressed="false">Maison</button>
+    <button class="btn mode-button" type="button" data-mode-button="corps" aria-pressed="false">Poids du corps</button>
+  </div>
+
+  <div class="card mt-5">
+    <label for="q" class="font-bold block mb-1">Rechercher</label>
+    <input id="q" type="search" class="field" placeholder="Ex. : leg press, chest press, jambes…" autocomplete="off" />
+  </div>
+  <p id="count" class="mt-4 font-bold" role="status" aria-live="polite"></p>
+  <p id="empty" class="card mt-4" hidden>Aucun exercice ne correspond à cette recherche.</p>
+
+  <div id="results" class="mt-5">
+    <div data-mode-panel="salle">
+      <p class="text-sm text-muted">Les fiches liées expliquent le mouvement correspondant ; certains appareils ou variantes exacts peuvent différer selon la salle.</p>
+      {machineGroups.map((group) => (
+        <section class="mt-8" data-machine-group aria-labelledby={`group-${group.category}`}>
+          <h2 id={`group-${group.category}`}>{group.category}</h2>
+          <ul class="mt-3 grid gap-3 sm:grid-cols-2 list-none p-0">
+            {group.machines.map((machine) => (
+              <li class="card" data-result data-mode="salle" data-search={`${machine.name} ${machine.description} ${machine.searchTerms.join(' ')}`}>
+                <h3 class="text-lg">{machine.name}</h3>
+                <p class="mt-1 mb-0 text-muted">{machine.description}</p>
+                {machine.exerciseSlug
+                  ? <a class="link font-bold min-h-12 flex items-center mt-2" href={`/exercices/${machine.exerciseSlug}/`}>{machine.linkLabel}</a>
+                  : <p class="mt-2 mb-0 text-sm text-muted">Fiche détaillée à ajouter</p>}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
+
+    <section data-mode-panel="maison" hidden aria-labelledby="titre-maison">
+      <h2 id="titre-maison">Exercices avec du matériel à la maison</h2>
+      <p class="text-muted">Haltères, kettlebell, élastiques et accessoires.</p>
+      <ul class="grid gap-3 sm:grid-cols-2 list-none p-0">
+        {homeExercises.map((exercise) => (
+          <li class="card" data-result data-mode="maison" data-search={`${exercise.name} ${exercise.primaryMuscle} ${exercise.equipment}`}>
+            <h3 class="text-lg"><a class="text-ink no-underline hover:underline" href={`/exercices/${exercise.slug}/`}>{exercise.name}</a></h3>
+            <p class="mt-1 mb-0 text-sm text-muted">{exercise.primaryMuscle} · {exercise.equipment}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section data-mode-panel="corps" hidden aria-labelledby="titre-corps">
+      <h2 id="titre-corps">Exercices au poids du corps</h2>
+      <p class="text-muted">Aucun appareil ni charge nécessaire.</p>
+      <ul class="grid gap-3 sm:grid-cols-2 list-none p-0">
+        {bodyweightExercises.map((exercise) => (
+          <li class="card" data-result data-mode="corps" data-search={`${exercise.name} ${exercise.primaryMuscle}`}>
+            <h3 class="text-lg"><a class="text-ink no-underline hover:underline" href={`/exercices/${exercise.slug}/`}>{exercise.name}</a></h3>
+            <p class="mt-1 mb-0 text-sm text-muted">{exercise.primaryMuscle}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </div>
+
+  <script>
+    const buttons = [...document.querySelectorAll<HTMLButtonElement>('[data-mode-button]')];
+    const panels = [...document.querySelectorAll<HTMLElement>('[data-mode-panel]')];
+    const search = document.getElementById('q') as HTMLInputElement;
+    const count = document.getElementById('count')!;
+    const empty = document.getElementById('empty')!;
+    const params = new URLSearchParams(location.search);
+    let mode = ['salle', 'maison', 'corps'].includes(params.get('mode') || '') ? params.get('mode')! : 'salle';
+    const normalize = (value: string) => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
+    function update() {
+      for (const button of buttons) button.setAttribute('aria-pressed', String(button.dataset.modeButton === mode));
+      for (const panel of panels) panel.hidden = panel.dataset.modePanel !== mode;
+
+      const query = normalize(search.value.trim());
+      const results = [...document.querySelectorAll<HTMLElement>(`[data-result][data-mode="${mode}"]`)];
+      let visible = 0;
+      for (const result of results) {
+        const matches = !query || normalize(result.dataset.search || '').includes(query);
+        result.hidden = !matches;
+        if (matches) visible++;
+      }
+      for (const group of document.querySelectorAll<HTMLElement>('[data-machine-group]')) {
+        group.hidden = !group.querySelector('[data-result]:not([hidden])');
+      }
+      count.textContent = `${visible} résultat${visible > 1 ? 's' : ''}`;
+      empty.hidden = visible !== 0;
+    }
+
+    for (const button of buttons) button.addEventListener('click', () => {
+      mode = button.dataset.modeButton!;
+      params.set('mode', mode);
+      history.replaceState(null, '', `${location.pathname}?${params}`);
+      update();
+    });
+    search.addEventListener('input', update);
+    update();
+  </script>
+</Layout>

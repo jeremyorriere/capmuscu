@@ -9,9 +9,9 @@ const goals = [
   { v: 'force', l: 'Force' },
 ];
 const equipments = [
-  { v: 'salle', l: 'Salle de sport complète' },
-  { v: 'halteres', l: 'Haltères et petit matériel' },
-  { v: 'corps', l: 'Sans matériel (poids du corps)' },
+  { v: 'salle', l: 'Salle de sport' },
+  { v: 'maison', l: 'Maison (haltères et petit matériel)' },
+  { v: 'corps', l: 'Poids du corps uniquement' },
 ];
 const durations = [
   { v: '30', l: '30 min' },
@@ -106,7 +106,7 @@ const durations = [
     import exercisesJson from '../data/exercises.json';
     import musclesJson from '../data/muscles.json';
     import type { Duration, EquipmentMode, Exercise, Goal, Zone } from '../lib/types';
-    import { createRng, generateSession, replaceExercise, sessionToText, targetMuscles } from '../lib/session';
+    import { canonicalEquipmentMode, createRng, generateSession, replaceExercise, sessionToText, targetMuscles } from '../lib/session';
     import type { SessionItem, SessionParams } from '../lib/session';
     import { motionHtml } from '../lib/motion';
     import { bodyMapSvg } from '../lib/bodymap';
@@ -151,7 +151,7 @@ const durations = [
       return {
         goal: checked('goal', 'sante') as Goal,
         zones: allBox.checked ? [] : zoneBoxes.filter((b) => b.checked).map((b) => b.value),
-        equipment: checked('equipment', 'salle') as EquipmentMode,
+        equipment: canonicalEquipmentMode(checked('equipment', 'salle') as EquipmentMode),
         duration: Number(checked('duration', '45')) as Duration,
       };
     }
@@ -661,7 +661,13 @@ const durations = [
         p.textContent = `${titleOf(s.params)} — ${date}`;
         const open = document.createElement('button');
         open.type = 'button'; open.className = 'btn'; open.textContent = 'Ouvrir';
-        open.addEventListener('click', () => { state = { params: s.params, items: s.items, createdAt: s.createdAt }; writeParams(s.params); persist(); render(); $('result-title').scrollIntoView({ behavior: 'smooth' }); });
+        open.addEventListener('click', () => {
+          state = { ...s, params: { ...s.params, equipment: canonicalEquipmentMode(s.params.equipment) } };
+          writeParams(state.params);
+          persist();
+          render();
+          $('result-title').scrollIntoView({ behavior: 'smooth' });
+        });
         const del = document.createElement('button');
         del.type = 'button'; del.className = 'btn'; del.textContent = 'Supprimer';
         del.setAttribute('aria-label', `Supprimer la séance : ${titleOf(s.params)}`);
@@ -689,14 +695,15 @@ const durations = [
       const p: SessionParams = {
         goal: (['sante', 'muscle', 'force'].includes(qs.get('goal') ?? '') ? qs.get('goal') : 'sante') as Goal,
         zones: zoneSlugs,
-        equipment: (['salle', 'halteres', 'corps'].includes(qs.get('equipment') ?? '') ? qs.get('equipment') : 'salle') as EquipmentMode,
+        equipment: canonicalEquipmentMode((['salle', 'maison', 'halteres', 'corps'].includes(qs.get('equipment') ?? '') ? qs.get('equipment') : 'salle') as EquipmentMode),
         duration: ([30, 45, 60].includes(Number(qs.get('duration'))) ? Number(qs.get('duration')) : 45) as Duration,
       };
       writeParams(p);
       generate(p);
     } else if (valid(current)) {
-      state = current;
-      focusIdx = Math.max(0, current.items.findIndex((_, i) => !current.done?.[i]));      writeParams(current.params);
+      state = { ...current, params: { ...current.params, equipment: canonicalEquipmentMode(current.params.equipment) } };
+      focusIdx = Math.max(0, current.items.findIndex((_, i) => !current.done?.[i]));
+      writeParams(state.params);
       render();
       say('Votre séance en cours a été retrouvée sur cet appareil.');
     } else {

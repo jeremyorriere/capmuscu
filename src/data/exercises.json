@@ -24305,8 +24305,7 @@
     ],
     "alternatives": [
       "etirement-lateral-du-cou",
-      "auto-massage-du-cou-au-rouleau",
-      "renforcement-isometrique-du-cou-avant-et-arriere"
+      "auto-massage-du-cou-au-rouleau"
     ],
     "category": "Étirement",
     "images": [
@@ -26734,43 +26733,6 @@
     ]
   },
   {
-    "id": "renforcement-isometrique-du-cou-avant-et-arriere",
-    "slug": "renforcement-isometrique-du-cou-avant-et-arriere",
-    "name": "Renforcement isométrique du cou, avant et arrière",
-    "description": "Cet exercice isométrique consiste à pousser la tête contre vos mains, devant puis derrière, sans la laisser bouger. Il renforce en douceur les muscles du cou. Il convient aux débutants, à condition de monter la tension très progressivement et de rester dans un effort modéré.",
-    "primaryMuscle": "Cou",
-    "secondaryMuscles": [],
-    "equipment": "Poids du corps",
-    "difficulty": "Débutant",
-    "mechanics": "Isolation",
-    "executionSteps": [
-      "Tenez-vous droit, la tête en position neutre, le regard devant vous, et placez les deux mains sur le front.",
-      "Poussez doucement la tête vers l'avant en contractant les muscles du cou, tout en résistant avec les mains pour que la tête ne bouge pas.",
-      "Augmentez lentement la tension et maintenez la contraction pendant le temps prévu, en respirant normalement.",
-      "Relâchez progressivement la tension, puis reposez-vous.",
-      "Placez ensuite les mains à l'arrière de la tête et répétez la même poussée vers l'arrière."
-    ],
-    "safetyTips": [
-      "Montez la force très lentement, sans jamais forcer ni à-coup.",
-      "Arrêtez immédiatement en cas de douleur, de vertige ou de picotements.",
-      "Demandez un avis médical si vous avez des antécédents de problèmes cervicaux."
-    ],
-    "commonMistakes": [
-      "Retenir sa respiration pendant la contraction.",
-      "Pousser trop fort et trop vite au lieu d'augmenter progressivement.",
-      "Laisser la tête bouger ou se pencher en avant au lieu de rester neutre."
-    ],
-    "alternatives": [
-      "renforcement-isometrique-du-cou-cotes",
-      "flexion-de-nuque-assise-avec-harnais-de-tete",
-      "renforcement-de-la-nuque-au-disque-allonge-sur-le-ventre"
-    ],
-    "images": [
-      "/images/exercises/renforcement-isometrique-du-cou-avant-et-arriere/0.jpg",
-      "/images/exercises/renforcement-isometrique-du-cou-avant-et-arriere/1.jpg"
-    ]
-  },
-  {
     "id": "renforcement-isometrique-du-cou-cotes",
     "slug": "renforcement-isometrique-du-cou-cotes",
     "name": "Renforcement isométrique du cou, côtés",
@@ -26798,9 +26760,8 @@
       "Forcer d'un coup dès le début de la poussée."
     ],
     "alternatives": [
-      "renforcement-isometrique-du-cou-avant-et-arriere",
       "renforcement-de-la-nuque-au-disque-allonge-sur-le-dos",
-      "renforcement-de-la-nuque-au-disque-allonge-sur-le-ventre"
+      "etirement-lateral-du-cou"
     ],
     "images": [
       "/images/exercises/renforcement-isometrique-du-cou-cotes/0.jpg",
@@ -28610,43 +28571,6 @@
     ]
   },
   {
-    "id": "renforcement-de-la-nuque-au-disque-allonge-sur-le-ventre",
-    "slug": "renforcement-de-la-nuque-au-disque-allonge-sur-le-ventre",
-    "name": "Renforcement de la nuque au disque, allongé sur le ventre",
-    "description": "Allongé sur le ventre sur un banc, vous tenez un disque derrière la tête et fléchissez puis relevez la nuque. Cet exercice d'isolation cible les muscles de la nuque, à l'arrière du cou. Il convient aux pratiquants intermédiaires, avec une charge très légère et un mouvement lent.",
-    "primaryMuscle": "Cou",
-    "secondaryMuscles": [],
-    "equipment": "Accessoires",
-    "difficulty": "Intermédiaire",
-    "mechanics": "Isolation",
-    "executionSteps": [
-      "Allongez-vous sur le ventre sur un banc plat, les épaules légèrement au-delà de l'extrémité, et tenez un disque derrière la tête.",
-      "Gardez le disque bien en place sur l'arrière de la tête.",
-      "Baissez lentement la tête, comme pour dire oui, en inspirant.",
-      "Relevez la tête en arc de cercle en expirant, puis marquez une seconde de pause.",
-      "Répétez pour le nombre de répétitions prévu."
-    ],
-    "safetyTips": [
-      "Commencez avec un disque très léger, voire sans charge.",
-      "Faites-vous aider par un partenaire pour installer et retirer le disque.",
-      "Évitez tout mouvement brusque et arrêtez-vous en cas de douleur au cou."
-    ],
-    "commonMistakes": [
-      "Utiliser un disque trop lourd pour la nuque.",
-      "Aller trop vite, notamment dans la phase de descente.",
-      "Laisser le disque glisser sur la tête."
-    ],
-    "alternatives": [
-      "renforcement-de-la-nuque-au-disque-allonge-sur-le-dos",
-      "flexion-de-nuque-assise-avec-harnais-de-tete",
-      "renforcement-isometrique-du-cou-avant-et-arriere"
-    ],
-    "images": [
-      "/images/exercises/renforcement-de-la-nuque-au-disque-allonge-sur-le-ventre/0.jpg",
-      "/images/exercises/renforcement-de-la-nuque-au-disque-allonge-sur-le-ventre/1.jpg"
-    ]
-  },
-  {
     "id": "renforcement-de-la-nuque-au-disque-allonge-sur-le-dos",
     "slug": "renforcement-de-la-nuque-au-disque-allonge-sur-le-dos",
     "name": "Renforcement de la nuque au disque, allongé sur le dos",
@@ -28674,9 +28598,8 @@
       "Laisser le disque glisser et heurter le visage."
     ],
     "alternatives": [
-      "flexion-de-nuque-assise-avec-harnais-de-tete",
-      "renforcement-de-la-nuque-au-disque-allonge-sur-le-ventre",
-      "renforcement-isometrique-du-cou-avant-et-arriere"
+      "renforcement-isometrique-du-cou-cotes",
+      "auto-massage-du-cou-au-rouleau"
     ],
     "images": [
       "/images/exercises/renforcement-de-la-nuque-au-disque-allonge-sur-le-dos/0.jpg",
@@ -29147,8 +29070,7 @@
     ],
     "alternatives": [
       "etirement-lateral-du-cou",
-      "etirement-de-la-nuque-menton-vers-la-poitrine",
-      "renforcement-de-la-nuque-au-disque-allonge-sur-le-ventre"
+      "etirement-de-la-nuque-menton-vers-la-poitrine"
     ],
     "category": "Étirement",
     "images": [
@@ -32299,43 +32221,6 @@
     "images": [
       "/images/exercises/etirement-ischio-jambiers-et-mollets-assis-avec-sangle/0.jpg",
       "/images/exercises/etirement-ischio-jambiers-et-mollets-assis-avec-sangle/1.jpg"
-    ]
-  },
-  {
-    "id": "flexion-de-nuque-assise-avec-harnais-de-tete",
-    "slug": "flexion-de-nuque-assise-avec-harnais-de-tete",
-    "name": "Flexion de nuque assise avec harnais de tête",
-    "description": "Cet exercice d'isolation renforce les muscles de la nuque en flexion, grâce à un harnais de tête relié à une charge. Assis au bout d'un banc, vous inclinez la tête vers la poitrine. Il convient aux pratiquants intermédiaires, avec une charge très légère.",
-    "primaryMuscle": "Cou",
-    "secondaryMuscles": [],
-    "equipment": "Accessoires",
-    "difficulty": "Intermédiaire",
-    "mechanics": "Isolation",
-    "executionSteps": [
-      "Posez le harnais au sol au bout d'un banc, chargé légèrement, et asseyez-vous pieds écartés, orteils vers l'extérieur.",
-      "Penchez le buste vers l'avant, installez solidement le harnais autour de la tête, charge encore au sol.",
-      "Saisissez la charge, redressez le buste presque à la verticale, légèrement penché, et posez les mains sur les genoux.",
-      "Inspirez en abaissant lentement la nuque jusqu'à rapprocher le menton de la poitrine.",
-      "Expirez en revenant à la position de départ, puis répétez."
-    ],
-    "safetyTips": [
-      "Commencez avec une charge très légère : la nuque est une zone fragile.",
-      "Contrôlez chaque phase sans à-coup ni élan.",
-      "Arrêtez-vous au moindre vertige, fourmillement ou douleur cervicale."
-    ],
-    "commonMistakes": [
-      "Choisir une charge trop lourde.",
-      "Balancer la tête rapidement au lieu de la déplacer lentement.",
-      "Mal ajuster le harnais, qui glisse ou comprime la tête."
-    ],
-    "alternatives": [
-      "renforcement-de-la-nuque-au-disque-allonge-sur-le-ventre",
-      "renforcement-de-la-nuque-au-disque-allonge-sur-le-dos",
-      "renforcement-isometrique-du-cou-avant-et-arriere"
-    ],
-    "images": [
-      "/images/exercises/flexion-de-nuque-assise-avec-harnais-de-tete/0.jpg",
-      "/images/exercises/flexion-de-nuque-assise-avec-harnais-de-tete/1.jpg"
     ]
   },
   {

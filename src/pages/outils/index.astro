@@ -4,12 +4,19 @@ import Breadcrumb from '../../components/Breadcrumb.astro';
 import { WORK_PERCENTS } from '../../lib/tools';
 ---
 <Layout
-  title="Outils : calculateur calories, protéines et charge maximale (1RM)"
-  description="Calculez vos besoins quotidiens en calories et en protéines, estimez votre charge maximale (1RM) et obtenez vos charges de travail de 60 % à 95 %. Gratuit, sans inscription."
+  title="Outils : nutrition, charge maximale et progression"
+  description="Calculez vos besoins en calories et protéines, estimez votre charge maximale et suivez votre progression de charges par exercice. Gratuit, sans inscription."
 >
   <Breadcrumb items={[{ name: 'Outils' }]} />
   <h1>Outils pratiques</h1>
-  
+
+  <section class="card mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between" aria-labelledby="t-progression">
+    <div>
+      <h2 id="t-progression" class="m-0 text-xl">Suivre ma progression</h2>
+      <p class="mt-1 mb-0 text-muted">Retrouvez l’évolution des charges enregistrées dans vos séances, exercice par exercice.</p>
+    </div>
+    <a class="btn btn-primary shrink-0" href="/historique/#progression-charges">Voir ma progression</a>
+  </section>
 
   <section id="calories-proteines" class="card mt-8 scroll-mt-4" aria-labelledby="t-cal">
     <h2 id="t-cal">Calories et protéines par jour</h2>

@@ -1,13 +1,23 @@
 import { describe, expect, it } from 'vitest';
 import { exercises, zones } from '../src/lib/data';
-import { allowedEquipment, createRng, generateSession, prescribe, replaceExercise, targetMuscles } from '../src/lib/session';
+import { allowedEquipment, canonicalEquipmentMode, createRng, generateSession, prescribe, replaceExercise, targetMuscles } from '../src/lib/session';
 import type { SessionParams } from '../src/lib/session';
 import { computeNutrition, estimate1RM } from '../src/lib/tools';
 import { muscleBySlug } from '../src/lib/data';
 
-const modes = ['salle', 'halteres', 'corps'] as const;
+const modes = ['salle', 'maison', 'corps'] as const;
 
 describe('générateur de séance', () => {
+  it('inclut le petit matériel et le poids du corps à la maison sans machines de salle', () => {
+    expect(allowedEquipment('maison')).toEqual(['Haltères', 'Poids du corps', 'Kettlebell', 'Élastiques', 'Accessoires']);
+    expect(allowedEquipment('maison')).not.toContain('Salle de sport');
+  });
+
+  it('conserve les anciennes séances enregistrées avec le mode haltères', () => {
+    expect(canonicalEquipmentMode('halteres')).toBe('maison');
+    expect(allowedEquipment('halteres')).toEqual(allowedEquipment('maison'));
+  });
+
   it('prescrit le gainage de Copenhague en durée', () => {
     const exercise = exercises.find((e) => e.id === 'gainage-copenhagen')!;
     expect(prescribe(exercise, 'muscle', 45).reps).toBe('30 à 45 secondes');
@@ -57,7 +67,13 @@ describe('générateur de séance', () => {
         const params: SessionParams = { goal: 'muscle', zones: [], equipment: mode, duration: 45 };
         const session = [{ exerciseId: e.id, sets: 3, reps: '10', restSeconds: 60 }];
         const next = replaceExercise(exercises, session, 0, params, createRng(1));
-        expect(next, `${mode}: ${e.id}`).not.toBeNull();
+        const hasAlternative = exercises.some((candidate) =>
+          candidate.id !== e.id &&
+          candidate.primaryMuscle === e.primaryMuscle &&
+          !candidate.category &&
+          allowedEquipment(mode).includes(candidate.equipment),
+        );
+        expect(Boolean(next), `${mode}: ${e.id}`).toBe(hasAlternative);
       }
     }
   });

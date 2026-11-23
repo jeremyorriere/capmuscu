@@ -43,8 +43,12 @@ function shuffle<T>(list: T[], rng: Rng): T[] {
 
 export function allowedEquipment(mode: EquipmentMode): Exercise['equipment'][] {
   if (mode === 'salle') return ['Salle de sport', 'Haltères', 'Poids du corps', 'Kettlebell', 'Élastiques', 'Accessoires'];
-  if (mode === 'halteres') return ['Haltères', 'Poids du corps', 'Kettlebell', 'Élastiques', 'Accessoires'];
+  if (mode === 'maison' || mode === 'halteres') return ['Haltères', 'Poids du corps', 'Kettlebell', 'Élastiques', 'Accessoires'];
   return ['Poids du corps'];
+}
+
+export function canonicalEquipmentMode(mode: EquipmentMode): Exclude<EquipmentMode, 'halteres'> {
+  return mode === 'halteres' ? 'maison' : mode;
 }
 
 export function prescribe(exercise: Exercise, goal: Goal, duration: Duration): SessionItem {
