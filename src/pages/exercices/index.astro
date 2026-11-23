@@ -1,102 +1,12 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import Breadcrumb from '../../components/Breadcrumb.astro';
-import ExerciseCard from '../../components/ExerciseCard.astro';
-import { exercises, muscles, equipmentList, difficulties, getCombos, zones } from '../../lib/data';
+import ExerciseDirectory from '../../components/ExerciseDirectory.astro';
+import { exercises } from '../../lib/data';
 
-const sorted = [...exercises].sort((a, b) => a.name.localeCompare(b.name, 'fr'));
-const combos = getCombos();
 ---
 <Layout
   title="Encyclopédie des exercices de musculation"
   description={`${exercises.length} exercices de musculation expliqués en français : étapes précises, conseils de sécurité et erreurs fréquentes. Recherchez par muscle, matériel ou niveau.`}
 >
-  <Breadcrumb items={[{ name: 'Exercices' }]} />
-  <h1>Encyclopédie des exercices</h1>
-  <p class="mt-3"><a class="btn" href="/materiel/">Trouver un exercice selon mon matériel</a></p>
-
-  <form class="card mt-6 grid gap-4 md:grid-cols-4" role="search" aria-label="Rechercher un exercice" onsubmit="return false">
-    <div class="md:col-span-4">
-      <label for="q" class="font-bold block mb-1">Rechercher un exercice</label>
-      <input id="q" type="search" class="field" placeholder="Ex. : squat, pompes, tirage…" autocomplete="off" />
-    </div>
-    <div>
-      <label for="f-muscle" class="font-bold block mb-1">Muscle</label>
-      <select id="f-muscle" class="field">
-        <option value="">Tous les muscles</option>
-        {muscles.map((m) => <option value={m.name}>{m.name}</option>)}
-      </select>
-    </div>
-    <div>
-      <label for="f-equip" class="font-bold block mb-1">Matériel</label>
-      <select id="f-equip" class="field">
-        <option value="">Tout le matériel</option>
-        {equipmentList.map((e) => <option value={e.label}>{e.label}</option>)}
-      </select>
-    </div>
-    <div>
-      <label for="f-level" class="font-bold block mb-1">Niveau</label>
-      <select id="f-level" class="field">
-        <option value="">Tous les niveaux</option>
-        {difficulties.map((d) => <option value={d}>{d}</option>)}
-      </select>
-    </div>
-    <div class="flex items-end">
-      <button type="reset" id="reset" class="btn w-full">Tout effacer</button>
-    </div>
-  </form>
-
-  <p id="count" class="mt-4 font-bold" role="status" aria-live="polite">{exercises.length} exercices</p>
-  <p id="empty" class="card mt-4" hidden>Aucun exercice ne correspond. Essayez d'élargir votre recherche.</p>
-
-  <ul id="list" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 list-none p-0 mt-4">
-    {sorted.map((e) => <li><ExerciseCard exercise={e} peek /></li>)}
-  </ul>
-
-  <section class="mt-12" aria-labelledby="par-muscle">
-    <h2 id="par-muscle">Explorer par muscle et matériel</h2>
-    <ul class="mt-4 grid gap-2 sm:grid-cols-2 list-none p-0">
-      {muscles.map((m) => <li><a class="link min-h-12 flex items-center" href={`/muscles/${m.slug}/`}>Exercices pour les {m.name.toLowerCase()}</a></li>)}
-      {combos.map((c) => <li><a class="link min-h-12 flex items-center" href={`/exercices/${c.slug}/`}>{c.muscle.name} {c.equipment.phrase}</a></li>)}
-    </ul>
-  </section>
-
-  <script define:vars={{ zoneList: zones }}>
-    const q = document.getElementById('q');
-    const fm = document.getElementById('f-muscle');
-    const fe = document.getElementById('f-equip');
-    const fl = document.getElementById('f-level');
-    const cards = [...document.querySelectorAll('#list article')];
-    const count = document.getElementById('count');
-    const empty = document.getElementById('empty');
-    const params = new URLSearchParams(location.search);
-    const zoneParam = params.get('zone') || '';
-    if (params.get('muscle')) fm.value = params.get('muscle');
-    const norm = (s) => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-
-    function apply() {
-      const text = norm(q.value.trim());
-      let n = 0;
-      for (const c of cards) {
-        const d = c.dataset;
-        const ok =
-          (!text || norm(d.name).includes(text) || norm(d.muscle).includes(text)) &&
-          (!fm.value || d.muscle === fm.value) &&
-          (!fe.value || d.equipment === fe.value) &&
-          (!fl.value || d.level === fl.value) &&
-          (!zoneParam || d.zone === zoneParam);
-        c.parentElement.hidden = !ok;
-        if (ok) n++;
-      }
-      const zone = zoneList.find((z) => z.slug === zoneParam);
-      count.textContent = `${n} exercice${n > 1 ? 's' : ''}` + (zone ? ` — zone : ${zone.name}` : '');
-      empty.hidden = n !== 0;
-    }
-    for (const el of [q, fm, fe, fl]) el.addEventListener('input', apply);
-    document.getElementById('reset').addEventListener('click', () => setTimeout(() => {
-      if (zoneParam) location.href = location.pathname;
-      else apply();
-    }, 0));
-    apply();
-  </script>
+  <ExerciseDirectory />
 </Layout>

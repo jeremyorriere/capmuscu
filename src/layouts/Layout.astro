@@ -93,31 +93,44 @@ const nav: { href: string; label: string; short: string; icon: IconName; match: 
     </main>
 
     <footer class="site-footer border-t border-line bg-card">
-      <div class="mx-auto max-w-5xl px-4 py-8 text-sm text-muted grid gap-6 md:grid-cols-[1.4fr_1fr]">
+      <div class="mx-auto max-w-5xl px-4 py-6 text-sm text-muted grid gap-6 md:grid-cols-[minmax(14rem,1fr)_2fr]">
         <div class="space-y-2">
           <p class="m-0 text-base text-ink font-extrabold" style="font-family: var(--font-display)">CapMuscu</p>
-          <p class="m-0">Gratuit, sans publicité, sans compte. Vos séances restent sur votre appareil.</p>
-          <p class="m-0">
-            Les conseils proposés sont d'ordre général et ne remplacent pas l'avis d'un médecin ou d'un coach diplômé.
-            En cas de doute, de douleur ou de problème de santé, demandez conseil avant de vous entraîner.
+          <p class="m-0">Musculation gratuite, sans publicité ni compte. Vos séances restent sur votre appareil.</p>
+          <p class="m-0 text-xs">
+            Conseils généraux : ils ne remplacent pas l'avis d'un médecin ou d'un coach diplômé. En cas de douleur ou de doute, demandez conseil.
           </p>
-          <p class="m-0">Veille actualités mise à jour le {formatDateFr(news.updatedAt)}.</p>
+          <p class="m-0 text-xs">Actualités vérifiées le {formatDateFr(news.updatedAt)}.</p>
         </div>
-        <nav aria-label="Pied de page">
-          <ul class="list-none p-0 m-0 space-y-1">
-            {nav.map((n) => <li><a href={n.href} class="min-h-12 flex items-center font-bold">{n.label}</a></li>)}
-          </ul>
-          <ul class="list-none p-0 m-0 mt-3 pt-3 border-t border-line space-y-1">
-            <li><a href="/materiel/" class="min-h-12 flex items-center font-bold">Exercices selon mon matériel</a></li>
-            <li><a href="/installer/" class="min-h-12 flex items-center font-bold">Installer CapMuscu</a></li>
-            <li><a href="/historique/" class="min-h-12 flex items-center font-bold">Mon historique</a></li>
-            <li><a href="/feedback/" class="min-h-12 flex items-center font-bold">Donner mon avis</a></li>
-            <li><a href="/mentions-legales/" class="min-h-12 flex items-center">Mentions légales</a></li>
-            <li><a href="/confidentialite/" class="min-h-12 flex items-center">Confidentialité</a></li>
-          </ul>
+        <nav aria-label="Liens du pied de page" class="grid gap-5 sm:grid-cols-3">
+          <div>
+            <h2 class="m-0 text-sm font-extrabold text-ink">Explorer</h2>
+            <ul class="mt-2 grid grid-cols-2 gap-x-3 list-none p-0">
+              <li><a href="/" class="min-h-11 flex items-center">Accueil</a></li>
+              <li><a href="/exercices/" class="min-h-11 flex items-center">Exercices</a></li>
+              <li><a href="/materiel/" class="min-h-11 flex items-center">Par matériel</a></li>
+            </ul>
+          </div>
+          <div>
+            <h2 class="m-0 text-sm font-extrabold text-ink">S'entraîner</h2>
+            <ul class="mt-2 grid grid-cols-2 gap-x-3 list-none p-0">
+              <li><a href="/seance/" class="min-h-11 flex items-center font-bold">Créer ma séance</a></li>
+              <li><a href="/historique/" class="min-h-11 flex items-center">Mon historique</a></li>
+              <li><a href="/outils/" class="min-h-11 flex items-center">Outils</a></li>
+              <li><a href="/installer/" class="min-h-11 flex items-center">Installer l'app</a></li>
+            </ul>
+          </div>
+          <div>
+            <h2 class="m-0 text-sm font-extrabold text-ink">À propos</h2>
+            <ul class="mt-2 grid grid-cols-2 gap-x-3 list-none p-0">
+              <li><a href="/feedback/" class="min-h-11 flex items-center">Donner mon avis</a></li>
+              <li><a href="/mentions-legales/" class="min-h-11 flex items-center">Mentions légales</a></li>
+              <li><a href="/confidentialite/" class="min-h-11 flex items-center">Confidentialité</a></li>
+            </ul>
+          </div>
         </nav>
       </div>
-      <p class="mx-auto max-w-5xl px-4 pb-8 text-sm text-muted m-0">© {new Date().getFullYear()} CapMuscu — capmuscu.fr</p>
+      <p class="mx-auto max-w-5xl px-4 pb-5 text-xs text-muted m-0">© {new Date().getFullYear()} CapMuscu — capmuscu.fr</p>
     </footer>
 
     <AnalyticsConsent />

@@ -1,0 +1,22 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import ExerciseDirectory from '../../../components/ExerciseDirectory.astro';
+import { exercises } from '../../../lib/data';
+import { EXERCISE_PAGE_SIZE } from '../../../lib/exercise-directory';
+
+export function getStaticPaths() {
+  const pageCount = Math.ceil(exercises.length / EXERCISE_PAGE_SIZE);
+  return Array.from({ length: pageCount - 1 }, (_, index) => {
+    const currentPage = index + 2;
+    return { params: { page: String(currentPage) }, props: { currentPage } };
+  });
+}
+
+const { currentPage } = Astro.props;
+---
+<Layout
+  title={`Exercices de musculation — page ${currentPage}`}
+  description={`Parcourez la page ${currentPage} de l'encyclopédie CapMuscu : exercices de musculation classés par nom, muscle, matériel et niveau.`}
+>
+  <ExerciseDirectory currentPage={currentPage} />
+</Layout>
