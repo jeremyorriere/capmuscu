@@ -1,6 +1,6 @@
 ﻿# CapMuscu — capmuscu.fr
 
-Compagnon de musculation gratuit, lumineux et accessible à tous les âges : générateur de séance avec bouton « Machine prise », encyclopédie de 926 exercices, outils pratiques (calories, protéines, 1RM) et veille quotidienne.
+Compagnon de musculation gratuit, lumineux et accessible à tous les âges : générateur de séance avec bouton « Machine prise », encyclopédie de 913 exercices, outils pratiques (calories, protéines, 1RM) et veille quotidienne.
 
 Stack : Astro (SSG, TypeScript strict), Tailwind CSS 4, données JSON locales, fonctions Vercel et Vercel Blob privé. Aucun compte n'est nécessaire pour utiliser le site et les données d'entraînement restent sur l'appareil. Les inscriptions email ne sont enregistrées qu'après consentement ; aucun email n'est envoyé automatiquement.
 
@@ -21,7 +21,7 @@ Pour tester aussi les API Vercel en local, installez la CLI Vercel (`npm install
 
 | Chemin | Rôle |
 | --- | --- |
-| `src/data/exercises.json` | Base des exercices (926) |
+| `src/data/exercises.json` | Base des exercices (913) |
 | `src/data/muscles.json` | Muscles et zones (accueil / générateur) |
 | `src/data/news.json` | Actus et études (écrit par le collecteur) |
 | `src/data/recipes.json` | Modèle des recettes (3 exemples, futur `/recettes`) |

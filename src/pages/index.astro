@@ -21,17 +21,32 @@ const shown = picked.slice(0, 3);
 const ld = [
   {
     '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': 'https://capmuscu.fr/#organization',
+    name: 'CapMuscu',
+    url: 'https://capmuscu.fr/',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://capmuscu.fr/icon-512.png',
+      width: 512,
+      height: 512,
+    },
+  },
+  {
+    '@context': 'https://schema.org',
     '@type': 'WebSite',
+    '@id': 'https://capmuscu.fr/#website',
     name: 'CapMuscu',
     url: 'https://capmuscu.fr/',
     inLanguage: 'fr-FR',
-    description: 'Compagnon de musculation gratuit : séances automatiques, encyclopédie des exercices et outils pratiques.',
+    description: 'Exercices de musculation détaillés, séances personnalisées et suivi de progression gratuits, sans compte.',
+    publisher: { '@id': 'https://capmuscu.fr/#organization' },
   },
 ];
 ---
 <Layout
-  title="CapMuscu — Votre compagnon de musculation, à tout âge"
-  description={`Créez une séance de musculation équilibrée, trouvez des exercices selon votre matériel et suivez votre progression. ${exercises.length} fiches gratuites expliquées en français.`}
+  title="Musculation gratuite : exercices et séances | CapMuscu"
+  description={`Créez gratuitement une séance adaptée à vos objectifs et votre matériel. Explorez ${exercises.length} exercices détaillés et suivez votre progression, sans compte.`}
   jsonLd={ld}
 >
   <section class="hero" aria-labelledby="titre-zone">

@@ -52,6 +52,8 @@ const nav: { href: string; label: string; short: string; icon: IconName; match: 
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="CapMuscu — séances, exercices et suivi de progression" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImage} />
     <meta name="twitter:image:alt" content="CapMuscu — séances, exercices et suivi de progression" />
     {jsonLd.map((ld) => <script type="application/ld+json" set:html={JSON.stringify(ld)} />)}
