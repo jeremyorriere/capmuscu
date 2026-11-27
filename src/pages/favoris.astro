@@ -1,0 +1,90 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import exercisesJson from '../data/exercises.json';
+
+const exercises = exercisesJson.map(({ slug, name }) => ({ slug, name }));
+---
+<Layout
+  title="Mes exercices favoris"
+  description="Retrouvez les exercices de musculation que vous avez ajoutés à vos favoris sur cet appareil."
+  noindex
+>
+  <Breadcrumb items={[{ name: 'Mes favoris' }]} />
+  <h1>Mes exercices favoris</h1>
+  <p class="mt-3 text-muted">Vos favoris sont conservés sur cet appareil. Connectez-vous pour les inclure dans la sauvegarde en ligne.</p>
+  <p id="favorites-error" class="card mt-4 text-muted" role="status" aria-live="polite" hidden>
+    Impossible de lire vos favoris dans le navigateur. Vos données n'ont pas été modifiées.
+  </p>
+  <p id="favorites-empty" class="card mt-4" hidden>
+    Vous n'avez pas encore ajouté de favoris. Parcourez les <a class="link" href="/exercices/">exercices</a>, puis utilisez « Ajouter aux favoris » sur une fiche.
+  </p>
+  <ul id="favorites-list" class="mt-4 grid gap-3 sm:grid-cols-2 list-none p-0"></ul>
+  <script id="exercise-data" type="application/json" set:html={JSON.stringify(exercises).replace(/</g, '\\u003c')} />
+  <script>
+    const KEY = 'capmuscu-exercices-favoris';
+    const data: unknown = JSON.parse(document.querySelector('#exercise-data')?.textContent ?? '[]');
+    if (!Array.isArray(data) || !data.every((item) => item && typeof item.slug === 'string' && typeof item.name === 'string')) {
+      throw new Error('Liste des exercices invalide.');
+    }
+    const names = new Map<string, string>(data.map((item: { slug: string; name: string }) => [item.slug, item.name]));
+    const list = document.querySelector<HTMLUListElement>('#favorites-list');
+    const empty = document.querySelector<HTMLElement>('#favorites-empty');
+    const error = document.querySelector<HTMLElement>('#favorites-error');
+
+    function render() {
+      try {
+        const raw = localStorage.getItem(KEY);
+        const favorites: unknown = raw === null ? [] : JSON.parse(raw);
+        if (!Array.isArray(favorites) || !favorites.every((slug) => typeof slug === 'string')) {
+          throw new Error('Liste de favoris invalide.');
+        }
+        list?.replaceChildren();
+        if (error) error.hidden = true;
+        if (empty) empty.hidden = favorites.length > 0;
+        for (const slug of favorites as string[]) {
+          const item = document.createElement('li');
+          item.className = 'card flex flex-wrap items-center justify-between gap-3';
+          const name = names.get(slug);
+          const link = document.createElement(name ? 'a' : 'span');
+          link.className = name ? 'link font-bold' : 'text-muted';
+          if (link instanceof HTMLAnchorElement) link.href = `/exercices/${slug}/`;
+          link.textContent = name ?? `Exercice indisponible : ${slug}`;
+          const remove = document.createElement('button');
+          remove.type = 'button';
+          remove.className = 'btn';
+          remove.textContent = 'Retirer des favoris';
+          remove.setAttribute('aria-label', `Retirer ${name ?? slug} des favoris`);
+          remove.dataset.removeFavorite = slug;
+          item.append(link, remove);
+          list?.append(item);
+        }
+      } catch {
+        if (error) error.hidden = false;
+        if (empty) empty.hidden = true;
+        list?.replaceChildren();
+      }
+    }
+
+    render();
+    window.addEventListener('capmuscu:favorites-changed', render);
+    list?.addEventListener('click', (event) => {
+      const target = event.target as Element;
+      const button = target.closest<HTMLButtonElement>('[data-remove-favorite]');
+      const slug = button?.dataset.removeFavorite;
+      if (!slug) return;
+      try {
+        const raw = localStorage.getItem(KEY);
+        const favorites: unknown = raw === null ? [] : JSON.parse(raw);
+        if (!Array.isArray(favorites) || !favorites.every((value) => typeof value === 'string')) {
+          throw new Error('Liste de favoris invalide.');
+        }
+        localStorage.setItem(KEY, JSON.stringify(favorites.filter((value) => value !== slug)));
+        render();
+        window.dispatchEvent(new CustomEvent('capmuscu:favorites-changed'));
+      } catch {
+        if (error) error.hidden = false;
+      }
+    });
+  </script>
+</Layout>

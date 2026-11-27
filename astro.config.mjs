@@ -5,6 +5,6 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   site: 'https://capmuscu.fr',
   trailingSlash: 'always',
-  integrations: [sitemap({ filter: (page) => !page.includes('/admin/') && !page.includes('/historique/') })],
+  integrations: [sitemap({ filter: (page) => !page.includes('/admin/') && !page.includes('/historique/') && !page.includes('/compte/') && !page.includes('/favoris/') })],
   vite: { plugins: [tailwindcss()] },
 });

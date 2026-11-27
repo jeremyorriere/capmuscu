@@ -1,0 +1,20 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId}/backups/{backupId} {
+      allow read: if request.auth != null
+        && request.auth.uid == userId
+        && backupId in ['history', 'templates', 'favorites'];
+      allow create, update: if request.auth != null
+        && request.auth.uid == userId
+        && backupId in ['history', 'templates', 'favorites']
+        && request.resource.data.keys().hasOnly(['data', 'updatedAt'])
+        && request.resource.data.data is list;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import ExerciseCard from '../../components/ExerciseCard.astro';
 import ExerciseMotion from '../../components/ExerciseMotion.astro';
+import ExerciseFavorite from '../../components/ExerciseFavorite.astro';
 import BodyMap from '../../components/BodyMap.astro';
 import { muscleHue, levelHue, tintStyle } from '../../lib/ui';
 import { exercises, getCombos, muscleByName, exerciseById, zones } from '../../lib/data';
@@ -98,12 +99,24 @@ const otherEquip = combo ? getCombos().filter((c) => c.muscle.slug === combo.mus
       <Breadcrumb items={[{ name: 'Exercices', href: '/exercices/' }, { name: muscle.name, href: `/muscles/${muscle.slug}/` }, { name: e.name }]} />
       <article>
         <h1>{e.name}</h1>
+        <ExerciseFavorite slug={e.slug} name={e.name} />
         <ul class="flex flex-wrap gap-2 list-none p-0 mt-3" aria-label="Caractéristiques">
           <li class="badge tint" style={tintStyle(muscleHue(e.primaryMuscle))}>Muscle principal : {e.primaryMuscle}</li>
           <li class="badge">{e.equipment}</li>
           <li class="badge tint" style={tintStyle(levelHue(e.difficulty))}>{e.difficulty}</li>
           <li class="badge">{e.mechanics}</li>
         </ul>
+        <aside class="card mt-4" aria-label="Repères pour choisir cet exercice">
+          <h2 class="m-0 text-lg">Est-ce un bon exercice pour moi ?</h2>
+          <p class="mt-2 mb-0">
+            Niveau indiqué : <strong>{e.difficulty}</strong>. {e.difficulty === 'Débutant'
+              ? 'Ce mouvement est classé parmi les plus accessibles. Commencez avec une charge confortable et privilégiez un geste contrôlé.'
+              : e.difficulty === 'Intermédiaire'
+                ? 'Ce mouvement demande déjà de connaître les gestes de base. Si vous débutez, préférez une variante plus simple ou demandez une démonstration.'
+                : 'Ce mouvement est plus technique. Si vous débutez, choisissez une variante classée Débutant ou faites-vous accompagner.'}
+            Arrêtez si le mouvement provoque une douleur.
+          </p>
+        </aside>
 
         <section class="mt-6" aria-labelledby="apercu">
           <h2 id="apercu">Le geste en un coup d'œil</h2>
@@ -126,7 +139,7 @@ const otherEquip = combo ? getCombos().filter((c) => c.muscle.slug === combo.mus
             {muscle.benefit}
           </p>
           <p class="text-sm text-muted">
-            <strong>Polyarticulaire</strong> : le mouvement fait travailler plusieurs articulations. <strong>Isolation</strong> : le mouvement concentre l'effort sur un seul muscle.
+            <strong>Polyarticulaire</strong> : le mouvement fait travailler plusieurs articulations et groupes musculaires. <strong>Isolation</strong> : le mouvement cible surtout un muscle avec moins d'articulations. Le niveau indiqué est un repère général : adaptez la charge à votre aisance et gardez un mouvement contrôlé.
           </p>
         </section>
 

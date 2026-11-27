@@ -5,7 +5,7 @@ import legal from '../data/legal.json';
 ---
 <Layout
   title="Politique de confidentialité"
-  description="Politique de confidentialité de CapMuscu : données des séances conservées sur votre appareil, consentement aux statistiques et gestion de la newsletter."
+  description="Politique de confidentialité de CapMuscu : données des séances conservées localement ou synchronisées dans Firebase avec votre accord, consentement aux statistiques et gestion de la newsletter."
 >
   <Breadcrumb items={[{ name: 'Confidentialité' }]} />
   <h1>Politique de confidentialité</h1>
@@ -13,9 +13,29 @@ import legal from '../data/legal.json';
     <section aria-labelledby="resume">
       <h2 id="resume">En résumé</h2>
       <p class="mt-2">
-        CapMuscu ne demande aucun compte, n'affiche aucune publicité et n'utilise aucun traceur publicitaire ni outil
-        de mesure d'audience automatique. Vos séances restent sur votre appareil. Si vous choisissez de vous inscrire à la newsletter,
+        CapMuscu reste utilisable sans compte, n'affiche aucune publicité et n'utilise aucun traceur publicitaire ni outil
+        de mesure d'audience automatique. Sans synchronisation, vos séances restent sur votre appareil. Si vous choisissez de vous inscrire à la newsletter,
         votre adresse email et vos choix de consentement sont enregistrés dans un stockage privé fourni par Vercel.
+      </p>
+    </section>
+
+    <section aria-labelledby="compte">
+      <h2 id="compte">Compte facultatif et synchronisation</h2>
+      <p class="mt-2">
+        Si vous créez un compte par email ou vous connectez avec Google, Firebase Authentication traite l'adresse email
+        et les identifiants nécessaires à l'accès au compte. La création du compte ne transfère pas automatiquement votre historique.
+        Lorsque vous choisissez « Fusionner et synchroniser », votre historique de séances, vos modèles et vos exercices
+        favoris sont copiés dans Cloud Firestore, associé à votre identifiant Firebase. Les données sont utilisées pour
+        vous fournir la sauvegarde et la synchronisation demandées. Google/Firebase traite ces données selon ses propres
+        conditions et sa politique de confidentialité. Ne saisissez pas d'information médicale dans CapMuscu.
+      </p>
+      <p class="mt-2">
+        La fusion ajoute les séances et modèles présents sur l'un ou l'autre appareil ; elle ne propage pas une suppression.
+        Pour propager une suppression sur un autre appareil, remplacez la sauvegarde en ligne depuis le premier appareil,
+        puis restaurez-la sur l'autre appareil. Vous pouvez également demander
+        l'effacement du compte et des données en écrivant à l'éditeur. Les sauvegardes restent dans Firebase jusqu'à leur
+        remplacement ou votre demande d'effacement. Exportez vos données avant toute restauration. La synchronisation
+        est facultative ; le site reste utilisable sans compte.
       </p>
     </section>
 
@@ -48,16 +68,16 @@ import legal from '../data/legal.json';
     </section>
 
     <section aria-labelledby="newsletter">
-      <h2 id="newsletter">Newsletter et informations sur les futurs comptes</h2>
+      <h2 id="newsletter">Newsletter et nouveautés sur les comptes</h2>
       <p class="mt-2">
         L'inscription à la newsletter est facultative et nécessite votre consentement. Votre adresse email et la date
         de votre consentement sont enregistrées dans un stockage privé Vercel Blob, hébergé par Vercel. Elles sont
-        utilisées pour conserver votre inscription et, si vous avez coché la case distincte, votre intérêt pour un futur
-        compte. Aucun email de confirmation ou d'actualité n'est envoyé automatiquement pour le moment.
+        utilisées pour conserver votre inscription et, si vous avez coché la case distincte, votre intérêt pour recevoir
+        des informations sur les comptes et sauvegardes. Aucun email de confirmation ou d'actualité n'est envoyé automatiquement pour le moment.
       </p>
       <p class="mt-2">
-        Une case distincte, facultative, vous permet de demander à être informé(e) de l'arrivée d'un compte pour suivre
-        vos séances et vos progrès. Ce choix est enregistré séparément.
+        Une case distincte, facultative, vous permet de demander à être informé(e) des nouveautés liées aux comptes et à la
+        sauvegarde des séances. Ce choix est enregistré séparément.
         Il ne crée pas de compte et ne transmet ni votre historique ni vos données d'entraînement.
       </p>
       <p class="mt-2">
@@ -90,8 +110,9 @@ import legal from '../data/legal.json';
         Pour fonctionner, le site enregistre dans le stockage local de votre navigateur (<em>localStorage</em>) :
         votre séance en cours, les séances gardées, votre historique de séances terminées (exercices, séries, charges),
         les exercices et séries validés, les charges saisies, le mode
-        d'affichage (clair ou sombre, un exercice à la fois). Ces informations restent sur votre appareil, ne sont
-        jamais transmises et sont nécessaires au service que vous demandez. L'export de l'historique crée un fichier
+        d'affichage (clair ou sombre, taille du texte, un exercice à la fois) et vos exercices favoris. Ces informations
+        restent sur votre appareil sauf si vous demandez explicitement une synchronisation ou une sauvegarde dans votre compte.
+        L'export de l'historique crée un fichier
         que vous seul conservez.
       </p>
       <p class="mt-2">

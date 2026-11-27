@@ -51,7 +51,10 @@ const ld = [
 >
   <section class="hero" aria-labelledby="titre-zone">
     <h1 id="titre-zone">Que voulez-vous travailler aujourd'hui ?</h1>
-    <p class="hero-sub text-lg mt-2 mb-0">Touchez une zone : votre séance est prête en quelques secondes.</p>
+    <p class="hero-sub text-lg mt-2 mb-0">Choisissez le parcours qui vous convient : guidé, ou séance express par zone.</p>
+    <a href="/seance/" class="btn hero-cta mt-4">Créer ma séance, étape par étape</a>
+    <p class="hero-help mt-2 mb-0">Choisissez votre objectif, les zones, le matériel et la durée. Vous pourrez tout modifier ensuite.</p>
+    <h2 class="hero-quick-title mt-6 mb-0 text-base">Ou démarrer une séance express par zone</h2>
     <ul class="zone-grid">
       {zoneCards.map((z) => (
         <li>
@@ -128,6 +131,14 @@ const ld = [
       <p class="mt-1 mb-0 text-muted">Ajoutez l'application à votre écran d'accueil ou installez-la sur votre ordinateur.</p>
     </div>
     <a class="btn btn-primary shrink-0" href="/installer/">Installer CapMuscu</a>
+  </section>
+
+  <section class="card mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between" aria-labelledby="titre-compte">
+    <div>
+      <h2 id="titre-compte" class="m-0 text-xl">Retrouver vos séances sur vos appareils</h2>
+      <p class="mt-1 mb-0 text-muted">Créez un compte facultatif pour sauvegarder et synchroniser votre historique, vos modèles et vos favoris.</p>
+    </div>
+    <a class="btn btn-primary shrink-0" href="/compte/">Découvrir mon compte</a>
   </section>
 
   <NewsletterSignup />

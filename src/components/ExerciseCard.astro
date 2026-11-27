@@ -3,6 +3,7 @@ import type { Exercise } from '../lib/types';
 import { zones, muscleByName } from '../lib/data';
 import { muscleHue, levelHue, tintStyle } from '../lib/ui';
 import ExercisePeek from './ExercisePeek.astro';
+import ExerciseFavorite from './ExerciseFavorite.astro';
 interface Props { exercise: Exercise; headingLevel?: 2 | 3; peek?: boolean }
 const { exercise: e, headingLevel = 3, peek = false } = Astro.props;
 const H = `h${headingLevel}` as 'h2' | 'h3';
@@ -10,7 +11,10 @@ const muscleSlug = muscleByName(e.primaryMuscle)?.slug ?? '';
 const zone = zones.find((z) => z.muscles.includes(muscleSlug))?.slug ?? '';
 ---
 <article class="card card-hover flex flex-col gap-3" data-name={e.name.toLowerCase()} data-muscle={e.primaryMuscle} data-zone={zone} data-equipment={e.equipment} data-level={e.difficulty}>
-  <H class="text-xl"><a href={`/exercices/${e.slug}/`} class="text-ink no-underline hover:underline">{e.name}</a></H>
+  <div class="flex flex-wrap items-start justify-between gap-2">
+    <H class="text-xl"><a href={`/exercices/${e.slug}/`} class="text-ink no-underline hover:underline">{e.name}</a></H>
+    <ExerciseFavorite slug={e.slug} name={e.name} />
+  </div>
   {e.images && e.images.length === 2 && (
     <a href={`/exercices/${e.slug}/`} class="card-photo cm-photos" tabindex="-1" aria-hidden="true">
       <img class="cm-img" src={e.images[0]} alt="" loading="lazy" decoding="async" width="850" height="567" />

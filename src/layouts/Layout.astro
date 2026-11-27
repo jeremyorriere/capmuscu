@@ -61,6 +61,8 @@ const nav: { href: string; label: string; short: string; icon: IconName; match: 
       try {
         var t = localStorage.getItem('capmuscu-theme');
         if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.classList.add('dark');
+        var textSize = localStorage.getItem('capmuscu-text-size');
+        if (textSize === 'large' || textSize === 'larger') document.documentElement.dataset.textSize = textSize;
       } catch (e) {}
     </script>
   </head>
@@ -99,6 +101,12 @@ const nav: { href: string; label: string; short: string; icon: IconName; match: 
         <div class="space-y-2">
           <p class="m-0 text-base text-ink font-extrabold" style="font-family: var(--font-display)">CapMuscu</p>
           <p class="m-0">Musculation gratuite, sans publicité ni compte. Vos séances restent sur votre appareil.</p>
+          <div class="flex flex-wrap items-center gap-2 pt-2" role="group" aria-label="Taille du texte">
+            <span class="font-bold text-ink">Taille du texte :</span>
+            <button type="button" class="btn text-size-button" data-text-size="normal" aria-label="Taille normale" aria-pressed="true">A</button>
+            <button type="button" class="btn text-size-button" data-text-size="large" aria-label="Texte plus grand" aria-pressed="false">A+</button>
+            <button type="button" class="btn text-size-button" data-text-size="larger" aria-label="Texte très grand" aria-pressed="false">A++</button>
+          </div>
           <p class="m-0 text-xs">
             Conseils généraux : ils ne remplacent pas l'avis d'un médecin ou d'un coach diplômé. En cas de douleur ou de doute, demandez conseil.
           </p>
@@ -119,6 +127,8 @@ const nav: { href: string; label: string; short: string; icon: IconName; match: 
               <li><a href="/seance/" class="min-h-11 flex items-center font-bold">Créer ma séance</a></li>
               <li><a href="/historique/" class="min-h-11 flex items-center">Mon historique</a></li>
               <li><a href="/outils/" class="min-h-11 flex items-center">Outils</a></li>
+              <li><a href="/compte/" class="min-h-11 flex items-center">Mon compte et favoris</a></li>
+              <li><a href="/favoris/" class="min-h-11 flex items-center">Mes favoris</a></li>
               <li><a href="/installer/" class="min-h-11 flex items-center">Installer l'app</a></li>
             </ul>
           </div>
@@ -173,6 +183,23 @@ const nav: { href: string; label: string; short: string; icon: IconName; match: 
         try { localStorage.setItem('capmuscu-theme', root.classList.contains('dark') ? 'dark' : 'light'); } catch {}
         sync();
       });
+
+      const textSizeButtons = [...document.querySelectorAll<HTMLButtonElement>('.text-size-button')];
+      const syncTextSize = () => {
+        const size = root.dataset.textSize ?? 'normal';
+        textSizeButtons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.textSize === size)));
+      };
+      syncTextSize();
+      textSizeButtons.forEach((button) => button.addEventListener('click', () => {
+        const size = button.dataset.textSize ?? 'normal';
+        if (size === 'normal') delete root.dataset.textSize;
+        else root.dataset.textSize = size;
+        try {
+          if (size === 'normal') localStorage.removeItem('capmuscu-text-size');
+          else localStorage.setItem('capmuscu-text-size', size);
+        } catch {}
+        syncTextSize();
+      }));
     </script>
   </body>
 </html>
