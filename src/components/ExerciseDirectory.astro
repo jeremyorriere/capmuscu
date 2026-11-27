@@ -91,7 +91,7 @@ const zoneData = JSON.stringify(zoneList).replace(/</g, '\\u003c');
 </section>
 
 <script>
-  import { filterExerciseIndex, EXERCISE_PAGE_SIZE } from '../lib/exercise-directory';
+  import { filterExerciseIndex, EXERCISE_PAGE_SIZE, readExerciseFilters, writeExerciseFilters } from '../lib/exercise-directory';
   import type { ExerciseSearchItem } from '../lib/exercise-directory';
   const searchDataElement = document.getElementById('exercise-search-data');
   const zoneDataElement = document.getElementById('exercise-zone-data');
@@ -126,16 +126,46 @@ const zoneData = JSON.stringify(zoneList).replace(/</g, '\\u003c');
   const emptyMessage = empty as HTMLParagraphElement;
   const resetButton = reset as HTMLButtonElement;
   const initialCards = [...exerciseList.children].map((item) => item.cloneNode(true));
-  const params = new URLSearchParams(location.search);
-  let zoneParam = params.get('zone') || '';
+  let filters = { query: '', muscle: '', equipment: '', difficulty: '', zone: '' };
+  let zoneParam = '';
   let offset = 0;
   paginationElement.dataset.currentPage = String(currentPage);
   const queryActive = () => Boolean(searchInput.value.trim() || muscleFilter.value || equipmentFilter.value || levelFilter.value || zoneParam);
 
-  const muscleParam = params.get('muscle');
-  if (muscleParam) muscleFilter.value = muscleParam;
+  function readUrlFilters() {
+    filters = readExerciseFilters(location.search, {
+      muscles: [...muscleFilter.options].map((option) => option.value).filter(Boolean),
+      equipment: [...equipmentFilter.options].map((option) => option.value).filter(Boolean),
+      difficulties: [...levelFilter.options].map((option) => option.value).filter(Boolean),
+      zones: zoneList.map((zone) => zone.slug),
+    });
+    searchInput.value = filters.query;
+    muscleFilter.value = filters.muscle;
+    equipmentFilter.value = filters.equipment;
+    levelFilter.value = filters.difficulty;
+    zoneParam = filters.zone;
+  }
 
-  function apply() {
+  function writeUrlFilters(push = false) {
+    filters = {
+      query: searchInput.value,
+      muscle: muscleFilter.value,
+      equipment: equipmentFilter.value,
+      difficulty: levelFilter.value,
+      zone: zoneParam,
+    };
+    const query = writeExerciseFilters(filters);
+    const url = new URL(location.href);
+    for (const key of ['q', 'muscle', 'equipment', 'difficulty', 'zone']) url.searchParams.delete(key);
+    for (const [key, value] of new URLSearchParams(query)) url.searchParams.set(key, value);
+    if (push) history.pushState(null, '', url);
+    else history.replaceState(null, '', url);
+  }
+
+  readUrlFilters();
+
+  function apply(pushHistory = false) {
+    writeUrlFilters(pushHistory);
     if (!queryActive()) {
       exerciseList.replaceChildren(...initialCards.map((item) => item.cloneNode(true)));
       resultCount.textContent = `Affichage des exercices ${((currentPage - 1) * pageSize) + 1} à ${Math.min(currentPage * pageSize, searchable.length)} sur ${searchable.length}`;
@@ -198,15 +228,33 @@ const zoneData = JSON.stringify(zoneList).replace(/</g, '\\u003c');
     }
   }
 
-  for (const element of [searchInput, muscleFilter, equipmentFilter, levelFilter]) {
-    element.addEventListener('input', () => { offset = 0; apply(); });
-    element.addEventListener('change', () => { offset = 0; apply(); });
+  let searchTimer: ReturnType<typeof setTimeout> | undefined;
+  searchInput.addEventListener('input', () => {
+    offset = 0;
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => apply(true), 500);
+  });
+  searchInput.addEventListener('change', () => {
+    offset = 0;
+    clearTimeout(searchTimer);
+    apply(true);
+  });
+  for (const element of [muscleFilter, equipmentFilter, levelFilter]) {
+    element.addEventListener('change', () => {
+      offset = 0;
+      apply(true);
+    });
   }
   resetButton.addEventListener('click', () => setTimeout(() => {
     zoneParam = '';
-    history.replaceState(null, '', location.pathname);
+    offset = 0;
+    clearTimeout(searchTimer);
+    apply(true);
+  }, 0));
+  window.addEventListener('popstate', () => {
+    readUrlFilters();
     offset = 0;
     apply();
-  }, 0));
+  });
   if (queryActive()) apply();
 </script>

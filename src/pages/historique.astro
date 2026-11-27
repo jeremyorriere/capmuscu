@@ -9,9 +9,11 @@ import Breadcrumb from '../components/Breadcrumb.astro';
 >
   <Breadcrumb items={[{ name: 'Historique' }]} />
   <h1>Mon historique</h1>
-  
+  <p class="mt-3"><a class="btn btn-primary" href="#backup-title">Importer ou exporter mes données</a></p>
 
-  <p id="reminder" class="card mt-6 font-bold" role="status" hidden></p>
+  <p id="reminder" class="card mt-6 font-bold" role="status" hidden>
+    Pensez à sauvegarder votre historique. <a class="link" href="#backup-title">Aller aux options de sauvegarde</a>
+  </p>
   <p id="persist-note" class="mt-3 text-sm text-muted" role="status" aria-live="polite"></p>
 
   <section id="empty" class="card mt-6" hidden>
@@ -24,12 +26,14 @@ import Breadcrumb from '../components/Breadcrumb.astro';
     <dl class="pills">
       <div class="pill"><dt>Séances</dt><dd id="s-count">0</dd></div>
       <div class="pill"><dt>Séries faites</dt><dd id="s-sets">0</dd></div>
+      <div class="pill"><dt>Volume suivi (kg × répétitions)</dt><dd id="s-volume">0</dd></div>
       <div class="pill"><dt>Semaines actives (sur 4)</dt><dd id="s-weeks">0</dd></div>
     </dl>
+    <p class="mt-2 text-sm text-muted">Le volume utilise les séries dont la charge et les répétitions ont été renseignées. Les anciennes séances ne contiennent pas le détail par série.</p>
   </section>
 
   <section id="progression-charges" class="mt-10 scroll-mt-4" aria-labelledby="prog-title" hidden>
-    <h2 id="prog-title">Progression des charges</h2>
+    <h2 id="prog-title">Progression et records de charge</h2>
     <ul id="progress" class="mt-4 grid gap-4 sm:grid-cols-2 list-none p-0"></ul>
   </section>
 
@@ -50,7 +54,7 @@ import Breadcrumb from '../components/Breadcrumb.astro';
   </section>
 
   <script>
-    import { KEY_HISTORY, KEY_LAST_EXPORT, buildExport, isEntry, loadProgress, mergeEntries, needsExportReminder, parseExport, recentWeeks, totalSets } from '../lib/history';
+    import { KEY_HISTORY, KEY_LAST_EXPORT, buildExport, isEntry, loadProgress, mergeEntries, needsExportReminder, parseExport, recentWeeks, totalLoadVolume, totalSets } from '../lib/history';
     import type { HistoryEntry } from '../lib/history';
 
     const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
@@ -95,14 +99,14 @@ import Breadcrumb from '../components/Breadcrumb.astro';
       $('stats').hidden = $('list-section').hidden = entries.length === 0;
       const reminder = $('reminder');
       reminder.hidden = !needsExportReminder(entries, lastExport());
-      reminder.textContent = 'Pensez à exporter votre historique ci-dessous pour ne pas le perdre.';
 
       $('s-count').textContent = String(entries.length);
       $('s-sets').textContent = String(totalSets(entries));
+      $('s-volume').textContent = new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 1 }).format(totalLoadVolume(entries));
       $('s-weeks').textContent = String(recentWeeks(entries));
 
       const prog = loadProgress(entries);
-      $('progress-section').hidden = prog.length === 0;
+      $('progression-charges').hidden = prog.length === 0;
       const pl = $('progress');
       pl.replaceChildren();
       for (const p of prog.slice(0, 8)) {
@@ -118,7 +122,10 @@ import Breadcrumb from '../components/Breadcrumb.astro';
         t.textContent = p.points.length === 1
           ? `${last} kg (1 séance)`
           : `${first} kg → ${last} kg (${diff > 0 ? '+' : ''}${Math.round(diff * 10) / 10} kg en ${p.points.length} séances)`;
-        li.append(h, t, spark(p.points));
+        const stats = document.createElement('p');
+        stats.className = 'mb-2 text-sm text-muted';
+        stats.textContent = `Record enregistré : ${p.bestWeight} kg · ${p.totalSets} séries suivies · ${new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 1 }).format(p.loadVolume)} kg × répétitions`;
+        li.append(h, t, stats, spark(p.points));
         pl.append(li);
       }
 
@@ -135,7 +142,13 @@ import Breadcrumb from '../components/Breadcrumb.astro';
         items.className = 'mt-2 space-y-1 pl-5 list-disc';
         for (const it of e.items) {
           const row = document.createElement('li');
-          row.textContent = `${it.name} : ${it.setsDone}/${it.sets} séries × ${it.reps}${it.weight ? ` à ${it.weight} kg` : ''}`;
+          const details = it.setDetails?.slice(0, it.setsDone);
+          const loggedSets = details?.flatMap((set, index) => {
+            if (set.reps === undefined && set.weight === undefined) return [];
+            const values = [set.reps !== undefined ? `${set.reps} reps` : '', set.weight !== undefined ? `${set.weight} kg` : ''].filter(Boolean);
+            return [`S${index + 1} : ${values.join(' × ')}`];
+          });
+          row.textContent = `${it.name} : ${it.setsDone}/${it.sets} séries${loggedSets?.length ? ` — ${loggedSets.join(' ; ')}` : ` × ${it.reps}${it.weight !== undefined ? ` à ${it.weight} kg` : ''}`}`;
           items.append(row);
         }
         const del = document.createElement('button');
@@ -166,8 +179,15 @@ import Breadcrumb from '../components/Breadcrumb.astro';
       const file = input.files?.[0];
       input.value = '';
       if (!file) return;
-      const imported = parseExport(await file.text());
+      let text: string;
+      try { text = await file.text(); }
+      catch {
+        $('backup-msg').textContent = "Impossible de lire ce fichier. Vérifiez qu'il est accessible puis réessayez.";
+        return;
+      }
+      const imported = parseExport(text);
       if (!imported) { $('backup-msg').textContent = "Ce fichier n'est pas un export CapMuscu valide. Rien n'a été modifié."; return; }
+      if (!confirm(`${imported.length} séance(s) vont être fusionnées à votre historique. Les séances ayant le même identifiant seront remplacées. Continuer ?`)) return;
       const merged = mergeEntries(read(), imported);
       $('backup-msg').textContent = write(merged) ? `${imported.length} séance(s) importée(s). Votre historique compte maintenant ${merged.length} séance(s).` : "Impossible d'enregistrer : le stockage du navigateur est indisponible.";
       render();

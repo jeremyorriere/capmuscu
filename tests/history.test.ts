@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildExport, loadProgress, mergeEntries, needsExportReminder, parseExport, totalSets, type HistoryEntry } from '../src/lib/history';
+import { buildExport, isEntry, loadProgress, mergeEntries, needsExportReminder, parseExport, totalLoadVolume, totalSets, type HistoryEntry } from '../src/lib/history';
 
 const entry = (id: string, date: string, weight?: number, setsDone = 3): HistoryEntry => ({
   id, date, title: 'Séance test',
@@ -29,10 +29,29 @@ describe('historique', () => {
     const p = loadProgress([entry('2', '2026-02-01T10:00:00Z', 45), entry('1', '2026-01-01T10:00:00Z', 40), entry('3', '2026-03-01T10:00:00Z')]);
     expect(p).toHaveLength(1);
     expect(p[0]!.points.map((x) => x.weight)).toEqual([40, 45]);
+    expect(p[0]).toMatchObject({ bestWeight: 45, totalSets: 6, loadVolume: 0 });
   });
 
   it('compte les séries faites', () => {
     expect(totalSets([entry('1', '2026-01-01T10:00:00Z', 40, 3), entry('2', '2026-01-02T10:00:00Z', 40, 2)])).toBe(5);
+  });
+
+  it('calcule le volume à partir des répétitions et charges de chaque série', () => {
+    const training = entry('1', '2026-01-01T10:00:00Z');
+    training.items[0]!.setDetails = [
+      { reps: 10, weight: 40 },
+      { reps: 8, weight: 42.5 },
+      { reps: 7 },
+    ];
+    expect(totalLoadVolume([training])).toBe(740);
+    expect(loadProgress([training])[0]).toMatchObject({ bestWeight: 42.5, totalSets: 2, loadVolume: 740 });
+  });
+
+  it('accepte les anciens historiques et rejette les détails de série invalides', () => {
+    const old = entry('1', '2026-01-01T10:00:00Z', 40);
+    expect(isEntry(old)).toBe(true);
+    expect(isEntry({ ...old, items: [{ ...old.items[0], setDetails: [{ reps: 0 }] }] })).toBe(false);
+    expect(isEntry({ ...old, items: [{ ...old.items[0], setDetails: [null] }] })).toBe(false);
   });
 
   it('propose un rappel d\'export après 4 séances non sauvegardées', () => {

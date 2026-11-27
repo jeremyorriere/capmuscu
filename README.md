@@ -35,11 +35,13 @@ Pour tester aussi les API Vercel en local, installez la CLI Vercel (`npm install
 
 Pages générées : `/`, `/seance/`, `/exercices/`, `/exercices/[slug]/`, `/exercices/[muscle]-[materiel]/` (ex. `/exercices/pectoraux-halteres/`), `/muscles/[muscle]/`, `/outils/`, `/feedback/`, `sitemap-index.xml`, `robots.txt`.
 
+Dans l'encyclopédie, la recherche et les filtres par muscle, matériel, niveau et zone sont conservés dans l'URL pour pouvoir partager une sélection.
+
 La page `/feedback/` prépare un email avec le type de retour, la page concernée et le message. L'envoi n'a lieu qu'après confirmation dans l'application de messagerie de l'utilisateur ; le site n'enregistre pas les retours.
 
 ## Installer CapMuscu
 
-CapMuscu est une application web installable (PWA). Sur téléphone ou ordinateur, ouvrez `/installer/` sur le site publié en HTTPS et suivez les instructions du navigateur. Sur iPhone/iPad, utilisez Safari → **Partager** → **Sur l'écran d'accueil**. L'application s'ouvre sur le générateur de séance (`/seance/`) et peut aussi fonctionner hors ligne pour les pages déjà visitées. L'installation ne crée pas de compte et ne synchronise pas l'historique, qui reste sur l'appareil.
+CapMuscu est une application web installable (PWA). Sur téléphone ou ordinateur, ouvrez `/installer/` sur le site publié en HTTPS et suivez les instructions du navigateur. Sur iPhone/iPad, utilisez Safari → **Partager** → **Sur l'écran d'accueil**. L'application s'ouvre sur le générateur de séance (`/seance/`) et peut fonctionner hors ligne pour les pages déjà visitées, avec le générateur comme repli. L'installation ne crée pas de compte et ne synchronise pas l'historique, qui reste sur l'appareil.
 
 ## Ajouter un exercice
 
@@ -85,6 +87,8 @@ Complétez `src/data/recipes.json` (modèle déjà en place : nom, durée, prot�
 - Badges colorés par muscle et par niveau : teintes dans `src/lib/ui.ts` (contraste ≥ 7:1 en clair et en sombre).
 - Mobile : typographie compacte et fluide, barre d'onglets fixe en bas d'écran ; sur ordinateur, navigation dans l'en-tête.
 - `/seance` : cases « Fait ✓ » enregistrées dans le `localStorage` avec la séance en cours.
+- Le générateur peut enregistrer les répétitions et la charge de chaque série validée ; ces données restent sur l'appareil et alimentent le volume précis dans l'historique.
+- Une séance générée peut être enregistrée comme modèle local (10 maximum), reprise ou relancée sans progression précédente.
 
 ## Automatisation quotidienne
 

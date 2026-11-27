@@ -67,6 +67,25 @@ describe('exercises.json', () => {
     }
   });
 
+  it('propose des alternatives de même catégorie pour les étirements quand elles existent', () => {
+    for (const e of exercises.filter((exercise) => exercise.category === 'Étirement')) {
+      const stretchOptions = exercises.filter((candidate) =>
+        candidate.id !== e.id && candidate.primaryMuscle === e.primaryMuscle && candidate.category === e.category,
+      );
+      if (stretchOptions.length < 2) continue;
+      for (const id of e.alternatives) {
+        expect(exercises.find((candidate) => candidate.id === id)?.category, `${e.id} -> ${id}`).toBe(e.category);
+      }
+    }
+  });
+
+  it('a au moins trois conseils de sécurité distincts par exercice', () => {
+    for (const e of exercises) {
+      expect(e.safetyTips.length, e.id).toBeGreaterThanOrEqual(3);
+      expect(new Set(e.safetyTips.map((tip) => tip.trim().toLocaleLowerCase('fr-FR'))).size, e.id).toBe(e.safetyTips.length);
+    }
+  });
+
   it(`a un contenu SEO d'au moins ${MIN_WORDS} mots par exercice`, () => {
     for (const e of exercises) expect(exerciseWordCount(e), e.id).toBeGreaterThanOrEqual(MIN_WORDS);
   });
