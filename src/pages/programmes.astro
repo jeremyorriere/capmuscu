@@ -8,7 +8,7 @@ import Breadcrumb from '../components/Breadcrumb.astro';
 >
   <Breadcrumb items={[{ name: 'Programmes guidés' }]} />
   <h1>Mon programme guidé</h1>
-  <p class="mt-3 max-w-3xl text-muted">Choisissez un rythme réaliste et vos jours d’entraînement. Le programme planifie des séances complètes et vous aide à suivre vos progrès, sans imposer de charge ni de niveau.</p>
+  <p class="mt-3 max-w-3xl text-muted">Choisissez vos jours d’entraînement : le programme planifie vos séances sur 4 ou 8 semaines.</p>
 
   <form id="plan-form" class="card mt-6 space-y-5">
     <fieldset>
@@ -49,7 +49,7 @@ import Breadcrumb from '../components/Breadcrumb.astro';
 
     <fieldset>
       <legend class="text-lg font-extrabold">Quels jours préférez-vous ?</legend>
-      <p class="text-sm text-muted mt-1">Choisissez 2 à 4 jours non consécutifs si possible. Vous pourrez modifier votre programme ensuite.</p>
+      <p class="text-sm text-muted mt-1">Choisissez 2 à 4 jours.</p>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3" id="weekday-list">
         {[
           { value: 1, label: 'Lundi' }, { value: 2, label: 'Mardi' }, { value: 3, label: 'Mercredi' },
@@ -73,13 +73,9 @@ import Breadcrumb from '../components/Breadcrumb.astro';
   <section id="plan-view" class="mt-8" aria-labelledby="plan-title" hidden>
     <h2 id="plan-title">Votre calendrier d’entraînement</h2>
     <div id="plan-summary" class="card mt-3"></div>
-    <div class="card mt-4">
-      <h3 class="text-lg">Repères de progression</h3>
-      <p id="phase-guidance" class="text-muted mt-2"></p>
-      <p class="text-sm text-muted mt-2 mb-0">Les séances proposées sont des suggestions. Gardez une exécution maîtrisée, adaptez l’effort à votre forme du jour et arrêtez en cas de douleur.</p>
-    </div>
-    <div id="plan-weeks" class="mt-5 grid gap-4"></div>
-    <p class="text-sm text-muted mt-5">Les séances terminées sont reconnues grâce à votre historique. Vos données restent sur cet appareil, sauf si vous choisissez de les synchroniser depuis <a class="link" href="/compte/">votre compte</a>.</p>
+    <p id="phase-guidance" class="mt-4 text-muted"></p>
+    <div id="plan-weeks" class="mt-4 grid gap-3"></div>
+    <p class="text-sm text-muted mt-4">En cas de douleur, arrêtez l’exercice. Données conservées sur cet appareil ; <a class="link" href="/compte/">synchronisation facultative</a>.</p>
   </section>
 
   <script>
@@ -129,7 +125,6 @@ import Breadcrumb from '../components/Breadcrumb.astro';
     function render(plan: TrainingPlan) {
       const entries = readHistory();
       const today = new Date();
-      const firstDay = new Date(`${plan.startDate}T12:00:00`);
       const currentMonday = mondayOf(today);
       const currentWeek = Math.floor((Date.parse(localDateKey(currentMonday)) - Date.parse(plan.startDate)) / (7 * 86400000)) + 1;
       const workouts = plannedWorkouts(plan, entries, today);
@@ -152,11 +147,13 @@ import Breadcrumb from '../components/Breadcrumb.astro';
 
       for (let week = 1; week <= plan.weeks; week++) {
         const weekWorkouts = workouts.filter((workout) => workout.week === week);
-        const card = document.createElement('section');
+        const card = document.createElement('details');
         card.className = 'card';
-        const title = document.createElement('h3');
-        title.className = 'text-lg';
-        title.textContent = `Semaine ${week} · du ${niceDate(localDateKey(addLocalDays(firstDay, (week - 1) * 7)))}`;
+        card.open = week === Math.min(Math.max(currentWeek, 1), plan.weeks);
+        const title = document.createElement('summary');
+        title.className = 'cursor-pointer text-lg font-extrabold min-h-12 flex items-center';
+        const done = weekWorkouts.filter((workout) => workout.completed).length;
+        title.textContent = `Semaine ${week} · ${done}/${weekWorkouts.length} séances`;
         const list = document.createElement('ul');
         list.className = 'mt-3 space-y-3 list-none p-0';
         for (const workout of weekWorkouts) {

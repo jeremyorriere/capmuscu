@@ -25,7 +25,6 @@ const path = Astro.url.pathname;
 const nav: { href: string; label: string; short: string; icon: IconName; match: (p: string) => boolean }[] = [
   { href: '/', label: 'Accueil', short: 'Accueil', icon: 'house', match: (p) => p === '/' },
   { href: '/seance/', label: 'Créer ma séance', short: 'Ma séance', icon: 'listChecks', match: (p) => p.startsWith('/seance') },
-  { href: '/programmes/', label: 'Programmes', short: 'Suivi', icon: 'target', match: (p) => p.startsWith('/programmes') || p.startsWith('/objectifs') },
   { href: '/exercices/', label: 'Exercices', short: 'Exercices', icon: 'dumbbell', match: (p) => p.startsWith('/exercices') || p.startsWith('/muscles') },
   { href: '/outils/', label: 'Outils', short: 'Outils', icon: 'calculator', match: (p) => p.startsWith('/outils') },
 ];

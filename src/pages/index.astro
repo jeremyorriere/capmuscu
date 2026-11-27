@@ -123,39 +123,18 @@ const ld = [
     </div>
   </section>
 
-  <section class="card mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between" aria-labelledby="titre-programme">
+  <section class="card mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between" aria-labelledby="titre-suivi">
     <div>
-      <h2 id="titre-programme" class="m-0 text-xl">Garder un rythme qui vous convient</h2>
-      <p class="mt-1 mb-0 text-muted">Planifiez 4 ou 8 semaines, choisissez vos jours et suivez votre régularité.</p>
+      <h2 id="titre-suivi" class="m-0 text-xl">Garder le rythme</h2>
+      <p class="mt-1 mb-0 text-muted">Un programme sur 4 ou 8 semaines, et un compte facultatif pour retrouver vos données.</p>
     </div>
-    <a class="btn btn-primary shrink-0" href="/programmes/">Créer mon programme</a>
+    <div class="flex flex-wrap gap-2 shrink-0">
+      <a class="btn btn-primary" href="/programmes/">Mon programme</a>
+      <a class="btn" href="/compte/">Mon compte</a>
+    </div>
   </section>
 
   <p class="mt-10 text-muted">{exercises.length} exercices expliqués pas à pas, sans jargon. <a class="link" href="/exercices/">Parcourir l'encyclopédie</a>.</p>
 
-  <section class="card mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between" aria-labelledby="titre-installation">
-    <div>
-      <h2 id="titre-installation" class="m-0 text-xl">Retrouver CapMuscu rapidement</h2>
-      <p class="mt-1 mb-0 text-muted">Ajoutez l'application à votre écran d'accueil ou installez-la sur votre ordinateur.</p>
-    </div>
-    <a class="btn btn-primary shrink-0" href="/installer/">Installer CapMuscu</a>
-  </section>
-
-  <section class="card mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between" aria-labelledby="titre-compte">
-    <div>
-      <h2 id="titre-compte" class="m-0 text-xl">Retrouver vos séances sur vos appareils</h2>
-      <p class="mt-1 mb-0 text-muted">Créez un compte facultatif pour sauvegarder et synchroniser votre historique, vos modèles et vos favoris.</p>
-    </div>
-    <a class="btn btn-primary shrink-0" href="/compte/">Découvrir mon compte</a>
-  </section>
-
   <NewsletterSignup />
-
-  <section class="card mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between" aria-labelledby="titre-avis">
-    <div>
-      <h2 id="titre-avis" class="m-0 text-xl">Une idée pour améliorer CapMuscu ?</h2>
-      <p class="mt-1 mb-0 text-muted">Votre retour nous aide à choisir les prochaines améliorations.</p>
-    </div>
-    <a class="btn btn-primary shrink-0" href="/feedback/">Donner mon avis</a>
-  </section>
 </Layout>
