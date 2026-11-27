@@ -1,0 +1,253 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+---
+<Layout
+  title="Programme de musculation personnalisé"
+  description="Organisez un programme de musculation sur 4 ou 8 semaines selon votre rythme, votre objectif et votre matériel. Suivez vos séances sans compte."
+>
+  <Breadcrumb items={[{ name: 'Programmes guidés' }]} />
+  <h1>Mon programme guidé</h1>
+  <p class="mt-3 max-w-3xl text-muted">Choisissez un rythme réaliste et vos jours d’entraînement. Le programme planifie des séances complètes et vous aide à suivre vos progrès, sans imposer de charge ni de niveau.</p>
+
+  <form id="plan-form" class="card mt-6 space-y-5">
+    <fieldset>
+      <legend class="text-xl font-extrabold">Mon programme</legend>
+      <div class="grid gap-3 sm:grid-cols-2 mt-3">
+        <label class="flex flex-col gap-2 font-bold">Objectif
+          <select class="field" name="goal">
+            <option value="sante">Reprise et forme générale</option>
+            <option value="muscle">Prise de muscle</option>
+            <option value="force">Force</option>
+          </select>
+        </label>
+        <label class="flex flex-col gap-2 font-bold">Matériel disponible
+          <select class="field" name="equipment">
+            <option value="salle">Salle de sport</option>
+            <option value="maison">Maison (haltères et petit matériel)</option>
+            <option value="corps">Poids du corps uniquement</option>
+          </select>
+        </label>
+        <label class="flex flex-col gap-2 font-bold">Durée d’une séance
+          <select class="field" name="duration">
+            <option value="30">Environ 30 minutes</option>
+            <option value="45" selected>Environ 45 minutes</option>
+            <option value="60">Environ 60 minutes</option>
+          </select>
+        </label>
+        <label class="flex flex-col gap-2 font-bold">Durée du programme
+          <select class="field" name="weeks">
+            <option value="4">4 semaines</option>
+            <option value="8">8 semaines</option>
+          </select>
+        </label>
+        <label class="flex flex-col gap-2 font-bold">Date souhaitée de début
+          <input class="field" type="date" name="startDate" required />
+        </label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend class="text-lg font-extrabold">Quels jours préférez-vous ?</legend>
+      <p class="text-sm text-muted mt-1">Choisissez 2 à 4 jours non consécutifs si possible. Vous pourrez modifier votre programme ensuite.</p>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3" id="weekday-list">
+        {[
+          { value: 1, label: 'Lundi' }, { value: 2, label: 'Mardi' }, { value: 3, label: 'Mercredi' },
+          { value: 4, label: 'Jeudi' }, { value: 5, label: 'Vendredi' }, { value: 6, label: 'Samedi' }, { value: 7, label: 'Dimanche' },
+        ].map((day) => (
+          <label class="choice">
+            <input type="checkbox" name="weekday" value={day.value} checked={day.value === 2 || day.value === 4} />
+            <span>{day.label}</span>
+          </label>
+        ))}
+      </div>
+      <p id="weekday-count" class="text-sm text-muted mt-2" aria-live="polite"></p>
+    </fieldset>
+    <p id="plan-message" role="status" aria-live="polite" class="m-0 font-bold text-accent"></p>
+    <div class="grid gap-3 sm:grid-cols-2">
+      <button class="btn btn-primary min-h-14" type="submit">Créer mon programme</button>
+      <button class="btn min-h-14" type="button" id="delete-plan" hidden>Supprimer mon programme</button>
+    </div>
+  </form>
+
+  <section id="plan-view" class="mt-8" aria-labelledby="plan-title" hidden>
+    <h2 id="plan-title">Votre calendrier d’entraînement</h2>
+    <div id="plan-summary" class="card mt-3"></div>
+    <div class="card mt-4">
+      <h3 class="text-lg">Repères de progression</h3>
+      <p id="phase-guidance" class="text-muted mt-2"></p>
+      <p class="text-sm text-muted mt-2 mb-0">Les séances proposées sont des suggestions. Gardez une exécution maîtrisée, adaptez l’effort à votre forme du jour et arrêtez en cas de douleur.</p>
+    </div>
+    <div id="plan-weeks" class="mt-5 grid gap-4"></div>
+    <p class="text-sm text-muted mt-5">Les séances terminées sont reconnues grâce à votre historique. Vos données restent sur cet appareil, sauf si vous choisissez de les synchroniser depuis <a class="link" href="/compte/">votre compte</a>.</p>
+  </section>
+
+  <script>
+    import { KEY_HISTORY, isEntry } from '../lib/history';
+    import type { HistoryEntry } from '../lib/history';
+    import {
+      addLocalDays, isTrainingPlan, KEY_TRAINING_PLAN, KEY_WEEKLY_GOAL, localDateKey, mondayOf,
+      plannedWorkouts, WEEKDAYS,
+    } from '../lib/training-plans';
+    import type { TrainingPlan } from '../lib/training-plans';
+
+    const form = document.querySelector<HTMLFormElement>('#plan-form')!;
+    const message = document.querySelector<HTMLElement>('#plan-message')!;
+    const planView = document.querySelector<HTMLElement>('#plan-view')!;
+    const weeksView = document.querySelector<HTMLElement>('#plan-weeks')!;
+    const summary = document.querySelector<HTMLElement>('#plan-summary')!;
+    const deleteButton = document.querySelector<HTMLButtonElement>('#delete-plan')!;
+    const weekdayBoxes = [...document.querySelectorAll<HTMLInputElement>('input[name="weekday"]')];
+
+    function readHistory(): HistoryEntry[] {
+      const raw = localStorage.getItem(KEY_HISTORY);
+      if (!raw) return [];
+      const parsed: unknown = JSON.parse(raw);
+      if (!Array.isArray(parsed) || !parsed.every(isEntry)) throw new Error('L’historique enregistré est invalide. Vérifiez-le depuis la page Historique.');
+      return parsed;
+    }
+
+    function loadPlan(): TrainingPlan | null {
+      const raw = localStorage.getItem(KEY_TRAINING_PLAN);
+      if (!raw) return null;
+      const value: unknown = JSON.parse(raw);
+      if (!isTrainingPlan(value)) throw new Error('Le programme enregistré est invalide. Supprimez-le puis créez-en un nouveau.');
+      return value;
+    }
+
+    function tell(text: string) { message.textContent = text; }
+    function niceDate(date: string) {
+      return new Date(`${date}T12:00:00`).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
+    }
+    function goalLabel(goal: TrainingPlan['goal']) {
+      return { sante: 'Reprise et forme générale', muscle: 'Prise de muscle', force: 'Force' }[goal];
+    }
+    function equipmentLabel(equipment: TrainingPlan['equipment']) {
+      return { salle: 'Salle de sport', maison: 'Maison', corps: 'Poids du corps' }[equipment];
+    }
+
+    function render(plan: TrainingPlan) {
+      const entries = readHistory();
+      const today = new Date();
+      const firstDay = new Date(`${plan.startDate}T12:00:00`);
+      const currentMonday = mondayOf(today);
+      const currentWeek = Math.floor((Date.parse(localDateKey(currentMonday)) - Date.parse(plan.startDate)) / (7 * 86400000)) + 1;
+      const workouts = plannedWorkouts(plan, entries, today);
+      planView.hidden = false;
+      deleteButton.hidden = false;
+      const status = currentWeek < 1 ? 'À venir' : currentWeek > plan.weeks ? 'Terminé' : `Semaine ${currentWeek} sur ${plan.weeks}`;
+      const dayNames = plan.weekdays.map((day) => WEEKDAYS[day - 1]!.label).join(', ');
+      summary.innerHTML = `<p class="m-0 font-extrabold">${status} · ${plan.weeks} semaines</p><p class="mt-2 mb-0 text-muted">${goalLabel(plan.goal)} · ${equipmentLabel(plan.equipment)} · ${plan.duration} min par séance</p><p class="mt-2 mb-0 text-muted">Jours choisis : ${dayNames}</p>`;
+      const phase = currentWeek <= 2
+        ? 'Semaines 1–2 : prenez le temps de vous familiariser avec les exercices. Choisissez une difficulté qui vous permet de garder une exécution contrôlée.'
+        : currentWeek <= 4
+          ? 'Semaines 3–4 : si les séances restent confortables, vous pouvez ajouter quelques répétitions ou une petite charge, un seul ajustement à la fois.'
+          : currentWeek <= 6
+            ? 'Semaines 5–6 : poursuivez à un rythme régulier. N’augmentez l’effort que si vous récupérez bien et gardez une exécution maîtrisée.'
+            : 'Semaines 7–8 : consolidez vos habitudes. Comparez vos séances et choisissez ensuite de continuer, d’adapter le rythme ou de vous reposer.';
+      document.querySelector<HTMLElement>('#phase-guidance')!.textContent = currentWeek > plan.weeks
+        ? 'Programme terminé : consultez votre historique et choisissez un nouveau rythme adapté à vos disponibilités.'
+        : currentWeek < 1 ? 'Votre programme commencera à la date choisie. Vous pourrez générer vos séances à partir de cette semaine.' : phase;
+      weeksView.replaceChildren();
+
+      for (let week = 1; week <= plan.weeks; week++) {
+        const weekWorkouts = workouts.filter((workout) => workout.week === week);
+        const card = document.createElement('section');
+        card.className = 'card';
+        const title = document.createElement('h3');
+        title.className = 'text-lg';
+        title.textContent = `Semaine ${week} · du ${niceDate(localDateKey(addLocalDays(firstDay, (week - 1) * 7)))}`;
+        const list = document.createElement('ul');
+        list.className = 'mt-3 space-y-3 list-none p-0';
+        for (const workout of weekWorkouts) {
+          const item = document.createElement('li');
+          item.className = 'flex flex-wrap items-center justify-between gap-2 border-t border-line pt-3';
+          const label = document.createElement('span');
+          label.textContent = `${niceDate(workout.date)} — ${workout.completed ? 'Séance terminée' : workout.future ? 'Séance prévue' : 'À rattraper ou passer'}`;
+          item.append(label);
+          if (!workout.completed) {
+            const link = document.createElement('a');
+            link.className = 'btn btn-primary';
+            link.href = `/seance/?auto=1&goal=${encodeURIComponent(plan.goal)}&equipment=${encodeURIComponent(plan.equipment)}&duration=${plan.duration}`;
+            link.textContent = 'Préparer ma séance';
+            item.append(link);
+          }
+          list.append(item);
+        }
+        card.append(title, list);
+        weeksView.append(card);
+      }
+    }
+
+    function fillForm(plan: TrainingPlan) {
+      for (const name of ['goal', 'equipment', 'duration', 'weeks'] as const) {
+        const input = form.elements.namedItem(name);
+        if (input instanceof HTMLSelectElement) input.value = String(plan[name]);
+      }
+      const start = form.elements.namedItem('startDate');
+      if (start instanceof HTMLInputElement) start.value = plan.startDate;
+      weekdayBoxes.forEach((box) => { box.checked = plan.weekdays.includes(Number(box.value)); });
+      updateWeekdayCount();
+    }
+    function updateWeekdayCount() {
+      const count = weekdayBoxes.filter((box) => box.checked).length;
+      document.querySelector<HTMLElement>('#weekday-count')!.textContent = `${count} jour${count > 1 ? 's' : ''} sélectionné${count > 1 ? 's' : ''} (choisissez-en de 2 à 4).`;
+    }
+    weekdayBoxes.forEach((box) => box.addEventListener('change', updateWeekdayCount));
+
+    const startInput = form.elements.namedItem('startDate') as HTMLInputElement;
+    const nextMonday = mondayOf(addLocalDays(new Date(), 7));
+    startInput.value = localDateKey(nextMonday);
+    try {
+      const existing = loadPlan();
+      if (existing) { fillForm(existing); render(existing); }
+    } catch (error) {
+      tell(error instanceof Error ? error.message : 'Impossible de charger votre programme.');
+    }
+    updateWeekdayCount();
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const days = weekdayBoxes.filter((box) => box.checked).map((box) => Number(box.value));
+      if (days.length < 2 || days.length > 4) {
+        tell('Choisissez entre 2 et 4 jours par semaine.');
+        return;
+      }
+      const start = startInput.value;
+      if (!start) { tell('Choisissez une date de début.'); return; }
+      const selectedDate = new Date(`${start}T12:00:00`);
+      const selectedWeekday = selectedDate.getDay() || 7;
+      const monday = localDateKey(selectedWeekday === 1 ? selectedDate : addLocalDays(mondayOf(selectedDate), 7));
+      const plan: TrainingPlan = {
+        id: crypto.randomUUID(),
+        goal: (form.elements.namedItem('goal') as HTMLSelectElement).value as TrainingPlan['goal'],
+        equipment: (form.elements.namedItem('equipment') as HTMLSelectElement).value as TrainingPlan['equipment'],
+        duration: Number((form.elements.namedItem('duration') as HTMLSelectElement).value) as TrainingPlan['duration'],
+        weeks: Number((form.elements.namedItem('weeks') as HTMLSelectElement).value) as TrainingPlan['weeks'],
+        weekdays: days,
+        startDate: monday,
+        createdAt: new Date().toISOString(),
+      };
+      try {
+        localStorage.setItem(KEY_TRAINING_PLAN, JSON.stringify(plan));
+        localStorage.setItem(KEY_WEEKLY_GOAL, String(days.length));
+        startInput.value = monday;
+        tell(`Programme enregistré sur cet appareil. Il commencera le lundi ${new Date(`${monday}T12:00:00`).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })}. Votre objectif hebdomadaire suit le même nombre de séances.`);
+        render(plan);
+      } catch {
+        tell('Impossible d’enregistrer le programme. Vérifiez l’espace disponible dans votre navigateur.');
+      }
+    });
+
+    deleteButton.addEventListener('click', () => {
+      try {
+        localStorage.removeItem(KEY_TRAINING_PLAN);
+        planView.hidden = true;
+        deleteButton.hidden = true;
+        tell('Programme supprimé. Votre historique de séances est conservé.');
+      } catch {
+        tell('Impossible de supprimer le programme depuis ce navigateur.');
+      }
+    });
+  </script>
+</Layout>

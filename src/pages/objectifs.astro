@@ -1,0 +1,178 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+---
+<Layout
+  title="Objectifs et calendrier d’entraînement"
+  description="Fixez un objectif de séances par semaine et suivez votre régularité dans un calendrier basé sur votre historique CapMuscu."
+  noindex
+>
+  <Breadcrumb items={[{ name: 'Mes objectifs' }]} />
+  <h1>Mes objectifs et mon calendrier</h1>
+  <p class="mt-3 max-w-3xl text-muted">Choisissez un objectif hebdomadaire qui correspond à votre emploi du temps. Le calendrier se met à jour avec les séances que vous terminez et ajoutez à votre historique.</p>
+
+  <section class="card mt-6" aria-labelledby="weekly-title">
+    <h2 id="weekly-title" class="text-xl">Mon objectif de la semaine</h2>
+    <form id="goal-form" class="mt-3 flex flex-wrap items-end gap-3">
+      <label class="field-label">Séances par semaine
+        <select id="weekly-goal" class="field-input">
+          {Array.from({ length: 7 }, (_, index) => <option value={index + 1}>{index + 1} séance{index ? 's' : ''}</option>)}
+        </select>
+      </label>
+      <button class="btn btn-primary min-h-12" type="submit">Enregistrer mon objectif</button>
+    </form>
+    <p id="goal-progress" class="mt-4 mb-0 font-bold" aria-live="polite"></p>
+    <p id="goal-message" class="mt-2 mb-0 text-sm text-muted" role="status" aria-live="polite"></p>
+  </section>
+
+  <section class="mt-8" aria-labelledby="calendar-title">
+    <div class="flex flex-wrap items-center justify-between gap-3">
+      <h2 id="calendar-title" class="m-0">Mon calendrier</h2>
+      <div class="flex gap-2" role="group" aria-label="Changer de mois">
+        <button id="previous-month" class="btn min-h-12" type="button" aria-label="Mois précédent">←</button>
+        <button id="current-month" class="btn min-h-12" type="button">Ce mois-ci</button>
+        <button id="next-month" class="btn min-h-12" type="button" aria-label="Mois suivant">→</button>
+      </div>
+    </div>
+    <div class="card mt-4 overflow-x-auto" aria-live="polite">
+      <table class="w-full table-fixed text-center" aria-describedby="calendar-legend">
+        <caption id="month-caption" class="caption-top p-3 text-lg font-extrabold text-ink"></caption>
+        <thead>
+          <tr>{['Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.', 'Dim.'].map((day) => <th class="p-2 text-sm text-muted" scope="col">{day}</th>)}</tr>
+        </thead>
+        <tbody id="calendar-body"></tbody>
+      </table>
+      <p id="calendar-legend" class="mt-3 mb-0 text-sm text-muted">● Séance terminée · ○ Séance prévue dans votre programme · Les jours sans marqueur sont des jours de repos ou sans séance enregistrée.</p>
+    </div>
+    <p id="calendar-message" class="mt-3 text-muted" role="status" aria-live="polite"></p>
+  </section>
+
+  <section class="card mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <div>
+      <h2 class="m-0 text-xl">Besoin d’un cadre ?</h2>
+      <p class="mt-1 mb-0 text-muted">Planifiez vos jours et vos séances sur 4 ou 8 semaines.</p>
+    </div>
+    <a class="btn btn-primary shrink-0" href="/programmes/">Créer un programme guidé</a>
+  </section>
+
+  <script>
+    import { KEY_HISTORY, isEntry } from '../lib/history';
+    import type { HistoryEntry } from '../lib/history';
+    import {
+      isTrainingPlan, isWeeklyGoal, KEY_TRAINING_PLAN, KEY_WEEKLY_GOAL, monthCalendar,
+      plannedWorkouts, workoutsThisWeek,
+    } from '../lib/training-plans';
+
+    const goalForm = document.querySelector<HTMLFormElement>('#goal-form')!;
+    const goalSelect = document.querySelector<HTMLSelectElement>('#weekly-goal')!;
+    const goalProgress = document.querySelector<HTMLElement>('#goal-progress')!;
+    const goalMessage = document.querySelector<HTMLElement>('#goal-message')!;
+    const calendarMessage = document.querySelector<HTMLElement>('#calendar-message')!;
+    const calendarBody = document.querySelector<HTMLTableSectionElement>('#calendar-body')!;
+    const caption = document.querySelector<HTMLElement>('#month-caption')!;
+    const today = new Date();
+    let displayedMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    let historyEntries: HistoryEntry[] = [];
+    let plannedDates: string[] = [];
+    let weeklyGoal = 2;
+
+    function loadHistory(): HistoryEntry[] {
+      const raw = localStorage.getItem(KEY_HISTORY);
+      if (!raw) return [];
+      const parsed: unknown = JSON.parse(raw);
+      if (!Array.isArray(parsed) || !parsed.every(isEntry)) throw new Error('L’historique enregistré est invalide. Vérifiez-le depuis la page Historique.');
+      return parsed;
+    }
+
+    function loadPlannedDates(): string[] {
+      const raw = localStorage.getItem(KEY_TRAINING_PLAN);
+      if (!raw) return [];
+      const plan: unknown = JSON.parse(raw);
+      if (!isTrainingPlan(plan)) throw new Error('Le programme enregistré est invalide. Vérifiez-le depuis la page Programmes.');
+      return plannedWorkouts(plan, historyEntries, today).map((workout) => workout.date);
+    }
+
+    function renderCalendar() {
+      const days = monthCalendar(displayedMonth, historyEntries, plannedDates, today);
+      caption.textContent = displayedMonth.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
+      calendarBody.replaceChildren();
+      for (let week = 0; week < 6; week++) {
+        const row = document.createElement('tr');
+        for (const day of days.slice(week * 7, week * 7 + 7)) {
+          const cell = document.createElement('td');
+          cell.className = `p-1 align-top ${day.inMonth ? '' : 'text-muted opacity-50'}`;
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'btn w-full min-h-14 flex flex-col items-center justify-center gap-1';
+          button.setAttribute('aria-label', `${new Date(`${day.date}T12:00:00`).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })}: ${day.workouts ? `${day.workouts} séance${day.workouts > 1 ? 's' : ''} terminée${day.workouts > 1 ? 's' : ''}` : day.planned ? 'séance prévue' : 'aucune séance enregistrée'}`);
+          if (day.isToday) button.classList.add('border-primary', 'font-extrabold');
+          const number = document.createElement('span');
+          number.textContent = String(day.day);
+          const marker = document.createElement('span');
+          marker.className = 'text-xs leading-none';
+          marker.textContent = day.workouts ? `● ${day.workouts}` : day.planned ? '○ prévue' : '';
+          marker.setAttribute('aria-hidden', 'true');
+          button.append(number, marker);
+          button.addEventListener('click', () => {
+            const dateLabel = new Date(`${day.date}T12:00:00`).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
+            calendarMessage.textContent = day.workouts
+              ? `${dateLabel} : ${day.workouts} séance${day.workouts > 1 ? 's' : ''} enregistrée${day.workouts > 1 ? 's' : ''}.`
+              : day.planned ? `${dateLabel} : une séance est prévue dans votre programme.` : `${dateLabel} : aucune séance enregistrée.`;
+          });
+          cell.append(button);
+          row.append(cell);
+        }
+        calendarBody.append(row);
+      }
+    }
+
+    function renderProgress() {
+      const completed = workoutsThisWeek(historyEntries, today);
+      goalProgress.textContent = `${completed} séance${completed > 1 ? 's' : ''} terminée${completed > 1 ? 's' : ''} cette semaine sur ${weeklyGoal} prévue${weeklyGoal > 1 ? 's' : ''}.`;
+      goalSelect.value = String(weeklyGoal);
+    }
+
+    try {
+      historyEntries = loadHistory();
+      const savedGoal = localStorage.getItem(KEY_WEEKLY_GOAL);
+      if (savedGoal === null) weeklyGoal = 2;
+      else {
+        const goalValue = Number(savedGoal);
+        if (!isWeeklyGoal(goalValue)) throw new Error('L’objectif hebdomadaire enregistré est invalide.');
+        weeklyGoal = goalValue;
+      }
+      plannedDates = loadPlannedDates();
+      renderProgress();
+      renderCalendar();
+    } catch (error) {
+      goalMessage.textContent = error instanceof Error ? error.message : 'Impossible de charger votre suivi.';
+    }
+
+    goalForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const value = Number(goalSelect.value);
+      if (!isWeeklyGoal(value)) { goalMessage.textContent = 'Choisissez un objectif entre 1 et 7 séances par semaine.'; return; }
+      try {
+        localStorage.setItem(KEY_WEEKLY_GOAL, String(value));
+        weeklyGoal = value;
+        renderProgress();
+        goalMessage.textContent = 'Objectif enregistré sur cet appareil.';
+      } catch {
+        goalMessage.textContent = 'Impossible d’enregistrer votre objectif. Vérifiez le stockage de votre navigateur.';
+      }
+    });
+
+    document.querySelector('#previous-month')?.addEventListener('click', () => {
+      displayedMonth = new Date(displayedMonth.getFullYear(), displayedMonth.getMonth() - 1, 1);
+      renderCalendar();
+    });
+    document.querySelector('#next-month')?.addEventListener('click', () => {
+      displayedMonth = new Date(displayedMonth.getFullYear(), displayedMonth.getMonth() + 1, 1);
+      renderCalendar();
+    });
+    document.querySelector('#current-month')?.addEventListener('click', () => {
+      displayedMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+      renderCalendar();
+    });
+  </script>
+</Layout>

@@ -33,7 +33,9 @@ Pour tester aussi les API Vercel en local, installez la CLI Vercel (`npm install
 | `src/scripts/collectors/` | Collecteurs PubMed et RSS avec repli |
 | `tests/` | Tests Vitest |
 
-Pages générées : `/`, `/seance/`, `/compte/`, `/favoris/`, `/profil/?id=<identifiant>`, `/exercices/`, `/exercices/[slug]/`, `/exercices/[muscle]-[materiel]/` (ex. `/exercices/pectoraux-halteres/`), `/muscles/[muscle]/`, `/outils/`, `/feedback/`, `sitemap-index.xml`, `robots.txt`.
+Pages générées : `/`, `/seance/`, `/programmes/`, `/objectifs/`, `/compte/`, `/favoris/`, `/profil/?id=<identifiant>`, `/exercices/`, `/exercices/[slug]/`, `/exercices/[muscle]-[materiel]/` (ex. `/exercices/pectoraux-halteres/`), `/muscles/[muscle]/`, `/outils/`, `/feedback/`, `sitemap-index.xml`, `robots.txt`.
+
+Les pages `/programmes/` et `/objectifs/` permettent de planifier un programme sur 4 ou 8 semaines, de choisir les jours d'entraînement et de suivre les séances terminées dans un calendrier. Le programme et l'objectif hebdomadaire restent locaux par défaut ; ils peuvent être sauvegardés manuellement avec les autres données depuis `/compte/`.
 
 Dans l'encyclopédie, la recherche et les filtres par muscle, matériel, niveau et zone sont conservés dans l'URL pour pouvoir partager une sélection.
 
@@ -91,12 +93,12 @@ Complétez `src/data/recipes.json` (modèle déjà en place : nom, durée, prot�
 - Une séance générée peut être enregistrée comme modèle local (10 maximum), reprise ou relancée sans progression précédente.
 - Les commandes « Taille du texte » du pied de page proposent trois tailles et mémorisent la préférence sur l'appareil.
 - Les séances en cours et l'historique restent sur l'appareil ; l'historique doit être exporté manuellement pour être conservé lors d'un changement d'appareil.
-- `/compte/` permet une connexion Firebase (lien par email ou Google) et une synchronisation manuelle de l'historique, des modèles et des favoris. Le site reste utilisable sans compte.
+- `/compte/` permet une connexion Firebase (lien par email ou Google) et une synchronisation manuelle de l'historique, des modèles, favoris, programmes et objectifs hebdomadaires. Le site reste utilisable sans compte.
 - Les favoris d'exercices sont disponibles sans compte depuis `/favoris/` et sont conservés dans le navigateur.
 
 ## Comptes Firebase (facultatifs)
 
-Le compte utilise Firebase Authentication et Cloud Firestore. Dans Firebase Console, activez les fournisseurs **Lien par e-mail** et **Google**, ajoutez `capmuscu.fr` aux domaines autorisés, créez Firestore et publiez les règles de `firebase/firestore.rules`. Les données sont synchronisées uniquement après une action explicite dans `/compte/` : la fusion ajoute les éléments présents sur les appareils, le remplacement met à jour la sauvegarde cloud depuis l'appareil courant, et la restauration remplace les données locales depuis le cloud. Un profil public facultatif expose uniquement le pseudo et la couleur d'avatar choisis ; sa lecture directe est publique, sa liste n'est pas exposée et seul son propriétaire peut le modifier ou le supprimer. Une suppression de compte ou une demande RGPD se fait auprès du contact indiqué dans la politique de confidentialité.
+Le compte utilise Firebase Authentication et Cloud Firestore. Dans Firebase Console, activez les fournisseurs **Lien par e-mail** et **Google**, ajoutez `capmuscu.fr` aux domaines autorisés, créez Firestore et publiez les règles de `firebase/firestore.rules` après chaque mise à jour. Les données sont synchronisées uniquement après une action explicite dans `/compte/` : la fusion ajoute les éléments présents sur les appareils, le remplacement met à jour la sauvegarde cloud depuis l'appareil courant, et la restauration remplace les données locales depuis le cloud. Un profil public facultatif expose uniquement le pseudo et la couleur d'avatar choisis ; sa lecture directe est publique, sa liste n'est pas exposée et seul son propriétaire peut le modifier ou le supprimer. Une suppression de compte ou une demande RGPD se fait auprès du contact indiqué dans la politique de confidentialité.
 
 La configuration Web Firebase dans `src/lib/firebase.ts` ne contient que des identifiants publics de l'application ; la sécurité des données repose sur les règles Firestore, qui n'autorisent chaque compte qu'à accéder à ses propres sauvegardes.
 

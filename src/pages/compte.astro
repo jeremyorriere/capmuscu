@@ -8,7 +8,7 @@ const exercises = exercisesJson.map(({ slug, name }) => ({ slug, name }));
 ---
 <Layout
   title="Mon compte CapMuscu"
-  description="Connectez-vous pour sauvegarder et synchroniser votre historique, vos modèles de séances et vos exercices favoris."
+  description="Connectez-vous pour sauvegarder et synchroniser votre historique, vos modèles, favoris, programmes guidés et objectifs."
   noindex
 >
   <Breadcrumb items={[{ name: 'Mon compte' }]} />
@@ -43,7 +43,7 @@ const exercises = exercisesJson.map(({ slug, name }) => ({ slug, name }));
         </div>
       </div>
       <p class="text-muted">
-        La synchronisation fusionne les données de cet appareil avec la sauvegarde en ligne. Pour propager une
+        La synchronisation inclut votre historique, vos modèles, favoris, programme et objectif hebdomadaire. Elle fusionne les données de cet appareil avec la sauvegarde en ligne. Pour propager une
         suppression sur un autre appareil, remplacez d'abord la sauvegarde en ligne, puis restaurez-la sur cet autre
         appareil. La restauration remplace ses données locales.
       </p>
@@ -60,7 +60,7 @@ const exercises = exercisesJson.map(({ slug, name }) => ({ slug, name }));
       <h2 id="public-profile-title">Mon profil public</h2>
       <p class="text-muted">
         Choisissez un pseudo et une couleur d’avatar. Si vous publiez le profil, ces deux éléments seront visibles
-        par toute personne ayant son lien. Votre email, vos séances et vos favoris restent privés.
+        par toute personne ayant son lien. Votre email, vos séances, favoris et programme restent privés.
       </p>
       <form id="public-profile-form" class="grid gap-3">
         <label for="profile-name" class="font-bold">Pseudo public (3 à 24 caractères : lettres, chiffres, espaces, _ ou -)</label>
@@ -129,11 +129,19 @@ const exercises = exercisesJson.map(({ slug, name }) => ({ slug, name }));
     import type { HistoryEntry } from '../lib/history';
     import { isPublicProfile, profileInitials, PROFILE_COLORS } from '../lib/public-profile';
     import type { SavedSessionTemplate } from '../lib/session-templates';
+    import { isTrainingPlan, isWeeklyGoal, KEY_TRAINING_PLAN, KEY_WEEKLY_GOAL } from '../lib/training-plans';
+    import type { TrainingPlan } from '../lib/training-plans';
 
     const KEY_TEMPLATES = 'capmuscu-seances-gardees';
     const KEY_FAVORITES = 'capmuscu-exercices-favoris';
-    const BACKUP_CATEGORIES = ['history', 'templates', 'favorites'] as const;
-    type BackupData = { history: HistoryEntry[]; templates: SavedSessionTemplate[]; favorites: string[] };
+    const BACKUP_CATEGORIES = ['history', 'templates', 'favorites', 'trainingPlan', 'weeklyGoal'] as const;
+    type BackupData = {
+      history: HistoryEntry[];
+      templates: SavedSessionTemplate[];
+      favorites: string[];
+      trainingPlan: TrainingPlan[];
+      weeklyGoal: number[];
+    };
     const exerciseData: unknown = JSON.parse(document.querySelector('#exercise-data')?.textContent ?? '[]');
     if (!Array.isArray(exerciseData) || !exerciseData.every((exercise) => exercise
       && typeof exercise.slug === 'string' && typeof exercise.name === 'string')) {
@@ -203,10 +211,18 @@ const exercises = exercisesJson.map(({ slug, name }) => ({ slug, name }));
     }
 
     function readLocalData(): BackupData {
+      const savedPlan = localStorage.getItem(KEY_TRAINING_PLAN);
+      const plan: unknown = savedPlan ? JSON.parse(savedPlan) : null;
+      if (plan !== null && !isTrainingPlan(plan)) throw new Error('Le programme local est invalide.');
+      const savedGoal = localStorage.getItem(KEY_WEEKLY_GOAL);
+      const goal = savedGoal === null ? null : Number(savedGoal);
+      if (goal !== null && !isWeeklyGoal(goal)) throw new Error('L’objectif hebdomadaire local est invalide.');
       return {
         history: readLocal(KEY_HISTORY, isEntry),
         templates: readLocal(KEY_TEMPLATES, isTemplate),
         favorites: readLocal(KEY_FAVORITES, (value): value is string => typeof value === 'string'),
+        trainingPlan: plan ? [plan] : [],
+        weeklyGoal: goal === null ? [] : [goal],
       };
     }
 
@@ -223,6 +239,8 @@ const exercises = exercisesJson.map(({ slug, name }) => ({ slug, name }));
         history: validateRemote(getData(0), isEntry),
         templates: validateRemote(getData(1), isTemplate),
         favorites: validateRemote(getData(2), (value): value is string => typeof value === 'string'),
+        trainingPlan: validateRemote(getData(3), isTrainingPlan),
+        weeklyGoal: validateRemote(getData(4), isWeeklyGoal),
       };
     }
 
@@ -236,6 +254,10 @@ const exercises = exercisesJson.map(({ slug, name }) => ({ slug, name }));
       localStorage.setItem(KEY_HISTORY, JSON.stringify(data.history));
       localStorage.setItem(KEY_TEMPLATES, JSON.stringify(data.templates));
       localStorage.setItem(KEY_FAVORITES, JSON.stringify(data.favorites));
+      if (data.trainingPlan[0]) localStorage.setItem(KEY_TRAINING_PLAN, JSON.stringify(data.trainingPlan[0]));
+      else localStorage.removeItem(KEY_TRAINING_PLAN);
+      if (data.weeklyGoal[0] !== undefined) localStorage.setItem(KEY_WEEKLY_GOAL, String(data.weeklyGoal[0]));
+      else localStorage.removeItem(KEY_WEEKLY_GOAL);
       window.dispatchEvent(new CustomEvent('capmuscu:favorites-changed'));
     }
 
@@ -459,6 +481,9 @@ const exercises = exercisesJson.map(({ slug, name }) => ({ slug, name }));
           history: mergeEntries(local.history, cloud.history),
           templates: mergeById(local.templates, cloud.templates),
           favorites: [...new Set([...cloud.favorites, ...local.favorites])],
+          trainingPlan: [...local.trainingPlan, ...cloud.trainingPlan]
+            .sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)).slice(0, 1),
+          weeklyGoal: local.weeklyGoal.length ? local.weeklyGoal : cloud.weeklyGoal,
         };
         writeLocalData(merged);
         await writeCloudData(user, merged);

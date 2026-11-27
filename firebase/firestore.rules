@@ -18,10 +18,10 @@ service cloud.firestore {
     match /users/{userId}/backups/{backupId} {
       allow read: if request.auth != null
         && request.auth.uid == userId
-        && backupId in ['history', 'templates', 'favorites'];
+        && backupId in ['history', 'templates', 'favorites', 'trainingPlan', 'weeklyGoal'];
       allow create, update: if request.auth != null
         && request.auth.uid == userId
-        && backupId in ['history', 'templates', 'favorites']
+        && backupId in ['history', 'templates', 'favorites', 'trainingPlan', 'weeklyGoal']
         && request.resource.data.keys().hasOnly(['data', 'updatedAt'])
         && request.resource.data.data is list;
     }

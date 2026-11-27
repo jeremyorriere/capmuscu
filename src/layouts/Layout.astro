@@ -25,6 +25,7 @@ const path = Astro.url.pathname;
 const nav: { href: string; label: string; short: string; icon: IconName; match: (p: string) => boolean }[] = [
   { href: '/', label: 'Accueil', short: 'Accueil', icon: 'house', match: (p) => p === '/' },
   { href: '/seance/', label: 'Créer ma séance', short: 'Ma séance', icon: 'listChecks', match: (p) => p.startsWith('/seance') },
+  { href: '/programmes/', label: 'Programmes', short: 'Suivi', icon: 'target', match: (p) => p.startsWith('/programmes') || p.startsWith('/objectifs') },
   { href: '/exercices/', label: 'Exercices', short: 'Exercices', icon: 'dumbbell', match: (p) => p.startsWith('/exercices') || p.startsWith('/muscles') },
   { href: '/outils/', label: 'Outils', short: 'Outils', icon: 'calculator', match: (p) => p.startsWith('/outils') },
 ];
@@ -125,6 +126,8 @@ const nav: { href: string; label: string; short: string; icon: IconName; match: 
             <h2 class="m-0 text-sm font-extrabold text-ink">S'entraîner</h2>
             <ul class="mt-2 grid grid-cols-2 gap-x-3 list-none p-0">
               <li><a href="/seance/" class="min-h-11 flex items-center font-bold">Créer ma séance</a></li>
+              <li><a href="/programmes/" class="min-h-11 flex items-center">Programmes guidés</a></li>
+              <li><a href="/objectifs/" class="min-h-11 flex items-center">Mes objectifs</a></li>
               <li><a href="/historique/" class="min-h-11 flex items-center">Mon historique</a></li>
               <li><a href="/outils/" class="min-h-11 flex items-center">Outils</a></li>
               <li><a href="/compte/" class="min-h-11 flex items-center">Mon compte et favoris</a></li>
