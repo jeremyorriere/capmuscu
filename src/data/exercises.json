@@ -9980,45 +9980,6 @@
     ]
   },
   {
-    "id": "battements-de-jambes-sur-banc",
-    "slug": "battements-de-jambes-sur-banc",
-    "name": "Battements de jambes sur banc",
-    "description": "Les battements de jambes sur banc se réalisent allongé sur le ventre, les hanches au bord du banc, en alternant des mouvements de jambes comme pour nager. Ils renforcent les fessiers et les ischio-jambiers sans matériel lourd. Très accessibles, ils conviennent aux débutants cherchant un exercice au poids du corps.",
-    "primaryMuscle": "Fessiers",
-    "secondaryMuscles": [
-      "Ischio-jambiers"
-    ],
-    "equipment": "Poids du corps",
-    "difficulty": "Débutant",
-    "mechanics": "Polyarticulaire",
-    "executionSteps": [
-      "Allongez-vous sur le ventre sur un banc plat, les hanches au bord, les jambes tendues, et tenez le bord avant du banc avec les bras.",
-      "Serrez les fessiers et les ischio-jambiers pour amener les jambes tendues à la hauteur des hanches, c'est la position de départ.",
-      "Montez la jambe gauche plus haut que la droite.",
-      "Redescendez la gauche tout en montant la droite, comme un battement de crawl.",
-      "Continuez en alternant avec des mouvements contrôlés en respirant normalement jusqu'au nombre de répétitions prévu."
-    ],
-    "safetyTips": [
-      "Maintenez le banc stable en vérifiant qu'il ne bascule pas, et tenez-le fermement avec les mains.",
-      "Limitez la hauteur des jambes pour ne pas cambrer le bas du dos.",
-      "Arrêtez l'exercice en cas de gêne lombaire et gardez toujours des mouvements lents et maîtrisés."
-    ],
-    "commonMistakes": [
-      "Donner de l'élan avec des battements rapides et saccadés plutôt que contrôlés.",
-      "Monter les jambes trop haut en creusant fortement le bas du dos.",
-      "Bloquer la respiration au lieu de respirer normalement."
-    ],
-    "alternatives": [
-      "pont-fessier-un-pied",
-      "montee-sur-banc-avec-montee-de-genou",
-      "pont-fessier"
-    ],
-    "images": [
-      "/images/exercises/battements-de-jambes-sur-banc/0.jpg",
-      "/images/exercises/battements-de-jambes-sur-banc/1.jpg"
-    ]
-  },
-  {
     "id": "extension-de-jambe-a-quatre-pattes",
     "slug": "extension-de-jambe-a-quatre-pattes",
     "name": "Extension de jambe à quatre pattes",
@@ -10049,51 +10010,11 @@
     ],
     "alternatives": [
       "pont-fessier-un-pied",
-      "pont-fessier",
-      "battements-de-jambes-sur-banc"
+      "pont-fessier"
     ],
     "images": [
       "/images/exercises/extension-de-jambe-a-quatre-pattes/0.jpg",
       "/images/exercises/extension-de-jambe-a-quatre-pattes/1.jpg"
-    ]
-  },
-  {
-    "id": "extension-de-jambe-arriere-debout",
-    "slug": "extension-de-jambe-arriere-debout",
-    "name": "Extension de jambe arrière debout",
-    "description": "L'extension de jambe arrière debout se pratique en se tenant à un support et en levant une jambe vers l'arrière. C'est un exercice d'isolation des fessiers, avec une aide des ischio-jambiers. Facile à apprendre, il convient aux débutants et peut se faire avec ou sans lest à la cheville.",
-    "primaryMuscle": "Fessiers",
-    "secondaryMuscles": [
-      "Ischio-jambiers"
-    ],
-    "equipment": "Poids du corps",
-    "difficulty": "Débutant",
-    "mechanics": "Isolation",
-    "executionSteps": [
-      "Tenez-vous droit, les pieds écartés à peu près de la largeur des épaules, et agrippez un support stable comme un rack ou un dossier de chaise.",
-      "Gardez une jambe d'appui tendue, avec ou sans lest à la cheville.",
-      "En expirant, levez l'autre jambe vers l'arrière comme dans un curl de jambe, mais debout.",
-      "Contractez les fessiers brièvement en haut sans basculer le buste.",
-      "Redescendez lentement en inspirant, puis répétez et changez de jambe."
-    ],
-    "safetyTips": [
-      "Choisissez un support très stable pour garder l'équilibre sans vous pencher.",
-      "Commencez sans lest et n'ajoutez qu'un poids léger à la cheville si vous contrôlez bien le geste.",
-      "Arrêtez si vous ressentez une douleur au bas du dos ou à la hanche."
-    ],
-    "commonMistakes": [
-      "Pencher le buste vers l'avant pour lever la jambe plus haut.",
-      "Donner un coup sec de la jambe au lieu de monter lentement.",
-      "S'appuyer de tout son poids sur le support au lieu de simplement s'équilibrer."
-    ],
-    "alternatives": [
-      "extension-de-jambe-a-quatre-pattes",
-      "battements-de-jambes-sur-banc",
-      "pont-fessier"
-    ],
-    "images": [
-      "/images/exercises/extension-de-jambe-arriere-debout/0.jpg",
-      "/images/exercises/extension-de-jambe-arriere-debout/1.jpg"
     ]
   },
   {
@@ -10128,7 +10049,6 @@
     ],
     "alternatives": [
       "extension-de-jambe-a-quatre-pattes",
-      "battements-de-jambes-sur-banc",
       "pont-fessier-un-pied"
     ],
     "images": [
@@ -15073,53 +14993,11 @@
     ],
     "alternatives": [
       "saut-par-dessus-le-banc",
-      "skipping-rapide-au-sol",
       "squat-saute-sans-charge"
     ],
     "images": [
       "/images/exercises/saut-talons-fesses-a-deux-jambes/0.jpg",
       "/images/exercises/saut-talons-fesses-a-deux-jambes/1.jpg"
-    ]
-  },
-  {
-    "id": "skipping-rapide-au-sol",
-    "slug": "skipping-rapide-au-sol",
-    "name": "Skipping rapide au sol",
-    "description": "Le skipping rapide est un exercice de coordination et de vitesse de pied : vous enchaînez des petits sauts alternés en restant très proches du sol. Il sollicite les quadriceps et les mollets. Très accessible, il convient aux débutants comme exercice d'échauffement avant la course ou les sauts.",
-    "primaryMuscle": "Quadriceps",
-    "secondaryMuscles": [
-      "Fessiers",
-      "Mollets",
-      "Ischio-jambiers"
-    ],
-    "equipment": "Poids du corps",
-    "difficulty": "Débutant",
-    "mechanics": "Polyarticulaire",
-    "executionSteps": [
-      "Placez-vous debout, détendu, une jambe légèrement devant l'autre.",
-      "Effectuez un pas suivi d'un petit saut sur la même jambe, puis changez de jambe.",
-      "Alternez rapidement les deux côtés en suivant le rythme « saut, saut, pas ».",
-      "Restez le plus près possible du sol, avec un temps de vol très court.",
-      "Balancez naturellement les bras et gardez un rythme rapide mais contrôlé."
-    ],
-    "safetyTips": [
-      "Faites l'exercice sur une surface plane, sans obstacle ni sol glissant.",
-      "Gardez les chevilles souples et les genoux légèrement fléchis pour amortir.",
-      "Commencez par de courtes séries et augmentez progressivement la durée."
-    ],
-    "commonMistakes": [
-      "Sauter trop haut au lieu de rester proche du sol.",
-      "Se crisper et avoir une posture raide.",
-      "Prendre un rythme trop rapide en perdant la coordination."
-    ],
-    "alternatives": [
-      "saut-par-dessus-le-banc",
-      "saut-etoile",
-      "saut-talons-fesses-a-deux-jambes"
-    ],
-    "images": [
-      "/images/exercises/skipping-rapide-au-sol/0.jpg",
-      "/images/exercises/skipping-rapide-au-sol/1.jpg"
     ]
   },
   {
@@ -15356,7 +15234,6 @@
       "Sauter en plusieurs petits élans au lieu d'un seul saut."
     ],
     "alternatives": [
-      "skipping-rapide-au-sol",
       "fente-sautee-sur-place",
       "saut-talons-fesses-a-deux-jambes"
     ],
@@ -15399,7 +15276,6 @@
     ],
     "alternatives": [
       "saut-par-dessus-le-banc",
-      "skipping-rapide-au-sol",
       "fente-sautee-sur-place"
     ],
     "images": [
@@ -21942,7 +21818,6 @@
     ],
     "alternatives": [
       "saut-par-dessus-le-banc",
-      "skipping-rapide-au-sol",
       "saut-en-longueur-lateral"
     ],
     "images": [
@@ -22630,7 +22505,6 @@
       "Cambrer fortement le bas du dos en haut du mouvement."
     ],
     "alternatives": [
-      "curl-des-ischio-jambiers-en-glissant",
       "saut-sur-box-enchaine",
       "foulee-bondissante-sur-boxes-alignees"
     ],
@@ -22680,46 +22554,6 @@
     ]
   },
   {
-    "id": "good-morning-avec-elastique",
-    "slug": "good-morning-avec-elastique",
-    "name": "Good morning avec élastique",
-    "description": "Le good morning avec élastique consiste à se pencher en avant en poussant les hanches vers l'arrière, l'élastique passé derrière la nuque et maintenu sous les pieds. Il travaille les ischio-jambiers, les fessiers et le bas du dos. Il convient aux débutants sachant garder le dos droit.",
-    "primaryMuscle": "Ischio-jambiers",
-    "secondaryMuscles": [
-      "Fessiers",
-      "Dos"
-    ],
-    "equipment": "Élastiques",
-    "difficulty": "Débutant",
-    "mechanics": "Polyarticulaire",
-    "executionSteps": [
-      "Posez les deux pieds sur une extrémité de l'élastique, légèrement écartés, et passez l'autre extrémité derrière votre nuque.",
-      "Gardez les genoux à peine fléchis et le dos bien droit.",
-      "Penchez le buste en avant en poussant les hanches vers l'arrière, jusqu'à sentir l'étirement à l'arrière des cuisses.",
-      "Redressez-vous en poussant les hanches vers l'avant, jusqu'à la position presque verticale.",
-      "Recommencez le nombre de répétitions voulu en gardant le dos plat."
-    ],
-    "safetyTips": [
-      "Contrôlez l'élastique avant de commencer pour vous assurer qu'il ne risque pas de se rompre.",
-      "Choisissez une résistance modérée et un mouvement lent.",
-      "Arrêtez la descente dès que votre dos commence à s'arrondir."
-    ],
-    "commonMistakes": [
-      "Arrondir le dos en descendant.",
-      "Fléchir les genoux comme pour un squat au lieu de pousser les hanches vers l'arrière.",
-      "Se pencher trop bas, au-delà de ce que permet la souplesse."
-    ],
-    "alternatives": [
-      "good-morning-avec-elastique-ancre-pull-through",
-      "souleve-de-terre-d-arrache",
-      "epaule-de-puissance"
-    ],
-    "images": [
-      "/images/exercises/good-morning-avec-elastique/0.jpg",
-      "/images/exercises/good-morning-avec-elastique/1.jpg"
-    ]
-  },
-  {
     "id": "good-morning-avec-elastique-ancre-pull-through",
     "slug": "good-morning-avec-elastique-ancre-pull-through",
     "name": "Good morning avec élastique ancré (pull through)",
@@ -22750,7 +22584,6 @@
       "Se redresser en tirant avec le dos plutôt qu'avec les hanches."
     ],
     "alternatives": [
-      "good-morning-avec-elastique",
       "souleve-de-terre-sumo-avec-elastiques-en-opposition",
       "souleve-de-terre-jambes-tendues-unipodal-au-kettlebell"
     ],
@@ -23274,7 +23107,6 @@
     ],
     "alternatives": [
       "bonds-diagonaux-en-alternance",
-      "skipping-rapide-au-sol",
       "fente-sautee-sur-place"
     ],
     "images": [
@@ -23865,7 +23697,6 @@
     ],
     "alternatives": [
       "lancer-de-medecine-ball-depuis-la-position-a-trois-appuis",
-      "traction-de-traineau-en-marchant-avec-poussee-de-bras",
       "passe-poitrine-au-medecine-ball"
     ],
     "images": [
@@ -24923,7 +24754,7 @@
     "alternatives": [
       "pont-fessier-sur-swiss-ball",
       "kickback-poulie",
-      "extension-de-jambe-arriere-debout"
+      "kickback-poulie"
     ],
     "images": [
       "/images/exercises/equilibre-ventre-sur-swiss-ball-jambes-tendues/0.jpg",
@@ -25554,50 +25385,6 @@
     ]
   },
   {
-    "id": "traction-de-traineau-en-marchant-avec-poussee-de-bras",
-    "slug": "traction-de-traineau-en-marchant-avec-poussee-de-bras",
-    "name": "Traction de traîneau en marchant avec poussée de bras",
-    "description": "Face à l'avant, relié à un traîneau par deux poignées, vous avancez en poussant les jambes puis tendez les bras à chaque pas. Cet exercice de strongman sollicite les pectoraux, les épaules, les triceps et les jambes. Il convient aux pratiquants de niveau intermédiaire, avec une charge raisonnable.",
-    "primaryMuscle": "Pectoraux",
-    "secondaryMuscles": [
-      "Mollets",
-      "Fessiers",
-      "Ischio-jambiers",
-      "Quadriceps",
-      "Épaules",
-      "Triceps"
-    ],
-    "equipment": "Accessoires",
-    "difficulty": "Intermédiaire",
-    "mechanics": "Polyarticulaire",
-    "executionSteps": [
-      "Fixez une corde ou des poignées doubles sur le traîneau et placez-vous dos à lui, une poignée dans chaque main.",
-      "Faites un pas en avant en vous penchant légèrement vers l'avant.",
-      "Poussez avec les jambes et les hanches pour faire avancer le traîneau.",
-      "Marquez une pause à chaque pas pour tendre les coudes et pousser les mains vers l'avant.",
-      "Continuez les pas jusqu'à revenir en position prête pour la poussée suivante."
-    ],
-    "safetyTips": [
-      "Commencez avec un traîneau peu chargé pour apprendre le rythme.",
-      "Gardez le dos gainé et la tête alignée avec la colonne.",
-      "Prévoyez une surface dégagée et non glissante."
-    ],
-    "commonMistakes": [
-      "Arrondir le dos au lieu de pousser avec les jambes.",
-      "Faire des pas trop larges qui déséquilibrent.",
-      "Oublier la poussée de bras à chaque pas."
-    ],
-    "alternatives": [
-      "passe-poitrine-au-medecine-ball-avec-sprint",
-      "passe-poitrine-au-medecine-ball",
-      "poussee-de-medecine-ball-a-genoux-enchainee"
-    ],
-    "images": [
-      "/images/exercises/traction-de-traineau-en-marchant-avec-poussee-de-bras/0.jpg",
-      "/images/exercises/traction-de-traineau-en-marchant-avec-poussee-de-bras/1.jpg"
-    ]
-  },
-  {
     "id": "sauts-de-grenouille",
     "slug": "sauts-de-grenouille",
     "name": "Sauts de grenouille",
@@ -26141,7 +25928,6 @@
     ],
     "alternatives": [
       "pont-fessier-avec-elastique-de-rack",
-      "marche-du-monstre-avec-elastiques",
       "hip-thrust-haltere"
     ],
     "images": [
@@ -26730,42 +26516,6 @@
     "images": [
       "/images/exercises/croix-de-fer-au-sol-etirement-dynamique/0.jpg",
       "/images/exercises/croix-de-fer-au-sol-etirement-dynamique/1.jpg"
-    ]
-  },
-  {
-    "id": "renforcement-isometrique-du-cou-cotes",
-    "slug": "renforcement-isometrique-du-cou-cotes",
-    "name": "Renforcement isométrique du cou, côtés",
-    "description": "Ici, vous poussez la tête sur le côté contre votre main, sans bouger, pour renforcer les muscles latéraux du cou. L'effort est statique et doux, adapté aux débutants. Il se pratique à gauche puis à droite, avec une intensité modérée et progressive.",
-    "primaryMuscle": "Cou",
-    "secondaryMuscles": [],
-    "equipment": "Poids du corps",
-    "difficulty": "Débutant",
-    "mechanics": "Isolation",
-    "executionSteps": [
-      "Tenez-vous droit, la tête en position neutre, regard devant vous, et posez la main gauche sur le côté gauche de la tête.",
-      "Poussez doucement la tête vers la gauche en contractant les muscles du cou, tout en résistant avec la main pour que rien ne bouge.",
-      "Augmentez la tension lentement et maintenez-la le temps prévu, en respirant normalement.",
-      "Relâchez progressivement la tension, puis reposez-vous.",
-      "Placez la main droite sur le côté droit de la tête et répétez de l'autre côté."
-    ],
-    "safetyTips": [
-      "Gardez l'intensité modérée : l'effort doit rester confortable.",
-      "Stoppez en cas de douleur dans le cou, d'engourdissement ou de vertige.",
-      "Gardez les épaules détendues, sans les remonter vers l'oreille."
-    ],
-    "commonMistakes": [
-      "Incliner la tête au lieu de la maintenir immobile.",
-      "Bloquer sa respiration pendant l'effort.",
-      "Forcer d'un coup dès le début de la poussée."
-    ],
-    "alternatives": [
-      "renforcement-de-la-nuque-au-disque-allonge-sur-le-dos",
-      "etirement-lateral-du-cou"
-    ],
-    "images": [
-      "/images/exercises/renforcement-isometrique-du-cou-cotes/0.jpg",
-      "/images/exercises/renforcement-isometrique-du-cou-cotes/1.jpg"
     ]
   },
   {
@@ -28300,46 +28050,6 @@
     ]
   },
   {
-    "id": "london-bridges-a-la-corde",
-    "slug": "london-bridges-a-la-corde",
-    "name": "London bridges à la corde",
-    "description": "Dans cet exercice, vous vous tenez debout sur une barre et vous vous penchez en arrière en descendant main sur main le long d'une corde fixée en hauteur. Il sollicite le grand dorsal, les biceps, les avant-bras et le milieu du dos. Il convient aux pratiquants de niveau intermédiaire.",
-    "primaryMuscle": "Dos",
-    "secondaryMuscles": [
-      "Biceps",
-      "Avant-bras"
-    ],
-    "equipment": "Accessoires",
-    "difficulty": "Intermédiaire",
-    "mechanics": "Polyarticulaire",
-    "executionSteps": [
-      "Fixez une corde d'escalade à une poutre haute et verrouillez une barre de smith machine sous la corde avec les butées de sécurité, ou utilisez un box stable.",
-      "Montez sur la barre en vous équilibrant avec la corde : c'est votre position de départ.",
-      "Corps gainé et droit, penchez-vous en arrière en descendant main sur main le long de la corde.",
-      "Continuez jusqu'à ce que votre corps soit presque perpendiculaire au sol.",
-      "Revenez à la position de départ en remontant main sur main, toujours avec le corps bien aligné."
-    ],
-    "safetyTips": [
-      "Vérifiez la solidité de la corde, de son point d'attache et de la barre avant de commencer.",
-      "Commencez avec un angle d'inclinaison modéré et augmentez progressivement.",
-      "Faites-vous aider par un partenaire pour les premières séries."
-    ],
-    "commonMistakes": [
-      "Plier les hanches au lieu de garder le corps en ligne droite.",
-      "Se pencher trop loin trop vite, au risque de perdre le contrôle de la corde.",
-      "Laisser les pieds glisser sur la barre."
-    ],
-    "alternatives": [
-      "grimper-de-corde",
-      "tractions-laterales-alternees",
-      "muscle-up-kipping-aux-anneaux"
-    ],
-    "images": [
-      "/images/exercises/london-bridges-a-la-corde/0.jpg",
-      "/images/exercises/london-bridges-a-la-corde/1.jpg"
-    ]
-  },
-  {
     "id": "etirement-a-genoux-regard-au-plafond",
     "slug": "etirement-a-genoux-regard-au-plafond",
     "name": "Étirement à genoux, regard au plafond",
@@ -28571,42 +28281,6 @@
     ]
   },
   {
-    "id": "renforcement-de-la-nuque-au-disque-allonge-sur-le-dos",
-    "slug": "renforcement-de-la-nuque-au-disque-allonge-sur-le-dos",
-    "name": "Renforcement de la nuque au disque, allongé sur le dos",
-    "description": "Allongé sur le dos sur un banc, vous placez un disque sur le front et inclinez la tête vers l'arrière puis la ramenez. Cet exercice d'isolation sollicite les muscles du cou. Il convient aux pratiquants intermédiaires, avec une charge très légère, une posture stable et un rythme contrôlé.",
-    "primaryMuscle": "Cou",
-    "secondaryMuscles": [],
-    "equipment": "Accessoires",
-    "difficulty": "Intermédiaire",
-    "mechanics": "Isolation",
-    "executionSteps": [
-      "Allongez-vous sur le dos sur un banc plat, les épaules légèrement au-delà de l'extrémité, et tenez un disque posé sur le front.",
-      "Maintenez le disque fermement en place sur le front.",
-      "Laissez la tête descendre lentement vers l'arrière en arc de cercle en inspirant.",
-      "Relevez la tête en arc de cercle jusqu'à la position de départ en expirant, avec une seconde de pause.",
-      "Répétez le nombre de répétitions prévu."
-    ],
-    "safetyTips": [
-      "Commencez avec un disque très léger, voire sans charge.",
-      "Demandez à un partenaire de vous aider à poser et retirer le disque.",
-      "Arrêtez-vous au moindre pincement ou à la moindre douleur du cou."
-    ],
-    "commonMistakes": [
-      "Choisir un disque trop lourd pour le cou.",
-      "Descendre la tête trop vite ou trop loin.",
-      "Laisser le disque glisser et heurter le visage."
-    ],
-    "alternatives": [
-      "renforcement-isometrique-du-cou-cotes",
-      "auto-massage-du-cou-au-rouleau"
-    ],
-    "images": [
-      "/images/exercises/renforcement-de-la-nuque-au-disque-allonge-sur-le-dos/0.jpg",
-      "/images/exercises/renforcement-de-la-nuque-au-disque-allonge-sur-le-dos/1.jpg"
-    ]
-  },
-  {
     "id": "etirement-allonge-des-fessiers-avec-partenaire",
     "slug": "etirement-allonge-des-fessiers-avec-partenaire",
     "name": "Étirement allongé des fessiers, avec partenaire",
@@ -28753,7 +28427,6 @@
       "Lancer trop haut ou trop bas, loin de la poitrine du partenaire."
     ],
     "alternatives": [
-      "traction-de-traineau-en-marchant-avec-poussee-de-bras",
       "pompe-pliometrique-avec-chute-entre-deux-plateformes",
       "developpe-svend-svend-press"
     ],
@@ -28919,43 +28592,6 @@
     "images": [
       "/images/exercises/traction-en-prise-mixte/0.jpg",
       "/images/exercises/traction-en-prise-mixte/1.jpg"
-    ]
-  },
-  {
-    "id": "marche-du-monstre-avec-elastiques",
-    "slug": "marche-du-monstre-avec-elastiques",
-    "name": "Marche du monstre avec élastiques",
-    "description": "Ce déplacement se fait avec un élastique autour des chevilles et un autre autour des genoux, en gardant les jambes écartées. Il renforce les abducteurs et les fessiers, tout en stabilisant les hanches. Il convient aux débutants, notamment en échauffement ou pour mieux contrôler la position des genoux.",
-    "primaryMuscle": "Fessiers",
-    "secondaryMuscles": [],
-    "equipment": "Élastiques",
-    "difficulty": "Débutant",
-    "mechanics": "Polyarticulaire",
-    "executionSteps": [
-      "Placez un élastique autour des chevilles et un autre autour des genoux, assez serrés quand vos pieds sont écartés à la largeur des épaules.",
-      "Fléchissez légèrement les genoux et gardez le buste droit, poitrine ouverte.",
-      "Faites de petits pas vers l'avant en alternant pied gauche et pied droit, sans réduire l'écart entre les pieds.",
-      "Après plusieurs pas, repartez à reculons pour revenir à votre point de départ.",
-      "Répétez l'aller-retour pour le nombre de passages prévu."
-    ],
-    "safetyTips": [
-      "Choisissez des élastiques dont la résistance reste confortable sur tout le parcours.",
-      "Gardez les genoux orientés dans l'axe des pieds, sans les laisser rentrer vers l'intérieur.",
-      "Avancez sur un sol dégagé et non glissant pour éviter de trébucher."
-    ],
-    "commonMistakes": [
-      "Rapprocher les pieds à chaque pas, ce qui relâche la tension de l'élastique.",
-      "Faire de trop grands pas en se penchant d'un côté et de l'autre.",
-      "Laisser les genoux s'effondrer vers l'intérieur."
-    ],
-    "alternatives": [
-      "pont-fessier-avec-elastique-de-rack",
-      "extension-de-hanche-avec-elastique",
-      "squat-a-genoux-a-la-barre"
-    ],
-    "images": [
-      "/images/exercises/marche-du-monstre-avec-elastiques/0.jpg",
-      "/images/exercises/marche-du-monstre-avec-elastiques/1.jpg"
     ]
   },
   {
@@ -29831,7 +29467,6 @@
       "Redescendre brutalement en laissant l'épaule absorber le choc."
     ],
     "alternatives": [
-      "london-bridges-a-la-corde",
       "tractions-laterales-alternees",
       "muscle-up-aux-anneaux"
     ],
@@ -30657,45 +30292,6 @@
     "images": [
       "/images/exercises/rotation-russe-avec-disque/0.jpg",
       "/images/exercises/rotation-russe-avec-disque/1.jpg"
-    ]
-  },
-  {
-    "id": "curl-des-ischio-jambiers-en-glissant",
-    "slug": "curl-des-ischio-jambiers-en-glissant",
-    "name": "Curl des ischio-jambiers en glissant",
-    "description": "Allongé sur le dos, vous faites glisser le talon sur le sol, posé sur une serviette, pour ramener le pied vers les fessiers. Ce mouvement cible les ischio-jambiers, avec une aide des fessiers. Il convient aux débutants et à la rééducation douce, sur un sol lisse.",
-    "primaryMuscle": "Ischio-jambiers",
-    "secondaryMuscles": [
-      "Fessiers"
-    ],
-    "equipment": "Accessoires",
-    "difficulty": "Débutant",
-    "mechanics": "Isolation",
-    "executionSteps": [
-      "Sur un sol lisse, allongez-vous sur le dos, jambes tendues, une serviette sous un talon.",
-      "Gardez l'autre jambe tendue et le bassin stable au sol.",
-      "Fléchissez le genou en faisant glisser le talon vers les fessiers.",
-      "Continuez jusqu'à la flexion maximale confortable du genou.",
-      "Inversez le mouvement pour retrouver la position de départ, puis répétez."
-    ],
-    "safetyTips": [
-      "Contrôlez la vitesse pour éviter un crampe ou une tension brusque.",
-      "Utilisez un tapis ou un sol qui ne glisse pas trop sous votre dos.",
-      "Arrêtez-vous si vous sentez une douleur vive à l'arrière de la cuisse."
-    ],
-    "commonMistakes": [
-      "Laisser le bassin se soulever ou basculer pendant le glissement.",
-      "Faire glisser le talon trop vite sans contrôle.",
-      "Plier l'autre jambe et perdre la stabilité du corps."
-    ],
-    "alternatives": [
-      "curl-de-jambes-sur-swiss-ball",
-      "foulee-bondissante-sur-boxes-alignees",
-      "sauts-de-haies-a-pieds-joints"
-    ],
-    "images": [
-      "/images/exercises/curl-des-ischio-jambiers-en-glissant/0.jpg",
-      "/images/exercises/curl-des-ischio-jambiers-en-glissant/1.jpg"
     ]
   },
   {
@@ -31858,7 +31454,6 @@
       "Réduire l'amplitude au lieu de fléchir complètement les genoux."
     ],
     "alternatives": [
-      "curl-des-ischio-jambiers-en-glissant",
       "curl-de-jambes-sur-swiss-ball",
       "foulee-bondissante-sur-boxes-alignees"
     ],
@@ -32790,8 +32385,7 @@
     ],
     "alternatives": [
       "etirement-de-la-nuque-menton-vers-la-poitrine",
-      "auto-massage-du-cou-au-rouleau",
-      "renforcement-isometrique-du-cou-cotes"
+      "auto-massage-du-cou-au-rouleau"
     ],
     "category": "Étirement",
     "images": [
@@ -32831,7 +32425,6 @@
       "Enchaîner les sauts en fatigue au lieu de se reposer entre les séries."
     ],
     "alternatives": [
-      "skipping-rapide-au-sol",
       "fente-sautee-sur-place",
       "squat-saute-sans-charge"
     ],
