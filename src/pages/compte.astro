@@ -35,8 +35,13 @@ const exercises = exercisesJson.map(({ slug, name }) => ({ slug, name }));
 
   <section id="signed-in" class="mt-6 max-w-3xl" aria-labelledby="account-title" hidden>
     <div class="card">
-      <h2 id="account-title">Votre compte</h2>
-      <p class="mt-2">Connecté en tant que <strong id="account-identity"></strong></p>
+      <div class="flex flex-wrap items-center gap-3">
+        <div id="account-avatar" class="profile-avatar" aria-hidden="true">?</div>
+        <div>
+          <h2 id="account-title" class="m-0">Votre compte</h2>
+          <p class="mt-1 mb-0"><span class="account-status-dot" aria-hidden="true"></span>Connecté en tant que <strong id="account-identity"></strong></p>
+        </div>
+      </div>
       <p class="text-muted">
         La synchronisation fusionne les données de cet appareil avec la sauvegarde en ligne. Pour propager une
         suppression sur un autre appareil, remplacez d'abord la sauvegarde en ligne, puis restaurez-la sur cet autre
@@ -50,6 +55,42 @@ const exercises = exercisesJson.map(({ slug, name }) => ({ slug, name }));
       <p id="account-status" class="mt-4 mb-0 font-bold" role="status" aria-live="polite"></p>
       <button id="signout" class="btn mt-4" type="button">Se déconnecter</button>
     </div>
+
+    <section class="card mt-6" aria-labelledby="public-profile-title">
+      <h2 id="public-profile-title">Mon profil public</h2>
+      <p class="text-muted">
+        Choisissez un pseudo et une couleur d’avatar. Si vous publiez le profil, ces deux éléments seront visibles
+        par toute personne ayant son lien. Votre email, vos séances et vos favoris restent privés.
+      </p>
+      <form id="public-profile-form" class="grid gap-3">
+        <label for="profile-name" class="font-bold">Pseudo public (3 à 24 caractères : lettres, chiffres, espaces, _ ou -)</label>
+        <input id="profile-name" class="field" minlength="3" maxlength="24" pattern="[A-Za-zÀ-ÖØ-öø-ÿ0-9 _-]{3,24}" autocomplete="nickname" required />
+        <fieldset>
+          <legend class="font-bold">Couleur de mon avatar</legend>
+          <div class="mt-2 flex flex-wrap gap-3">
+            {['#1d4ed8', '#047857', '#b45309', '#7e22ce', '#be123c', '#0e7490'].map((color) => (
+              <label class="profile-color-choice">
+                <input type="radio" name="profile-color" value={color} checked={color === '#1d4ed8'} />
+                <span style={`--avatar-color: ${color}`} aria-label={`Couleur ${color}`}></span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+        <label class="flex items-start gap-3">
+          <input id="profile-consent" class="mt-1 h-5 w-5 shrink-0" type="checkbox" required />
+          <span>Je comprends que mon pseudo et mon avatar seront publics et accessibles via un lien partageable. Je n’y inscris aucune information personnelle sensible.</span>
+        </label>
+        <div class="flex flex-wrap gap-3">
+          <button id="profile-save" class="btn btn-primary" type="submit">Publier mon profil</button>
+          <button id="profile-delete" class="btn" type="button" hidden>Retirer mon profil public</button>
+        </div>
+        <p id="profile-status" class="m-0 font-bold" role="status" aria-live="polite"></p>
+        <p id="profile-share" class="m-0" hidden>
+          Lien de mon profil : <a id="profile-link" class="link break-all" href="#"></a>
+          <button id="profile-copy" class="btn ml-2" type="button">Copier le lien</button>
+        </p>
+      </form>
+    </section>
 
     <section class="card mt-6" aria-labelledby="favorites-title">
       <h2 id="favorites-title">Mes exercices favoris</h2>
@@ -73,20 +114,20 @@ const exercises = exercisesJson.map(({ slug, name }) => ({ slug, name }));
     import {
       GoogleAuthProvider,
       browserLocalPersistence,
-      getRedirectResult,
       isSignInWithEmailLink,
       onAuthStateChanged,
       sendSignInLinkToEmail,
       setPersistence,
       signInWithEmailLink,
-      signInWithRedirect,
+      signInWithPopup,
       signOut,
       type User,
     } from 'firebase/auth';
-    import { doc, getDoc, serverTimestamp, writeBatch } from 'firebase/firestore';
+    import { deleteDoc, doc, getDoc, serverTimestamp, setDoc, writeBatch } from 'firebase/firestore';
     import { auth, db } from '../lib/firebase';
     import { KEY_HISTORY, isEntry, mergeEntries } from '../lib/history';
     import type { HistoryEntry } from '../lib/history';
+    import { isPublicProfile, profileInitials, PROFILE_COLORS } from '../lib/public-profile';
     import type { SavedSessionTemplate } from '../lib/session-templates';
 
     const KEY_TEMPLATES = 'capmuscu-seances-gardees';
@@ -101,7 +142,36 @@ const exercises = exercisesJson.map(({ slug, name }) => ({ slug, name }));
     const exerciseNames = new Map<string, string>(exerciseData.map((exercise: { slug: string; name: string }) => [exercise.slug, exercise.name]));
     const emailForm = document.querySelector<HTMLFormElement>('#email-form');
     const status = document.querySelector<HTMLElement>('#account-status');
+    const profileStatus = document.querySelector<HTMLElement>('#profile-status');
     const setStatus = (message: string) => { if (status) status.textContent = message; };
+    const setProfileStatus = (message: string) => { if (profileStatus) profileStatus.textContent = message; };
+    let activeUser: User | null = null;
+    let currentPublicProfile: { displayName: string; avatarColor: string } | null = null;
+
+    function showAuthError(error: unknown, provider: 'Google' | 'email') {
+      const code = error && typeof error === 'object' && 'code' in error ? String(error.code) : '';
+      const messages: Record<string, string> = {
+        'auth/operation-not-allowed': `La connexion ${provider} n'est pas activée. Activez le fournisseur correspondant dans Firebase Authentication → Mode de connexion.`,
+        'auth/unauthorized-domain': `Le domaine ${window.location.hostname} n'est pas autorisé. Ajoutez-le dans Firebase Authentication → Paramètres → Domaines autorisés.`,
+        'auth/invalid-api-key': "La clé Firebase est refusée. Vérifiez la configuration Web de l'application et les restrictions de clé dans Google Cloud.",
+        'auth/network-request-failed': 'Connexion réseau impossible. Vérifiez Internet, puis réessayez.',
+        'auth/too-many-requests': 'Trop de tentatives. Attendez quelques minutes avant de réessayer.',
+        'auth/popup-blocked': 'La fenêtre Google a été bloquée. Autorisez les fenêtres pop-up pour ce site, puis réessayez.',
+        'auth/popup-closed-by-user': 'La fenêtre de connexion a été fermée avant la fin. Réessayez et terminez la connexion.',
+        'auth/cancelled-popup-request': 'Une autre fenêtre de connexion est déjà ouverte. Terminez-la ou réessayez.',
+        'auth/account-exists-with-different-credential': 'Un compte existe déjà avec cette adresse. Connectez-vous avec la méthode initiale.',
+        'auth/invalid-action-code': 'Ce lien email a déjà été utilisé ou a expiré. Demandez un nouveau lien.',
+        'auth/expired-action-code': 'Ce lien email a expiré. Demandez un nouveau lien.',
+        'auth/invalid-email': 'Cette adresse email n’est pas valide.',
+      };
+      const message = messages[code] ?? `Connexion ${provider} impossible${code ? ` (${code})` : ''}. Vérifiez les paramètres Firebase et réessayez.`;
+      const element = document.querySelector<HTMLElement>('#account-error');
+      if (element) {
+        element.hidden = false;
+        element.textContent = message;
+      }
+      console.error(`CapMuscu: Firebase ${provider} sign-in failed (${code || 'unknown'}).`, error);
+    }
 
     function isTemplate(value: unknown): value is SavedSessionTemplate {
       if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
@@ -221,7 +291,62 @@ const exercises = exercisesJson.map(({ slug, name }) => ({ slug, name }));
       if (signedOut) signedOut.hidden = !!user;
       if (signedIn) signedIn.hidden = !user;
       if (identity) identity.textContent = user?.email ?? user?.displayName ?? 'Compte Google';
-      if (user) renderFavorites();
+      activeUser = user;
+      if (user) {
+        renderFavorites();
+        void loadPublicProfile(user);
+      } else {
+        currentPublicProfile = null;
+      }
+    }
+
+    function renderAccountAvatar(user: User, displayName?: string) {
+      const avatar = document.querySelector<HTMLElement>('#account-avatar');
+      if (!avatar) return;
+      const name = displayName ?? user.displayName ?? user.email?.split('@')[0] ?? 'CapMuscu';
+      avatar.textContent = profileInitials(name);
+      avatar.style.backgroundColor = currentPublicProfile?.avatarColor ?? PROFILE_COLORS[0];
+    }
+
+    function setPublicProfileLink(user: User | null) {
+      const container = document.querySelector<HTMLElement>('#profile-share');
+      const link = document.querySelector<HTMLAnchorElement>('#profile-link');
+      const remove = document.querySelector<HTMLButtonElement>('#profile-delete');
+      const url = user && currentPublicProfile ? `${window.location.origin}/profil/?id=${encodeURIComponent(user.uid)}` : '';
+      if (link) {
+        link.href = url || '#';
+        link.textContent = url;
+      }
+      if (container) container.hidden = !url;
+      if (remove) remove.hidden = !url;
+    }
+
+    async function loadPublicProfile(user: User) {
+      try {
+        const snapshot = await getDoc(doc(db, 'publicProfiles', user.uid));
+        if (!snapshot.exists()) {
+          currentPublicProfile = null;
+          setPublicProfileLink(user);
+          renderAccountAvatar(user, 'CapMuscu');
+          setProfileStatus('Votre profil n’est pas publié. Le publier est facultatif.');
+          return;
+        }
+        const profile: unknown = snapshot.data();
+        if (!isPublicProfile(profile)) throw new Error('Le profil enregistré est invalide.');
+        currentPublicProfile = { displayName: profile.displayName, avatarColor: profile.avatarColor };
+        const input = document.querySelector<HTMLInputElement>('#profile-name');
+        const color = document.querySelector<HTMLInputElement>(`input[name="profile-color"][value="${profile.avatarColor}"]`);
+        if (input) input.value = profile.displayName;
+        if (color) color.checked = true;
+        const consent = document.querySelector<HTMLInputElement>('#profile-consent');
+        if (consent) consent.checked = true;
+        renderAccountAvatar(user, profile.displayName);
+        setPublicProfileLink(user);
+        setProfileStatus('Votre profil est publié et visible via son lien.');
+      } catch (error) {
+        console.error('CapMuscu: public profile read failed.', error);
+        setProfileStatus('Impossible de vérifier le profil public. Réessayez.');
+      }
     }
 
     const action = async (operation: () => Promise<void>) => {
@@ -259,31 +384,71 @@ const exercises = exercisesJson.map(({ slug, name }) => ({ slug, name }));
           message.textContent = 'Lien envoyé. Ouvrez votre boîte mail sur cet appareil et cliquez sur le lien pour vous connecter.';
         }
       } catch (error) {
-        console.error('CapMuscu: Firebase email sign-in failed.', error);
-        const message = document.querySelector<HTMLElement>('#account-error');
-        if (message) {
-          message.hidden = false;
-          message.textContent = 'Impossible d’envoyer le lien. Vérifiez que la connexion par lien email est activée dans Firebase Authentication.';
-        }
+        showAuthError(error, 'email');
       }
     });
 
     document.querySelector('#google-signin')?.addEventListener('click', async () => {
       try {
         await setPersistence(auth, browserLocalPersistence);
-        await signInWithRedirect(auth, new GoogleAuthProvider());
+        await signInWithPopup(auth, new GoogleAuthProvider());
       } catch (error) {
-        console.error('CapMuscu: Firebase Google sign-in failed.', error);
-        const message = document.querySelector<HTMLElement>('#account-error');
-        if (message) {
-          message.hidden = false;
-          message.textContent = 'Impossible de démarrer Google. Vérifiez que le fournisseur Google est activé dans Firebase Authentication.';
-        }
+        showAuthError(error, 'Google');
       }
     });
 
     document.querySelector('#signout')?.addEventListener('click', () => {
       void action(async () => { await signOut(auth); setStatus(''); });
+    });
+
+    document.querySelector<HTMLFormElement>('#public-profile-form')?.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const user = activeUser;
+      const form = event.currentTarget as HTMLFormElement;
+      if (!user || !form.reportValidity()) return;
+      void action(async () => {
+        const displayName = document.querySelector<HTMLInputElement>('#profile-name')?.value.trim() ?? '';
+        const avatarColor = document.querySelector<HTMLInputElement>('input[name="profile-color"]:checked')?.value ?? '';
+        const consent = document.querySelector<HTMLInputElement>('#profile-consent')?.checked === true;
+        if (!consent) throw new Error('Confirmez votre accord avant de publier votre profil.');
+        const candidate = { displayName, avatarColor };
+        if (!isPublicProfile(candidate)) throw new Error('Le pseudo ou la couleur d’avatar n’est pas valide.');
+        await setDoc(doc(db, 'publicProfiles', user.uid), {
+          ...candidate,
+          updatedAt: serverTimestamp(),
+        });
+        currentPublicProfile = candidate;
+        renderAccountAvatar(user, displayName);
+        setPublicProfileLink(user);
+        setProfileStatus('Profil publié. Seul le pseudo et l’avatar choisis sont visibles publiquement.');
+        setStatus('');
+      });
+    });
+
+    document.querySelector('#profile-delete')?.addEventListener('click', () => {
+      const user = activeUser;
+      if (!user || !confirm('Retirer votre profil public ? Son lien cessera de fonctionner. Cela ne supprime pas votre compte ni vos sauvegardes.')) return;
+      void action(async () => {
+        await deleteDoc(doc(db, 'publicProfiles', user.uid));
+        currentPublicProfile = null;
+        setPublicProfileLink(user);
+        renderAccountAvatar(user);
+        const consent = document.querySelector<HTMLInputElement>('#profile-consent');
+        if (consent) consent.checked = false;
+        setProfileStatus('Profil public retiré.');
+        setStatus('');
+      });
+    });
+
+    document.querySelector('#profile-copy')?.addEventListener('click', async () => {
+      const link = document.querySelector<HTMLAnchorElement>('#profile-link');
+      if (!link?.href || link.getAttribute('href') === '#') return;
+      try {
+        await navigator.clipboard.writeText(link.href);
+        setProfileStatus('Lien du profil copié.');
+      } catch {
+        setProfileStatus('Copie impossible. Sélectionnez le lien de profil et copiez-le manuellement.');
+      }
     });
 
     document.querySelector('#sync-merge')?.addEventListener('click', () => {
@@ -326,7 +491,6 @@ const exercises = exercisesJson.map(({ slug, name }) => ({ slug, name }));
     async function initializeAccount() {
       try {
         await setPersistence(auth, browserLocalPersistence);
-        await getRedirectResult(auth);
         if (isSignInWithEmailLink(auth, window.location.href)) {
           const email = localStorage.getItem('capmuscu-pending-signin-email')
             ?? window.prompt('Confirmez votre adresse email pour terminer la connexion.');
@@ -344,12 +508,7 @@ const exercises = exercisesJson.map(({ slug, name }) => ({ slug, name }));
           }
         });
       } catch (error) {
-        console.error('CapMuscu: Firebase initialization failed.', error);
-        const message = document.querySelector<HTMLElement>('#account-error');
-        if (message) {
-          message.hidden = false;
-          message.textContent = error instanceof Error ? error.message : 'Connexion Firebase indisponible.';
-        }
+        showAuthError(error, 'email');
       }
     }
 

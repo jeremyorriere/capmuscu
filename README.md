@@ -33,7 +33,7 @@ Pour tester aussi les API Vercel en local, installez la CLI Vercel (`npm install
 | `src/scripts/collectors/` | Collecteurs PubMed et RSS avec repli |
 | `tests/` | Tests Vitest |
 
-Pages générées : `/`, `/seance/`, `/compte/`, `/favoris/`, `/exercices/`, `/exercices/[slug]/`, `/exercices/[muscle]-[materiel]/` (ex. `/exercices/pectoraux-halteres/`), `/muscles/[muscle]/`, `/outils/`, `/feedback/`, `sitemap-index.xml`, `robots.txt`.
+Pages générées : `/`, `/seance/`, `/compte/`, `/favoris/`, `/profil/?id=<identifiant>`, `/exercices/`, `/exercices/[slug]/`, `/exercices/[muscle]-[materiel]/` (ex. `/exercices/pectoraux-halteres/`), `/muscles/[muscle]/`, `/outils/`, `/feedback/`, `sitemap-index.xml`, `robots.txt`.
 
 Dans l'encyclopédie, la recherche et les filtres par muscle, matériel, niveau et zone sont conservés dans l'URL pour pouvoir partager une sélection.
 
@@ -96,7 +96,7 @@ Complétez `src/data/recipes.json` (modèle déjà en place : nom, durée, prot�
 
 ## Comptes Firebase (facultatifs)
 
-Le compte utilise Firebase Authentication et Cloud Firestore. Dans Firebase Console, activez les fournisseurs **Lien par e-mail** et **Google**, ajoutez `capmuscu.fr` aux domaines autorisés, créez Firestore et publiez les règles de `firebase/firestore.rules`. Les données sont synchronisées uniquement après une action explicite dans `/compte/` : la fusion ajoute les éléments présents sur les appareils, le remplacement met à jour la sauvegarde cloud depuis l'appareil courant, et la restauration remplace les données locales depuis le cloud. Une suppression de compte ou une demande RGPD se fait auprès du contact indiqué dans la politique de confidentialité.
+Le compte utilise Firebase Authentication et Cloud Firestore. Dans Firebase Console, activez les fournisseurs **Lien par e-mail** et **Google**, ajoutez `capmuscu.fr` aux domaines autorisés, créez Firestore et publiez les règles de `firebase/firestore.rules`. Les données sont synchronisées uniquement après une action explicite dans `/compte/` : la fusion ajoute les éléments présents sur les appareils, le remplacement met à jour la sauvegarde cloud depuis l'appareil courant, et la restauration remplace les données locales depuis le cloud. Un profil public facultatif expose uniquement le pseudo et la couleur d'avatar choisis ; sa lecture directe est publique, sa liste n'est pas exposée et seul son propriétaire peut le modifier ou le supprimer. Une suppression de compte ou une demande RGPD se fait auprès du contact indiqué dans la politique de confidentialité.
 
 La configuration Web Firebase dans `src/lib/firebase.ts` ne contient que des identifiants publics de l'application ; la sécurité des données repose sur les règles Firestore, qui n'autorisent chaque compte qu'à accéder à ses propres sauvegardes.
 

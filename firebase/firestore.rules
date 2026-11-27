@@ -2,6 +2,19 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
+    match /publicProfiles/{userId} {
+      allow get: if true;
+      allow list: if false;
+      allow create, update: if request.auth != null
+        && request.auth.uid == userId
+        && request.resource.data.keys().hasOnly(['displayName', 'avatarColor', 'updatedAt'])
+        && request.resource.data.displayName is string
+        && request.resource.data.displayName.matches('^[A-Za-zÀ-ÖØ-öø-ÿ0-9 _-]{3,24}$')
+        && request.resource.data.avatarColor in ['#1d4ed8', '#047857', '#b45309', '#7e22ce', '#be123c', '#0e7490']
+        && request.resource.data.updatedAt == request.time;
+      allow delete: if request.auth != null && request.auth.uid == userId;
+    }
+
     match /users/{userId}/backups/{backupId} {
       allow read: if request.auth != null
         && request.auth.uid == userId

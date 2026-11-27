@@ -1,0 +1,59 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+---
+<Layout
+  title="Profil public CapMuscu"
+  description="Profil public CapMuscu partagé par un membre."
+  noindex
+>
+  <Breadcrumb items={[{ name: 'Profil public' }]} />
+  <section id="profile-card" class="card mx-auto mt-8 max-w-xl text-center" aria-labelledby="profile-title" hidden>
+    <div id="profile-avatar" class="profile-avatar mx-auto" aria-hidden="true"></div>
+    <h1 id="profile-title" class="mt-4"></h1>
+    <p class="mt-2 text-muted">Membre de CapMuscu</p>
+    <a class="btn mt-4" href="/">Découvrir CapMuscu</a>
+  </section>
+  <p id="profile-status" class="card mx-auto mt-8 max-w-xl text-center text-muted" role="status" aria-live="polite">
+    Chargement du profil…
+  </p>
+  <script>
+    import { doc, getDoc } from 'firebase/firestore';
+    import { db } from '../lib/firebase';
+    import { isPublicProfile, profileInitials } from '../lib/public-profile';
+
+    const status = document.querySelector<HTMLElement>('#profile-status');
+    const card = document.querySelector<HTMLElement>('#profile-card');
+    const title = document.querySelector<HTMLElement>('#profile-title');
+    const avatar = document.querySelector<HTMLElement>('#profile-avatar');
+    const uid = new URLSearchParams(window.location.search).get('id');
+
+    async function loadProfile() {
+      if (!uid || !/^[A-Za-z0-9_-]{1,128}$/.test(uid)) {
+        if (status) status.textContent = 'Ce lien de profil est incomplet ou invalide.';
+        return;
+      }
+
+      try {
+        const snapshot = await getDoc(doc(db, 'publicProfiles', uid));
+        if (!snapshot.exists() || !isPublicProfile(snapshot.data())) {
+          if (status) status.textContent = 'Ce profil n’existe pas ou n’est plus public.';
+          return;
+        }
+        const profile = snapshot.data();
+        if (title) title.textContent = profile.displayName;
+        if (avatar) {
+          avatar.textContent = profileInitials(profile.displayName);
+          avatar.style.backgroundColor = profile.avatarColor;
+        }
+        if (card) card.hidden = false;
+        if (status) status.hidden = true;
+      } catch (error) {
+        console.error('CapMuscu: public profile lookup failed.', error);
+        if (status) status.textContent = 'Impossible de charger ce profil. Vérifiez votre connexion et réessayez.';
+      }
+    }
+
+    void loadProfile();
+  </script>
+</Layout>

@@ -332,6 +332,13 @@ body:has(.rest-timer.show) .toast { bottom: 9rem; }
 .favorite-toggle { min-height: 44px; padding: 0.4rem 0.7rem; font-size: 0.9rem; }
 .favorite-toggle[aria-pressed="true"] { border-color: var(--accent-strong); color: var(--accent-strong); }
 .favorite-toggle[aria-pressed="true"]:hover { background: var(--accent-soft); }
+.profile-avatar { display: grid; width: 4rem; height: 4rem; place-items: center; border: 3px solid var(--card); border-radius: 50%; color: #fff; font-family: var(--font-display); font-size: 1.4rem; font-weight: 800; box-shadow: 0 0 0 2px var(--line); }
+.account-status-dot { display: inline-block; width: 0.65rem; height: 0.65rem; margin-inline: 0.1rem 0.4rem; border-radius: 50%; background: #16a34a; }
+.profile-color-choice { cursor: pointer; }
+.profile-color-choice input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.profile-color-choice span { display: block; width: 2.75rem; height: 2.75rem; border: 3px solid var(--card); border-radius: 50%; background: var(--avatar-color); box-shadow: 0 0 0 1px var(--line); }
+.profile-color-choice input:checked + span { outline: 3px solid var(--focus); outline-offset: 3px; }
+.profile-color-choice input:focus-visible + span { outline: 3px solid var(--focus); outline-offset: 3px; }
 .site-footer a { color: var(--primary); text-underline-offset: 3px; }
 
 @media (max-width: 380px) {
